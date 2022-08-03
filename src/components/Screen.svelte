@@ -4,18 +4,23 @@
   import Dialog from "./data/InitDialog.js";
   import InitSequence from "./InitSequence.svelte";
   import RoundStart from "./init/RoundStart.svelte";
+  import { round, next_round } from "./data/stores.js";
+  let current_round;
+  round.subscribe(x => {
+    current_round = x;
+  });
   let diagOpen = true;
-  let round = 0;
   let roundDone = false;
+  console.log(current_round);
 </script>
 
 <div class="screen">
   <div class="wallpaper">
-    {#if round===0}
-    <InitSequence bind:round={round}/>
+    {#if current_round===0}
+    <InitSequence/>
     {:else}
     <RoundStart />
-    <Taskbar next={roundDone} round={round} count={0} />
+    <Taskbar next={roundDone} count={0} />
     {/if}
   </div>
 </div>

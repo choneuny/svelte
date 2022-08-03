@@ -7,9 +7,12 @@
   import Newspaper from "./init/Newspaper.svelte";
   import Transaction from "./init/Transaction.svelte";
   import RoundClear from "./init/RoundClear.svelte";
-  import RoundStart from "./init/RoundStart.svelte";
+  import { round, next_round } from "./data/stores.js";
+  let current_round;
+  round.subscribe(x => {
+    current_round = x;
+  });
 
-  let round = 0;
   let count = 0;
   const steps = ['cardboard', 'corpboard', 'newspaper', 'transaction', 'roundclear'];
   let step = steps[count];
@@ -17,6 +20,7 @@
   let diagOpen = true;
   let stepDone = false;
   $: {
+    stepDone = false;
     step = steps[count];
     diag = [...InitDialog[step]];
     diagOpen = true;
@@ -28,20 +32,20 @@
 
 <div class="wrapper">
   {#if step==='cardboard'}
-  <CardBoard bind:done={stepDone} round={round} />
+  <CardBoard bind:done={stepDone} round={current_round} />
   {:else if step==='corpboard'}
-  <CorpBoard bind:done={stepDone} round={round}/>
+  <CorpBoard bind:done={stepDone} round={current_round}/>
   {:else if step==='newspaper'}
   <Newspaper bind:done={stepDone}/>
   {:else if step==='transaction'}
   <Transaction bind:done={stepDone}/>
   {:else if step==='roundclear'}
-  <RoundClear bind:done={stepDone} bind:round={round} />
+  <RoundClear/>
   {/if}
   {#if diagOpen}
   <Typer bind:dialog={diag} bind:isopen={diagOpen} />
   {/if}
-  <Taskbar bind:next={stepDone} bind:count={count} round={round} />
+  <Taskbar bind:next={stepDone} bind:count={count} />
 </div>
 
 <style>

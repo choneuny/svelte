@@ -4,7 +4,8 @@
   import Corpmaster from "../data/Corpmaster";
 	import { onMount } from 'svelte';
 
-  export const done = true;
+  export let done;
+  done = true;
   let round = 0;
   let themes = JSON.parse(localStorage.getItem('theme'));
   let user = JSON.parse(localStorage.getItem('user'));

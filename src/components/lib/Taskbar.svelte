@@ -1,7 +1,9 @@
 <script>
+  import { round, next_round } from "../data/stores.js";
+  let current_round;
+  round.subscribe(x => current_round = x);
   export let next;
   export let count;
-  export let round = 0;
   next = true;
   let apps = [
     {id:"chart", name:"chart", icon:"./img/icon/chart.png"},
@@ -11,7 +13,7 @@
 
 <div class="taskbar">
   {#each apps as app}
-    <button id="app.id" class="custom-button" on:click={() => next=!next} disabled={round===0? true:false}>
+    <button id="app.id" class="custom-button" on:click={() => next=!next} disabled={current_round===0? true:false}>
       <img class="custom-icon" src="{app.icon}" alt="error">
     </button>
   {/each}

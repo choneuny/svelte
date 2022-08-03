@@ -30,7 +30,7 @@ const SetLocalStorage = () => {
 		}),
 	];
 	const Cash = { id: 999, amount: 2000, price: 1 };
-	const News = [{ id: "", corp: "", title: "", body: "" }];
+	const News = [{ id: "", corp: "", title: "", body: "", why: "" }];
 	localStorage.clear();
 	localStorage.setItem("history", JSON.stringify(Userhistory));
 	localStorage.setItem("news", JSON.stringify(News));

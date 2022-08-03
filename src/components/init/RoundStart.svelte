@@ -4,9 +4,10 @@
   const results = [];
   const history = JSON.parse(localStorage.getItem("history"));
   const user = JSON.parse(localStorage.getItem("user"));
-  const news = JSON.parse(localStorage.getItem("news"));
-  const explain_key = {symbol:"", title: "title", content: "why", date: ""};
+  const dailyNews = JSON.parse(localStorage.getItem("news"));
+  const explain_key = {symbol:"", title: "title", content: "why"};
   const arrow = (x) => (x>1.1? "↗": x<0.9? "↘": "➝");
+  let newsopen = false;
 
   // const recodeHistory = () => {
   //   const tmp = [...history];
@@ -45,9 +46,9 @@
   
   </script>
   
-  <div class="shownews" id="news"> 
-    {#each news as data}
-      <News news={data} content_key={explain_key} />
+  <div class="shownews {newsopen? "popup":"popin"}" on:click={() => newsopen=!newsopen}>
+    {#each dailyNews as news}
+      <News news={news} content_key={explain_key}/>
     {/each}
   </div>
   <table>
@@ -68,6 +69,19 @@
   </table>
   
   <style>
+    .newscomes {
+      background: url(./img/NEwspaper_alarmed.png) no-repeat;
+      background-size: contain;
+      background-position: center;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: calc(var(--size) * 0.55px );
+      height: calc(var(--size) * 0.35px );
+      transform: translate(-50%, -50%);
+      appearance: None;
+      z-index: 10;
+    }
   
     .shownews {
       position:absolute;
@@ -85,19 +99,6 @@
       box-sizing: border-box;
       z-index: 998;
       backdrop-filter: blur(3px);
-    }
-    .showresult {
-      position: relative;
-      font-family: "galmuri11";
-      top: 50%;
-      left: 50%;
-      width: 1200px;
-      height: 700px;
-      transform: translate(-50%, -50%);
-      display: grid;
-      justify-content: center;
-      grid-template-rows: 0.3fr repeat(1fr) 3fr;
-      grid-template-columns: 3fr;
     }
   
     tr {

@@ -3,22 +3,18 @@
   import SetCurrentNews from "../lib/SetCurrentNews.js";
   const dailyNews = [...SetCurrentNews()];
   export let done;
+  done = true;
   // let dailyNews = SetCurrentNews();
   let newsopen = false;
-  const doneCheck = () => {
-    if (true) {
-      done = true;
-    }
-  };
-  const explain_key = {symbol:"corp", title: "title", content: "body", date: ""};
+  const news_key = {symbol:"corp", title: "title", content: "body"};
 
 
 </script>
 
-<div class="newscomes nodrag" on:click={() => newsopen=!newsopen} />
-<div class="shownews nodrag {newsopen? "popup":"popin"}" on:click={() => newsopen=!newsopen}>
+<div class="newscomes" on:click={() => newsopen=!newsopen} />
+<div class="shownews {newsopen? "popup":"popin"}" on:click={() => newsopen=!newsopen}>
   {#each dailyNews as news}
-    <News news={news} content_key={explain_key}/>
+    <News news={news} content_key={news_key}/>
   {/each}
 </div>
 

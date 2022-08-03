@@ -3,7 +3,6 @@
   import Room from "./components/Room.svelte";
   import Screen from "./components/Screen.svelte";
   import SetLocalStorage from "./components/lib/SetLocalStorage";
-  import "./assets/font/galmuri.css";
   SetLocalStorage();
   let page = "intro";
   let isfull = false;

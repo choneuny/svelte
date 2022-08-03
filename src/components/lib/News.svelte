@@ -1,6 +1,6 @@
 <script>
   export let news;
-  export let content_key = {symbol:"symobl", title: "title", content: "content", date: "date"};
+  export let content_key = {symbol:"symobl", title: "title", content: "content"};
   
   let symbol = news[content_key.symbol]
   let title = news[content_key.title]
@@ -11,7 +11,7 @@
 
 
 <div class="news">
-  {#if symbol.length>0}
+  {#if symbol?.length>0}
   <h2>㈜{symbol}</h2>
   {/if}
   <h2 >{title}</h2>

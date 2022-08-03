@@ -1,9 +1,7 @@
 <script>
-  export let done;
-  export let round;
+  import { next_round } from "../data/stores.js";
   setTimeout(() => {
-      round++;
-      done = true;
+      next_round();
     }, 3000);
 </script>
 
