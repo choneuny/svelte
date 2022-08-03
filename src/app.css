@@ -1,0 +1,73 @@
+body {
+	display: flex;
+	font-family: "Galmuri11";
+	justify-content: center;
+	margin: 0;
+}
+
+@keyframes blink {
+	0% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.blink {
+	animation: blink 1500ms infinite;
+}
+.invert {
+	filter: invert(100%);
+}
+.none {
+	display: none;
+}
+.hidden {
+	visibility: hidden;
+}
+.fadeout {
+	transition: opacity 1s ease-in-out 0s, transform 0s ease-out 0.5s;
+	opacity: 0;
+	transform: scale(0);
+}
+.fadein {
+	transition: opacity 1s ease-in-out 0s, transform 1s ease-out 0s;
+	opacity: 1;
+	transform: scale(1);
+}
+.popin {
+	transition: all 0.4s ease-out 0s;
+	transform: scale(0);
+}
+.popup {
+	transition: all 0.5s ease-out 0s;
+	width: 100%;
+}
+.zoomin {
+	transition: all 2s ease-in-out 0s;
+	transform: scale(1.6);
+}
+.nodrag {
+	-webkit-user-drag: none;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}
+.next {
+	position: absolute;
+	width: 150px;
+	height: 100px;
+	right: 5px;
+	bottom: 5px;
+	filter: invert(100%);
+	z-index: 99;
+}
+
+._6 {
+	transform: scale(0.6);
+}
