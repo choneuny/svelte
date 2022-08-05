@@ -1,39 +1,62 @@
 <script>
-  import Nav from "./Nav.svelte";
-  import Header from "./Header.svelte";
-  import EmbededGame from "./EmbededGame.svelte";
-  import Outline from "./Outline.svelte";
-  import Comment from "./Comment.svelte";
-  import Footer from "./Footer.svelte";
-  let size = screen.width;
-  size = size;
+	import { onMount } from "svelte";
+	import About from "./About.svelte";
+	import Develop_set from "./Develop.js";
+	import Develop from "./Develop.svelte";
+	import Nav from "./Nav.svelte";
+	import Header from "./Header.svelte";
+	import EmbededGame from "./EmbededGame.svelte";
+	import Outline from "./Outline.svelte";
+	import Comment from "./Comment.svelte";
+	import Footer from "./Footer.svelte";
+	let size = screen.width;
+	size = size;
+	// onMount(async () => {
+	// 	Develop_set();
+	// });
+	let develop_mode = false;
+	develop_mode = develop_mode;
+	let pagination = "main";
 </script>
 
 <div id="wrapper" style="--size:{size}">
-<div id="inner">
-  <Nav />
-  <Header/>
-  <EmbededGame />
-  <Outline />
-  <Comment />
-  <Footer />
-</div>
+	<div id="inner">
+		<button
+			on:click={() => {
+				pagination = "develop";
+				console.log(pagination);
+			}}>{pagination}</button
+		>
+		{#if pagination === "develop"}
+			<Develop />
+		{:else if pagination === "about"}
+			<Nav />
+			<About />
+		{:else}
+			<Nav />
+			<Header />
+			<EmbededGame />
+			<Outline />
+			<Comment />
+			<Footer />
+		{/if}
+	</div>
 </div>
 
 <style>
-  #wrapper {
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    background: radial-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5) ), url("./assets/background/brickwall.webp");
-    z-index: -1;
-  }
-  #inner {
-    width: calc(--size * 0.8px );
-    height: inherit;
-    background: #404040;
-    padding: 0;
-  }
+	#wrapper {
+		width: 100vw;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin: 0;
+		background: radial-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5)), url("./assets/background/brickwall.webp");
+		z-index: -1;
+	}
+	#inner {
+		width: calc(--size * 0.8px);
+		height: inherit;
+		background: #404040;
+		padding: 0;
+	}
 </style>

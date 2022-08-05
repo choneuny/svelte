@@ -1,12 +1,38 @@
 <script>
-	let page = "balance";
-	const total_asset = [100, 220, 440, 280, 520];
+	import { onMount } from "svelte";
+	import Chart from "chart.js/auto";
+	onMount(async () => {});
 	const proportion = [
 		{ id: 0, symbol: "웹투니움", value: 50, dashboard: 520 },
 		{ id: 1, symbol: "센서베스", value: 100, dashboard: 470 },
 		{ id: 2, symbol: "애드", value: 250, dashboard: 220 },
 		{ id: 999, symbol: "현금", value: 120, dashboard: 100 },
 	];
+	function renderChart() {
+		// @ts-ignore
+		let canvas = document.querySelector("#myChart");
+		console.log(canvas);
+		let ctx = canvas.getContext("2d");
+		console.log(ctx);
+		let chart = new Chart(ctx, {
+			type: "doughnut",
+			data: {
+				labels: proportion.map((x) => x.symbol),
+				datasets: [
+					{
+						label: "dataset",
+						backgroundColor: [...Array(proportion.length)].map(
+							(_) => "#" + Math.round(Math.random() * 0xffffff).toString(16)
+						),
+						data: proportion.map((x) => x.value),
+					},
+				],
+			},
+			options: {},
+		});
+	}
+	let page = "balance";
+	const total_asset = [100, 220, 440, 280, 520];
 	let total_value = proportion.reduce((acc, curr) => {
 		return acc + curr.value;
 	}, 0);
@@ -33,22 +59,8 @@
 	</div>
 
 	<div class="stats-info">
-		<div class="graph-container">
-			<div class="percent">
-				<svg viewBox="0 0 36 36" class="circular-chart">
-					{#each proportion as symbol}
-						<path
-							class="circle"
-							stroke-dasharray="{(symbol.dashboard / total_value) * 100}, 100"
-							d="M18 2.0845
-						a 15.9155 15.9155 0 0 1 0 31.831
-						a 15.9155 15.9155 0 0 1 0 -31.831"
-						/>
-					{/each}
-				</svg>
-			</div>
-			<p>Total: {total_value}$</p>
-		</div>
+		<canvas id="myChart" />
+		<p>Total: {total_value}$</p>
 
 		<div class="info">
 			<p>총 자산<br /><span>{total_value} $$</span></p>
@@ -78,8 +90,8 @@
 		color: #abafc6;
 		border-radius: 5px;
 		padding: 20px;
-		width: 440px;
-		height: 350px;
+		width: 800px;
+		height: 600px;
 	}
 
 	.year-stats {
@@ -122,48 +134,6 @@
 		align-items: center;
 		justify-content: space-around;
 		position: relative;
-	}
-
-	.graph-container {
-		position: relative;
-	}
-
-	.percent {
-		display: block;
-		width: 120px;
-		height: 120px;
-	}
-
-	.circle {
-		stroke: #915db1;
-		fill: none;
-		stroke-width: 4;
-	}
-
-	.circle:nth-child(2) {
-		stroke: #e59f3c;
-	}
-	.circle:nth-child(3) {
-		stroke: #5397d6;
-	}
-	.circle:nth-child(4) {
-		stroke: #4cc790;
-	}
-	.circle:nth-child(5) {
-		stroke: #4cc790;
-	}
-	.circle:nth-child(6) {
-		stroke: #4cc790;
-	}
-
-	.graph-container p {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		font-size: 12px;
-		color: #fff;
-		text-align: center;
 	}
 
 	.info p {

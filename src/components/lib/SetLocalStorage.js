@@ -37,5 +37,6 @@ const SetLocalStorage = () => {
 	localStorage.setItem("theme", JSON.stringify(theme));
 	localStorage.setItem("cash", JSON.stringify(Cash));
 	localStorage.setItem("user", JSON.stringify(UserStock));
+	console.log("Local Storage Set Done");
 };
 export default SetLocalStorage;

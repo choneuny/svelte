@@ -1,12 +1,36 @@
 <script>
+	import Newsmaster from "../data/Newsmaster";
 	import News from "../lib/News.svelte";
-	import SetCurrentNews from "../lib/SetCurrentNews.js";
-	const dailyNews = [...SetCurrentNews()];
 	export let done;
+	const theme = JSON.parse(localStorage.getItem("theme"));
+	const user = JSON.parse(localStorage.getItem("user"));
+	const unchosen = theme.filter((x) => x.checked === false).map((x) => x.theme);
+	const themeNews = Newsmaster.filter((x) => x.corp == "");
+	let Newsarray = [];
+	for (let themes of unchosen) {
+		const validNewses = themeNews.filter((x) => x.theme === themes);
+		const picked = validNewses[Math.floor(Math.random() * validNewses.length)];
+		Newsarray.push(picked);
+	}
+	localStorage.setItem("news", JSON.stringify(Newsarray));
+	console.log(Newsarray);
+	for (let i of Newsarray) {
+		const tmp = [...user];
+		const infl = i.infl.split("-");
+		console.log(infl);
+		tmp.map((x) => {
+			if (infl.includes(x.name)) {
+				x.price *= 1 + i.fluct * 0.01;
+				x.fluct = 1 + i.fluct * 0.01;
+			}
+		});
+		console.log(tmp);
+		localStorage.setItem("user", JSON.stringify(tmp));
+	}
+	const check = JSON.parse(localStorage.getItem("news"));
 
-	// let dailyNews = SetCurrentNews();
 	let newsopen = false;
-	const news_key = { symbol: "corp", title: "title", content: "body" };
+	const news_key = { symbol: "", title: "title", content: "body" };
 </script>
 
 <div
@@ -17,7 +41,7 @@
 	}}
 />
 <div class="shownews {newsopen ? 'popup' : 'popin'}" on:click={() => (newsopen = !newsopen)}>
-	{#each dailyNews as news}
+	{#each check as news}
 		<News {news} content_key={news_key} />
 	{/each}
 </div>
