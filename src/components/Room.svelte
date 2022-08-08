@@ -1,4 +1,5 @@
 <script>
+	import { fade } from "svelte/transition";
 	import Typer from "./lib/Typer.svelte";
 	import InitDialog from "./data/InitDialog";
 	export let page;
@@ -8,7 +9,7 @@
 	console.log(dialog);
 </script>
 
-<div class="room">
+<div class="room" transition:fade>
 	<Typer {dialog} bind:isopen />
 	{#if !isopen}
 		<div
@@ -39,7 +40,7 @@
 		position: absolute;
 		width: inherit;
 		height: inherit;
-		background: url(./img/background/desk_source.png) no-repeat;
+		background: url(./img/background/desk.png) no-repeat;
 		background-size: cover;
 	}
 	.hiddenbutton {

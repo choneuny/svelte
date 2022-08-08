@@ -1,26 +1,18 @@
 <script>
 	import { round, next_round } from "../data/stores.js";
-	import Resultapp from "../Resultapp.svelte";
-	export let next;
-	export let count;
-	export let steps;
-	let len = steps.length;
-	next = true;
-	let current_round;
-	round.subscribe((x) => (current_round = x));
-	const open_app = (app) => {};
+	export let step_done;
+	export let event_app_open;
+	step_done = true;
 	let apps = [
-		{ id: "result", name: "result", icon: "./img/icon/chart.png", open: false, component: Resultapp },
+		{ id: "result", name: "result", icon: "./img/icon/chart.png" },
 		{ id: "chart", name: "chart", icon: "./img/icon/chart.png" },
 		{ id: "news", name: "news", icon: "./img/icon/chart.png" },
 		{ id: "stock", name: "stock", icon: "./img/icon/chart.png" },
 		{ id: "develop", name: "develop", icon: "./img/icon/chart.png" },
 		{ id: "history", name: "history", icon: "./img/icon/chart.png" },
 	];
-	let app_func = [];
 	let activated = ["result", "chart", "news", "develop", "history"];
 	let active_apps = apps.filter((x) => activated.includes(x.id));
-	$: console.log(count);
 </script>
 
 <div class="taskbar">
@@ -33,14 +25,14 @@
 				id="app.id"
 				class="custom-button"
 				on:click={() => (app.open = true)}
-				disabled={current_round === 0 ? true : false}
+				disabled={$round === 0 ? true : false}
 			>
 				<img class="custom-icon" src={app.icon} alt="error" />
 			</button>
 		{/if}
 	{/each}
-	<button class="custom-button" on:click={() => (next = !next)} />
-	<div id="arrowAnim" class={next ? "" : "hidden"} on:click={count === len - 1 ? () => (count = 0) : () => count++}>
+	<button class="custom-button" on:click={() => (step_done = !step_done)} />
+	<div id="arrowAnim" class={step_done ? "" : "hidden"} on:click={event_app_open}>
 		<div class="arrowSliding">
 			<div class="arrow" />
 		</div>
