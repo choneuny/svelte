@@ -1,4 +1,4 @@
 # Svelte
-# Vite
-# Npm
-# TailwindCSS
+## Vite
+## Npm
+## TailwindCSS
