@@ -9,6 +9,7 @@
 	import Outline from "./Outline.svelte";
 	import Comment from "./Comment.svelte";
 	import Footer from "./Footer.svelte";
+	import "./assets/font/galmuri.css";
 	let size = screen.width;
 	size = size;
 	// onMount(async () => {
@@ -17,8 +18,10 @@
 	let develop_mode = false;
 	develop_mode = develop_mode;
 	let pagination = "main";
+	const path = (x) => `./img/${x}`;
 </script>
 
+<h2 class="ml-3 text-gray-600">ABC</h2>
 <div id="wrapper" style="--size:{size}">
 	<div id="inner">
 		<button
@@ -34,7 +37,6 @@
 			<About />
 		{:else}
 			<Nav />
-			<Header />
 			<EmbededGame />
 			<Outline />
 			<Comment />
@@ -45,16 +47,17 @@
 
 <style>
 	#wrapper {
-		width: 100vw;
+		font-family: "Galmuri11, Proxima Nova, system-ui, sans-serif";
+		width: calc(var(--size) * 1.2px);
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		margin: 0;
-		background: radial-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5)), url("./assets/background/brickwall.webp");
+		background: radial-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5)), url("./img/background/brickwall.webp");
 		z-index: -1;
 	}
 	#inner {
-		width: calc(--size * 0.8px);
+		width: calc(var(--size) * 0.8px);
 		height: inherit;
 		background: #404040;
 		padding: 0;

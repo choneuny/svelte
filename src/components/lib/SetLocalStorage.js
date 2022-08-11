@@ -29,7 +29,7 @@ const SetLocalStorage = () => {
 			return { id: x.id, theme: x.theme, name: x.name, amount: 0, price: x.price, fluct: 1 };
 		}),
 	];
-	const Cash = { id: 999, amount: 2000, price: 1 };
+	const Cash = { id: 999, amount: 1000, price: 1 };
 	const News = [{ id: "", corp: "", title: "", body: "", why: "" }];
 	localStorage.clear();
 	localStorage.setItem("history", JSON.stringify(Userhistory));

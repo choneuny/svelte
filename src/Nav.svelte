@@ -1,219 +1,146 @@
-<script>
-  import { onMount } from "svelte";
+<nav class="bg-gray-900">
+	<div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+		<div class="relative flex items-center justify-between h-16">
+			<div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+				<!-- Mobile menu button-->
+				<button
+					type="button"
+					class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+					aria-controls="mobile-menu"
+					aria-expanded="false"
+				>
+					<span class="sr-only">Open main menu</span>
+					<!--
+            Icon when menu is closed.
 
-  // Show mobile icon and display menu
-  let showMobileMenu = false;
+            Heroicon name: outline/menu
 
-  // List of navigation items
-  const navItems = [
-    { label: "Main", href: "#" },
-    { label: "StockVity", href: "#" },
-    { label: "About", href: "#" },
-    { label: "Contact", href: "#" },
-  ];
+            Menu open: "hidden", Menu closed: "block"
+          -->
+					<svg
+						class="block h-6 w-6"
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="2"
+						stroke="currentColor"
+						aria-hidden="true"
+					>
+						<path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+					</svg>
+					<!--
+            Icon when menu is open.
 
-  // Mobile menu click event handler
-  const handleMobileIconClick = () => (showMobileMenu = !showMobileMenu);
+            Heroicon name: outline/x
 
-  // Media match query handler
-  const mediaQueryHandler = e => {
-    // Reset mobile state
-    if (!e.matches) {
-      showMobileMenu = false;
-    }
-  };
+            Menu open: "block", Menu closed: "hidden"
+          -->
+					<svg
+						class="hidden h-6 w-6"
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="2"
+						stroke="currentColor"
+						aria-hidden="true"
+					>
+						<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+					</svg>
+				</button>
+			</div>
+			<div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+				<div class="flex-shrink-0 flex items-center">
+					<img
+						class="block hidden h-8 w-auto"
+						src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
+						alt="Workflow"
+					/>
+					<img
+						class=" lg:block h-8 w-auto"
+						src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
+						alt="Workflow"
+					/>
+				</div>
+				<div class=" sm:block sm:ml-6">
+					<div class="flex space-x-4">
+						<!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+						<a href={null} class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page"
+							>Dashboard</a
+						>
 
-  // Attach media query listener on mount hook
-  onMount(() => {
-    const mediaListener = window.matchMedia("(max-width: 767px)");
+						<a
+							href={null}
+							class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Team</a
+						>
 
-    mediaListener.addListener(mediaQueryHandler);
-  });
-</script>
+						<a
+							href={null}
+							class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+							>Projects</a
+						>
 
-<nav>
-  <div class="inner">
-    <div on:click={handleMobileIconClick} class={`mobile-icon${showMobileMenu ? ' active' : ''}`}>
-      <div class="middle-line"></div>
-    </div>
-    <span class="logo"><h2 color="white">ONELINE TECH.</h2></span>
-    <span class="mobile-logo"><h2 color="white">ONELINE TECH.</h2></span>
-    <ul class={`navbar-list${showMobileMenu ? ' mobile' : ''}`}>
-      {#each navItems as item}
-        <li>
-          <a href={item.href}>{item.label}</a>
-        </li>
-      {/each}
-    </ul>
-  </div>
+						<a
+							href={null}
+							class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+							>Calendar</a
+						>
+					</div>
+				</div>
+			</div>
+			<div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+				<button
+					type="button"
+					class="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+				>
+					<span class="sr-only">View notifications</span>
+					<!-- Heroicon name: outline/bell -->
+					<svg
+						class="h-6 w-6"
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="2"
+						stroke="currentColor"
+						aria-hidden="true"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+						/>
+					</svg>
+				</button>
+
+				<!-- Profile dropdown -->
+			</div>
+		</div>
+	</div>
+
+	<!-- Mobile menu, show/hide based on menu state. -->
+	<div class="sm:hidden" id="mobile-menu">
+		<div class="px-2 pt-2 pb-3 space-y-1">
+			<!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+			<a href={null} class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page"
+				>Dashboard</a
+			>
+
+			<a
+				href={null}
+				class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+				>Team</a
+			>
+
+			<a
+				href={null}
+				class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+				>Projects</a
+			>
+
+			<a
+				href={null}
+				class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+				>Calendar</a
+			>
+		</div>
+	</div>
 </nav>
-
-<style>
-  h2 {
-    color: #fff;
-    font-family: 'roboto';
-  }
-
-  .logo {
-    display: none;
-    width: 25%;
-    margin: 10px;
-  }
-  
-  .mobile-logo {
-    width: 80%;
-    font-size: x-small;
-    margin: 20px;
-  }
-
-  nav {
-    background-color: rgba(0, 0, 0, 0.8);
-    font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-    height: 45px;
-    position: sticky;
-    position: -webkit-sticky;
-    filter: drop-shadow(10px);
-  }
-
-  .inner {
-    max-width: 980px;
-    padding-left: 20px;
-    padding-right: 20px;
-    margin: 20px;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    height: 100%;
-  }
-
-  .mobile-icon {
-    width: 25px;
-    height: 14px;
-    position: relative;
-    cursor: pointer;
-  }
-
-  .mobile-icon:after,
-  .mobile-icon:before,
-  .middle-line {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    background-color: #fff;
-    transition: all 0.4s;
-    transform-origin: center;
-  }
-
-  .mobile-icon:before,
-  .middle-line {
-    top: 0;
-  }
-
-  .mobile-icon:after,
-  .middle-line {
-    bottom: 0;
-  }
-
-  .mobile-icon:before {
-    width: 66%;
-  }
-
-  .mobile-icon:after {
-    width: 33%;
-  }
-
-  .middle-line {
-    margin: auto;
-  }
-
-  .mobile-icon:hover:before,
-  .mobile-icon:hover:after,
-  .mobile-icon.active:before,
-  .mobile-icon.active:after,
-  .mobile-icon.active .middle-line {
-    width: 100%;
-  }
-
-  .mobile-icon.active:before,
-  .mobile-icon.active:after {
-    top: 50%;
-    transform: rotate(-45deg);
-  }
-
-  .mobile-icon.active .middle-line {
-    transform: rotate(45deg);
-  }
-
-  .navbar-list {
-    display: none;
-    width: 100%;
-    justify-content: center;
-    gap: 50px;
-    margin: 0;
-    padding: 0 40px;
-  }
-
-  .navbar-list.mobile {
-    background-color: rgba(0, 0, 0, 0.8);
-    position: fixed;
-    display: block;
-    height: calc(100% - 45px);
-    bottom: 0;
-    left: 0;
-  }
-
-  .navbar-list li {
-    list-style-type: none;
-    position: relative;
-  }
-
-  .navbar-list li:before {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background-color: #424245;
-  }
-
-  .navbar-list a {
-    color: #fff;
-    text-decoration: none;
-    display: flex;
-    height: 45px;
-    align-items: center;
-    padding: 0 10px;
-    font-size: 13px;
-    font-family: 'roboto';
-    font-weight: 700;
-  }
-
-  @media only screen and (min-width: 767px) {
-    .mobile-icon {
-      display: none;
-    }
-
-    .logo {
-      display: block;
-    }
-
-    .mobile-logo {
-      display: none;
-    }
-
-    .navbar-list {
-      display: flex;
-      padding: 0;
-    }
-
-    .navbar-list a {
-      font-size: 1.2rem;
-      color: 'white';
-      font-family: 'roboto';
-      display: inline-flex;
-      font-weight: 700;
-    }
-  }
-</style>

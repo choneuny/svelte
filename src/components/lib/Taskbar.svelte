@@ -1,8 +1,7 @@
 <script>
 	import { round, next_round } from "../data/stores.js";
 	export let step_done;
-	export let event_app_open;
-	step_done = true;
+	export let count;
 	let apps = [
 		{ id: "result", name: "result", icon: "./img/icon/chart.png" },
 		{ id: "chart", name: "chart", icon: "./img/icon/chart.png" },
@@ -13,6 +12,8 @@
 	];
 	let activated = ["result", "chart", "news", "develop", "history"];
 	let active_apps = apps.filter((x) => activated.includes(x.id));
+
+	$: console.log(count);
 </script>
 
 <div class="taskbar">
@@ -32,7 +33,7 @@
 		{/if}
 	{/each}
 	<button class="custom-button" on:click={() => (step_done = !step_done)} />
-	<div id="arrowAnim" class={step_done ? "" : "hidden"} on:click={event_app_open}>
+	<div id="arrowAnim" class={step_done ? "" : "hidden"} on:click={() => count++}>
 		<div class="arrowSliding">
 			<div class="arrow" />
 		</div>

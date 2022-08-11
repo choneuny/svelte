@@ -2,6 +2,7 @@ import Newsmaster from "../data/Newsmaster.js";
 
 const SetCurrentNews = () => {
 	const userstock = JSON.parse(localStorage.getItem("user"));
+	console.log(userstock);
 	const validStock = userstock.filter((item) => item.amount > 0);
 	const validCorpname = validStock.map((item) => item.name);
 

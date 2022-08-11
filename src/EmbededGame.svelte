@@ -57,7 +57,7 @@
 		height: calc(var(--size) * 0.025px);
 		right: 5px;
 		bottom: 5px;
-		background: url(./assets/icon/fullscreen.svg) no-repeat;
+		background: url(./img/icon/fullscreen.svg) no-repeat;
 		background-size: cover;
 		padding: 0;
 		border: 0;

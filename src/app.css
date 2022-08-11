@@ -1,6 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("./assets/font/galmuri.css");
+
 body {
+	font-family: "Galmuri11", sans-serif;
 	display: flex;
-	font-family: "Galmuri11";
 	justify-content: center;
 	margin: 0;
 }
@@ -15,6 +20,20 @@ body {
 	100% {
 		opacity: 1;
 	}
+}
+
+div.fill {
+	width: 100%;
+	height: 100%;
+}
+div.black_bg {
+	background-color: black;
+}
+div.white_bg {
+	background-color: #fff;
+}
+div.black_bg_transparent {
+	background-color: rgba(0, 0, 0, 0.5);
 }
 
 .blink {
