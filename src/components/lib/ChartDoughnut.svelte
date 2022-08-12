@@ -3,7 +3,6 @@
 	import Chart from "chart.js/auto";
 	export let data;
 	let total = data.datasets[0].data.reduce((a, b) => a + b);
-	const chart_colors = ["#ff6384", "#36a2eb", "#2ab96a", "#e9c061", "#d95d6b", "#2b92d8", "#9173d8"];
 	const option = {
 		maintainAspectRatio: false,
 		responsive: true,

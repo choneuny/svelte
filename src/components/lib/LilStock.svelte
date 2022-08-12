@@ -15,7 +15,7 @@
 		<text class="symbol" y={base * 0.2}>{name}</text>
 		<text class="corp uppercase" y={base * 0.35}>{theme}</text>
 		<text class="price" y={base * 0.75}>${price}</text>
-		<text class="fluct" y={base * 0.9}>{space}{fluct}%</text>
+		<text class="fluct" y={base * 0.9}>{space}{Math.round(fluct)}%</text>
 	</svg>
 </div>
 

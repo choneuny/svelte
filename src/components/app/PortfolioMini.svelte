@@ -58,8 +58,10 @@
 	}
 	.portmini {
 		position: absolute;
-		width: 25%;
-		height: 60%;
+		left: 10px;
+		top: 10px;
+		width: 400px;
+		height: 500px;
 		margin: 1%;
 	}
 </style>

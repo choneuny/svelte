@@ -3,6 +3,7 @@
 	import { next_round } from "../data/stores.js";
 	export let increasecount;
 
+	const cash = JSON.parse(localStorage.getItem("cash"));
 	const news = JSON.parse(localStorage.getItem("news"));
 	const user = JSON.parse(localStorage.getItem("user"));
 	const history = JSON.parse(localStorage.getItem("history"));
@@ -22,10 +23,12 @@
 	setTimeout(() => {
 		increasecount();
 		next_round();
-	}, 1000);
+	}, 2000);
 
 	onDestroy(() => {
 		reflect();
+		user.pop();
+		user.push(cash);
 		history.push(user);
 		localStorage.setItem("user", JSON.stringify(user));
 		localStorage.setItem("history", JSON.stringify(history));

@@ -1,33 +1,7 @@
 <script>
 	import { afterUpdate } from "svelte";
 	import Chart from "chart.js/auto";
-	export let data = null;
-	const chart_colors = ["#ff6384", "#36a2eb", "#2b92d8", "#2ab96a", "#e9c061", "#d95d6b", "#9173d8"];
-	data = {
-		labels: ["January", "February", "March", "April"],
-		datasets: [
-			{
-				label: "My First dataset",
-				backgroundColor: chart_colors[0],
-				borderColor: chart_colors[0],
-				data: [65, 59, 80, 81],
-				datalabels: {
-					align: "end",
-					anchor: "start",
-				},
-			},
-			{
-				label: "My Second dataset",
-				backgroundColor: chart_colors[1],
-				borderColor: chart_colors[1],
-				data: [28, 48, 40, 19],
-				datalabels: {
-					align: "end",
-					anchor: "start",
-				},
-			},
-		],
-	};
+	export let data;
 	const option = {
 		maintainAspectRatio: false,
 		responsive: true,
@@ -69,15 +43,6 @@
 					size: 30,
 				},
 			},
-			datalabels: {
-				anchor: "end",
-				align: "end",
-				labels: {
-					value: {
-						color: "blue",
-					},
-				},
-			},
 		},
 	};
 	function renderChart() {
@@ -92,7 +57,7 @@
 	afterUpdate(() => {
 		setTimeout(() => {
 			renderChart();
-		}, 1000);
+		}, 200);
 	});
 </script>
 

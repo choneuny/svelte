@@ -1,23 +1,23 @@
 <script>
 	import "../../assets/css/range.scss";
 	export let index = "1";
+	export let set_value;
+	export let confirm = 10;
 	const size = 500;
-	const set_value = (e) => {
-		const target = e.target;
-		target.parentNode.style.setProperty("--value", target.value);
-		target.parentNode.style.setProperty("--text-value", JSON.stringify(target.value));
-	};
 </script>
 
 <div class="transaction" style="--size:{size}px">
 	<div class="range" data-ticks-position="top">
-		<input type="range" min={-20} max={20} step="1" value="0" on:input={set_value} />
+		<input id={index} type="range" min={-20} max={20} step="1" value="0" on:input={set_value} />
 		<output />
 		<div class="range__progress" />
 	</div>
+	<div>
+		<p class="font-bold">최종 보유 수 : {confirm}</p>
+	</div>
 	<div class="check {index}">
-		<input type="checkbox" id={index} />
-		<label for={index}>
+		<input type="checkbox" id="num{index}" />
+		<label for="num{index}">
 			<div class="check">CHECKED</div>
 		</label>
 	</div>
@@ -42,14 +42,6 @@
 		background-color: MEDIUMSEAGREEN;
 		font-weight: 600;
 		font-size: 2.5rem;
-	}
-	svg {
-		width: 100%;
-		height: 100%;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: flex-start;
 	}
 	.transaction {
 		background: #ffffff;

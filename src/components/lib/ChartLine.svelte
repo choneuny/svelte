@@ -1,34 +1,7 @@
 <script>
 	import { afterUpdate } from "svelte";
 	import Chart from "chart.js/auto";
-	const chart_colors = ["#ff6384", "#36a2eb", "#2b92d8", "#2ab96a", "#e9c061", "#d95d6b", "#9173d8"];
-	const data = {
-		labels: ["January", "February", "March", "April", "May", "June", "July"],
-		datasets: [
-			{
-				label: "My First dataset",
-				backgroundColor: chart_colors[0],
-				borderColor: chart_colors[0],
-				data: [65, 59, 80, 81, 56, 55, 40],
-				pointRadius: 6,
-				hoverRadius: 12,
-				borderWidth: 3,
-				pointBorderRadius: 4,
-				pointBorderColor: "#fff",
-			},
-			{
-				label: "My Second dataset",
-				backgroundColor: chart_colors[1],
-				borderColor: chart_colors[1],
-				data: [28, 48, 40, 19, 86, 27, 90],
-				pointRadius: 6,
-				hoverRadius: 12,
-				borderWidth: 3,
-				pointBorderRadius: 4,
-				pointBorderColor: "#fff",
-			},
-		],
-	};
+	export let data;
 	const option = {
 		maintainAspectRatio: false,
 		devicePixelRatio: 2,

@@ -51,6 +51,6 @@
 
 <style>
 	#carousel {
-		transition: all 1s ease-in-out 0s;
+		transition: all 800ms ease-in-out 0s;
 	}
 </style>

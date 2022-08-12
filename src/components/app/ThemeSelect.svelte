@@ -1,5 +1,5 @@
 <script>
-	import { onDestroy } from "svelte";
+	import { onDestroy, tick } from "svelte";
 	import { flip } from "svelte/animate";
 	import { quintOut } from "svelte/easing";
 	import { fade, crossfade } from "svelte/transition";
@@ -49,15 +49,22 @@
 			user.find((x) => x.id == input.id).amount = 0;
 		});
 		target.checked = true;
-		user.find((x) => x.id == id).amount = 5;
-		user.filter((x) => x.amount > 0).length === threshold ? check_done() : null;
+		if ($round === 0) {
+			user.find((x) => x.id == id).amount = 5;
+			user.filter((x) => x.amount > 0).length === threshold ? check_done() : null;
+		} else {
+			user.find((x) => x.id == id).amount = 2;
+			user.filter((x) => x.amount > 0).length === threshold ? check_done() : null;
+		}
+		localStorage.setItem("user", JSON.stringify(user));
 	};
 	const push = (e) => {
 		const theme_id = e.target.id === "" ? e.target.parentNode.id : e.target.id;
 		const tmp = [...themes];
 		console.log(tmp.filter((x) => x.id === theme_id)[0]);
 		tmp.filter((x) => x.id === theme_id)[0].checked = true;
-		if (selected.length >= threshold) {
+		const max = $round === 0 ? 2 : 1;
+		if (selected.length >= max) {
 			let i = selected.shift();
 			i.checked = false;
 		}
@@ -66,7 +73,12 @@
 	};
 	$: cont = themes.filter((x) => x.checked).length === threshold;
 	$: localStorage.setItem("theme", JSON.stringify(themes));
-	onDestroy(() => localStorage.setItem("user", JSON.stringify(user)));
+	onDestroy(() => {
+		themes.filter((x) => x.checked).forEach((x) => (x.fixed = true));
+		console.log(themes);
+		localStorage.setItem("theme", JSON.stringify(themes));
+		localStorage.setItem("user", JSON.stringify(user));
+	});
 </script>
 
 <div class="container">
@@ -117,7 +129,7 @@
 				</div>
 			</div>
 			<div class="fill flexbox" transition:fade>
-				{#each themes.filter((x) => x.checked) as theme}
+				{#each themes.filter((x) => x.checked && !x.fixed) as theme}
 					<div class="realative fill flexbox">
 						{#each user.filter((x) => x.theme === theme.theme) as user, i}
 							<label>

@@ -1,5 +1,6 @@
 <script>
 	import { onMount } from "svelte";
+	import { fade } from "svelte/transition";
 	export let dialog;
 	export let isopen;
 	const dialogLen = dialog.length;
@@ -33,7 +34,9 @@
 		if (dialogQueue >= dialogLen || (dialogQueue >= dialogLen - 1 && done)) {
 			dialogQueue++;
 			isopen = false;
+			console.log("Qwrwqr");
 		} else {
+			console.log("Qwrwqr");
 			if (done && isopen) {
 				dialogQueue++;
 				cursor = 0;
@@ -53,7 +56,13 @@
 	});
 </script>
 
-<div class="overlay {isopen ? '' : 'fadeout'}" on:click={nextDialog}>
+<div
+	class="overlay {isopen ? '' : 'fadeout'}"
+	transition:fade
+	on:click={() => {
+		nextDialog();
+	}}
+>
 	<div class="dialog">
 		<h2>{part}</h2>
 		<img class="next blink {done ? '' : 'hidden'}" src="./img/icon/downward-nobg.png" alt="error" />
@@ -63,8 +72,8 @@
 <style>
 	.overlay {
 		position: absolute;
-		width: inherit;
-		height: inherit;
+		width: 100%;
+		height: 100%;
 		top: 0;
 		background: rgba(255, 255, 255, 0.25);
 		backdrop-filter: blur(3px);

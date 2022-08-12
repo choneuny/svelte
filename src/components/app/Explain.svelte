@@ -1,20 +1,19 @@
 <script>
 	// @ts-nocheck
-
 	import { onMount, afterUpdate } from "svelte/internal";
 	import Window from "../lib/Window.svelte";
 	import Carousel from "../lib/Carousel.svelte";
 	import SetCurrentNews from "../lib/SetCurrentNews.js";
-	const user = JSON.parse(localStorage.getItem("user"));
-	console.log(user);
-	let dailyNews = [...SetCurrentNews()];
+	const dailyNews = JSON.parse(localStorage.getItem("news"));
 	const pkg = {
 		icon: "./img/icon/internet.svg",
 		title: "인터넷",
 		left: 0,
 		top: 0,
+		bgcolor: "#b2b2b2",
 	};
 	const explain_key = { symbol: "corp", title: "title", content: "why" };
+	console.log(dailyNews[0][explain_key.symbol]);
 </script>
 
 <div class="explain">
@@ -24,7 +23,7 @@
 				<img src="./img/icon/dart.png" alt="./img/icon/alt.png" />
 			</div>
 			<div class="content">
-				<Carousel count={2} width={670}>
+				<Carousel count={dailyNews.length} width={750}>
 					{#each dailyNews as news, i}
 						<div class="w-1/2 bg-white text-gray flex flex-col gap-8 p-8 box-border">
 							<p class="font-bold text-2xl text-center antialiased">
@@ -47,10 +46,10 @@
 	}
 	.explain {
 		position: absolute;
-		width: 47%;
+		width: 52%;
 		height: 90%;
-		right: 0;
-		margin: 1%;
+		margin-left: calc(50% - 100px);
+		margin-top: 20px;
 	}
 	.dart {
 		width: 800px;
