@@ -9,7 +9,7 @@
 	--primaryColor: #0366d6;
 	--value-active-color: white;
 	--value-background: transparent;
-	--value-font: 600 calc(var(--thumb-size)) Arial;
+	--value-font: 600 calc(var(--thumb-size)) Galmuri11;
 	--progress-color: #eee;
 	--progress-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1) inset;
 	--fill-color: var(--primaryColor);
@@ -74,7 +74,7 @@
 	&::after {
 		--offset: calc(var(--thumb-size) / 2);
 		content: counter(x);
-		font: var(--thumb-size) Arial;
+		font: var(--thumb-size) Galmuri11;
 		position: absolute;
 		text-align: center;
 		bottom: -2.5ch;

@@ -98,7 +98,14 @@
 		</button>
 	{/each} -->
 	<button class="custom-button" on:click={() => (step_done = !step_done)} />
-	<div id="arrowAnim" class={step_done ? "" : "hidden"} on:click={increasecount}>
+	<div
+		id="arrowAnim"
+		class={step_done ? "" : "invisible disabled"}
+		on:click={() => {
+			increasecount();
+			step_done = false;
+		}}
+	>
 		<div class="arrowSliding">
 			<div class="arrow" />
 		</div>

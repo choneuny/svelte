@@ -157,7 +157,6 @@
 <style>
 	* {
 		color: #000;
-		font-family: "roboto";
 	}
 
 	.container {
@@ -224,7 +223,6 @@
 		flex-direction: column;
 		justify-self: center;
 		align-items: center;
-		font-family: "helvetica neue", helvetica, arial, sans-serif;
 		font-size: 24px;
 		font-weight: bold;
 		letter-spacing: -0.025em;

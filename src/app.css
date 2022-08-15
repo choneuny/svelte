@@ -1,10 +1,15 @@
+@font-face {
+	font-family: "Galmuri", "PowerPixle7", "Times New Roman", Times, Arial, Helvetica, sans-serif;
+	src: url("./assets/font/Galmuri11.woff2") format("woff2"), url("./assets/font/Galmuri11.woff") format("woff");
+	src: url("./assets/font/PowerPixel7.woff");
+	src: local(※), url("./assets/font/Galmuri11.ttf") format("truetype");
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url("./assets/font/galmuri.css");
 
 body {
-	font-family: "Galmuri11", sans-serif;
+	font-family: "Galmuri", "갈무리", "Galmuri11";
 	display: flex;
 	justify-content: center;
 	margin: 0;

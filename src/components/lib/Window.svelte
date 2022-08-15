@@ -23,12 +23,8 @@
 	}
 </script>
 
-<div
-	class="window draggable"
-	on:mousedown={onMouseDown}
-	style="left: {left}px; top: {top}px; background-color:{bgcolor}"
->
-	<div class="titlebar">
+<div class="window draggable" style="left: {left}px; top: {top}px; background-color:{bgcolor}">
+	<div class="titlebar" on:mousedown={onMouseDown}>
 		<div class="nav">
 			<img src={icon} {alt} />
 		</div>
@@ -44,7 +40,6 @@
 
 <style>
 	* {
-		font-family: "roboto";
 		font-weight: 600;
 		color: #fff;
 		box-sizing: border-box;
@@ -70,6 +65,7 @@
 		border: 2px solid #000000;
 		border-radius: 8px;
 		backdrop-filter: blur(10px);
+		overflow: hidden;
 	}
 
 	.titlebar {
@@ -103,6 +99,7 @@
 		height: 100%;
 		padding: 5px;
 		display: flex;
+		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 		overflow: auto;

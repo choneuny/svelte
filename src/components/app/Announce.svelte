@@ -37,6 +37,7 @@
 	};
 	// afterUpdate(() => console.log(document.querySelector(".content").offsetWidth));
 	const news_key = { symbol: "corp", title: "title", content: "body" };
+	let moveSlide;
 </script>
 
 {#if !newsopen}
@@ -44,9 +45,9 @@
 		<div
 			class="newscomes"
 			on:click={() => {
+				check_done();
 				newsopen = !newsopen;
 				console.log(newsopen);
-				check_done();
 			}}
 		/>
 	</div>
@@ -54,18 +55,40 @@
 	<div class="container" transition:fade>
 		<Window {...pkg}>
 			<div class="dart">
-				<div class="header">
-					<img src="./img/icon/dart.png" alt="./img/icon/alt.png" />
+				<div class="header relative border-4 border-black border-inset">
+					<img class="absolute left-4 h-5/6" src="./img/icon/dart.svg" alt="./img/icon/alt.png" />
 				</div>
-				<div class="content" on:load={(e) => console.log(e.target.offsetWidth)}>
-					<Carousel count={dailyNews.length} width={763}>
+				<div
+					class="content antialiased overflow-hidden border-4 border-black border-inset rounded"
+					on:load={(e) => console.log(e.target.offsetWidth)}
+				>
+					<Carousel count={dailyNews.length} width={763} bind:moveSlide>
 						{#each dailyNews as news, i}
-							<div class="w-1/2 bg-white text-gray flex flex-col gap-8 p-8 box-border">
+							<div
+								class="relative w-1/2 bg-white text-gray flex flex-col gap-8 p-8 box-border"
+								on:dblclick={() => moveSlide(-1)}
+							>
 								<p class="font-bold text-2xl text-center antialiased">㈜{news[news_key.symbol]}</p>
 								<p class="font-bold text-2xl text-center antialiased">{news[news_key.title]}</p>
 								<p class="font-bold text-xl antialiased">
 									{@html news[news_key.content].replace(/-/g, "<br />&nbsp;&nbsp;-")}
 								</p>
+								<div class="absolute right-24 bottom-4 w-1/6 {i == 0 ? 'opacity-50' : ''}">
+									<img
+										class="transition duration-300 hover:opacity-50 rotate-90"
+										src="./img/icon/downward-nobg.png"
+										alt="next"
+										on:click={i === 0 ? null : () => moveSlide(1)}
+									/>
+								</div>
+								<div class="absolute right-4 bottom-4 w-1/6 {i == dailyNews.length - 1 ? 'opacity-50' : ''}">
+									<img
+										class="transition duration-300 hover:opacity-50 -rotate-90"
+										src="./img/icon/downward-nobg.png"
+										alt="next"
+										on:click={i === dailyNews.length - 1 ? null : () => moveSlide(-1)}
+									/>
+								</div>
 							</div>
 						{/each}
 					</Carousel>
@@ -100,8 +123,6 @@
 	.header {
 		width: 100%;
 		height: 0.5fr;
-		border: 1px solid transparent;
-		border-radius: 8px;
 		box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.25);
 		background-color: #1975db;
 		display: flex;
@@ -110,8 +131,6 @@
 	}
 	.content {
 		overflow: hidden;
-		border: 1px solid transparent;
-		border-radius: 12px;
 		box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.25);
 	}
 	.newscomes {

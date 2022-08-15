@@ -10,16 +10,13 @@
 		bgcolor: "#b2b2b2",
 	};
 
-	const cash = JSON.parse(localStorage.getItem("cash"));
 	const user = JSON.parse(localStorage.getItem("user"));
-	const cash_assets = { id: "현금 자산", amount: cash.amount };
 	const data = user
 		.map((x) => {
 			const amount = x.price * x.amount;
-			return { id: x.name, amount: amount };
+			return { id: x.name === "cash" ? "현금" : x.name, amount: amount };
 		})
 		.filter((x) => x.amount > 0);
-	data.push(cash_assets);
 	console.log(data);
 	const data_doughnut = {
 		labels: data.map((x) => x.id),

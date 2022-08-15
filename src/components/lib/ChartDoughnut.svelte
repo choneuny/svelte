@@ -1,24 +1,62 @@
 <script>
+	// @ts-nocheck
+
 	import { afterUpdate } from "svelte";
 	import Chart from "chart.js/auto";
+	import ChartDataLabels from "chartjs-plugin-datalabels";
 	export let data;
 	let total = data.datasets[0].data.reduce((a, b) => a + b);
 	const option = {
 		maintainAspectRatio: false,
 		responsive: true,
-		cutout: 96,
-		devicePixelRatio: 2,
+		devicePixelRatio: 1.5,
 		plugins: {
+			legend: {
+				display: false, //This will do the task
+			},
 			title: {
 				display: true,
 				text: "자산 비중",
 				font: {
 					size: 30,
+					family: "Galmuri11",
+					weight: "bold",
+				},
+			},
+			datalabels: {
+				align: "center",
+				textAlign: "center",
+				formatter: (val, ctx) => {
+					// Grab the label for this value
+					const label = ctx.chart.data.labels[ctx.dataIndex];
+
+					// Format the number with 2 decimal places
+					const formattedVal = Intl.NumberFormat("en-US", {
+						minimumFractionDigits: 0,
+						maximumFractionDigits: 2,
+					}).format(val);
+
+					// Put them together
+					return `${label} \n ${formattedVal}`;
+				},
+				labels: {
+					title: {
+						color: "black",
+					},
+					value: {
+						color: "black",
+					},
+				},
+				font: {
+					family: "Galmuri11",
+					size: 16,
+					weight: 600,
 				},
 			},
 		},
 	};
 	const plugin = {
+		ChartDataLabels,
 		id: "custom_canvas_background_color",
 		beforeDraw: (chart) => {
 			const { ctx } = chart;
@@ -35,8 +73,8 @@
 		var chart = new Chart(ctx, {
 			type: "doughnut",
 			data: data,
+			plugins: [ChartDataLabels],
 			options: option,
-			plugins: [plugin],
 		});
 	}
 	afterUpdate(() => {
@@ -48,13 +86,13 @@
 
 <div class="doughnut rounded-xl">
 	<canvas id="chartdoughnut" />
-	<div id="chartjs-tooltip">
+	<!-- <div id="chartjs-tooltip">
 		<div>
 			<p>Total : <br /></p>
 			<p class="text-4xl">{total}</p>
 			<p>$$</p>
 		</div>
-	</div>
+	</div> -->
 </div>
 
 <style>
@@ -62,9 +100,6 @@
 		color: #000;
 	}
 
-	p {
-		display: inline;
-	}
 	.doughnut {
 		position: relative;
 		background-color: inherit;
@@ -72,7 +107,7 @@
 		height: 100%;
 		overflow: hidden;
 	}
-
+	/* 
 	#chartjs-tooltip {
 		left: 0;
 		top: 12%;
@@ -82,13 +117,13 @@
 		display: flex;
 		justify-content: center;
 		position: absolute;
-		z-index: 0;
+		z-index: -3;
 		height: 100%;
 		padding: 0;
 		align-items: center;
 		color: gray;
 		font-size: 20px;
-	}
+	} */
 	canvas {
 		width: 100%;
 		height: 100%;

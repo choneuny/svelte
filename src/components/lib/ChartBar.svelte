@@ -1,10 +1,11 @@
 <script>
 	import { afterUpdate } from "svelte";
 	import Chart from "chart.js/auto";
+	import ChartDataLabels from "chartjs-plugin-datalabels";
 	export let data;
 	const option = {
-		maintainAspectRatio: false,
 		responsive: true,
+		maintainAspectRatio: false,
 		devicePixelRatio: 2,
 		scales: {
 			title: {
@@ -27,12 +28,44 @@
 				},
 				ticks: {
 					font: {
-						size: 15,
+						family: "Galmuri11",
+						size: 20,
+						weight: "bold",
 					},
 				},
 			},
 		},
 		plugins: {
+			datalabels: {
+				color: "blue",
+				formatter: (val, ctx) => {
+					// Grab the label for this value
+					const label = ctx.chart.data.datasets[ctx.datasetIndex].label;
+					// console.log(label);
+					// const label = ["현금", "주식"];
+					// Format the number with 2 decimal places
+					const formattedVal = Intl.NumberFormat("en-US", {
+						maximumFractionDigits: 1,
+						minimumFractionDigits: 0,
+					}).format(val);
+
+					// Put them together
+					return `${label} \n\n ${formattedVal}`;
+				},
+				labels: {
+					title: {
+						color: "black",
+					},
+					value: {
+						color: "black",
+					},
+				},
+				font: {
+					family: "Galmuri11",
+					size: 16,
+					weight: 600,
+				},
+			},
 			legend: {
 				display: false, //This will do the task
 			},
@@ -40,7 +73,9 @@
 				display: true,
 				text: "자산 현황",
 				font: {
+					family: "Galmuri11",
 					size: 30,
+					weight: "bold",
 				},
 			},
 		},
@@ -52,6 +87,7 @@
 			type: "bar",
 			data: data,
 			options: option,
+			plugins: [ChartDataLabels],
 		});
 	}
 	afterUpdate(() => {

@@ -1,10 +1,12 @@
 <script>
 	import { onMount } from "svelte";
 	import { fade } from "svelte/transition";
+	import Fairy from "./Fairy.svelte";
 	export let dialog;
 	export let isopen;
 	const dialogLen = dialog.length;
 	const typeSpeed = 20;
+	const fairy = "./img/icon/StockVity.png";
 	let done = true;
 	let dialogQueue = -1;
 	let part = "";
@@ -34,9 +36,8 @@
 		if (dialogQueue >= dialogLen || (dialogQueue >= dialogLen - 1 && done)) {
 			dialogQueue++;
 			isopen = false;
-			console.log("Qwrwqr");
+			console.log(dialog);
 		} else {
-			console.log("Qwrwqr");
 			if (done && isopen) {
 				dialogQueue++;
 				cursor = 0;
@@ -63,8 +64,9 @@
 		nextDialog();
 	}}
 >
+	<img class="absolute scale-x-[-1] left-4 bottom-56 z-50" src={fairy} alt="err" />
 	<div class="dialog">
-		<h2>{part}</h2>
+		<p class="text-3xl antialiased">{part}</p>
 		<img class="next blink {done ? '' : 'hidden'}" src="./img/icon/downward-nobg.png" alt="error" />
 	</div>
 </div>
@@ -88,7 +90,6 @@
 	.dialog {
 		color: white;
 		position: fixed;
-		font: 1em caption;
 		width: inherit;
 		top: 70%;
 		height: 30%;
@@ -98,6 +99,6 @@
 		overflow: hidden;
 		background: rgba(0, 0, 0, 0.8);
 		box-shadow: 5px 10px 10px 1px rgba(0, 0, 0, 0.3);
-		z-index: 999;
+		z-index: 20;
 	}
 </style>

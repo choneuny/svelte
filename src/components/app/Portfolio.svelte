@@ -2,8 +2,11 @@
 	import ChartDoughnut from "../lib/ChartDoughnut.svelte";
 	import ChartBar from "../lib/ChartBar.svelte";
 	import ChartLine from "../lib/ChartLine.svelte";
+	import LilStock from "../lib/LilStock.svelte";
 	import Window from "../lib/Window.svelte";
-	import { round } from "../data/stores";
+	import { pfl_page, switch_page, round } from "../data/stores";
+	import { fade, crossfade } from "svelte/transition";
+	const size = 500;
 	const pkg = {
 		icon: "./img/icon/chart.png",
 		title: "포트폴리오",
@@ -12,18 +15,14 @@
 		bgcolor: "#b2b2b2",
 	};
 	const chart_colors = ["#ff6384", "#36a2eb", "#2b92d8", "#2ab96a", "#e9c061", "#d95d6b", "#9173d8"];
-
-	const cash = JSON.parse(localStorage.getItem("cash"));
 	const user = JSON.parse(localStorage.getItem("user"));
 	const history = JSON.parse(localStorage.getItem("history"));
-	const cash_assets = { id: "현금 자산", amount: cash.amount };
 	const doughnut = user
+		.filter((x) => x.amount > 0)
 		.map((x) => {
 			const amount = x.price * x.amount;
-			return { id: x.name, amount: amount };
-		})
-		.filter((x) => x.amount > 0 && x.id !== "cash");
-	doughnut.push(cash_assets);
+			return { id: x.name === "cash" ? "현금" : x.name, amount: amount };
+		});
 	const data_doughnut = {
 		labels: doughnut.map((x) => x.id),
 		datasets: [
@@ -48,12 +47,12 @@
 		labels: bar.map((x, i) => `${i + 1}주차`),
 		datasets: [
 			{
-				label: "현금 자산",
+				label: "현금",
 				data: bar.map((x) => x.cash),
 				backgroundColor: "#36A2EB",
 			},
 			{
-				label: "주식 자산",
+				label: "주식",
 				data: bar.map((x) => x.stock),
 				backgroundColor: "#ff6384",
 			},
@@ -92,46 +91,86 @@
 			};
 		}),
 	};
+	const top3 = user
+		.filter((x) => x.id < 999 && x.amount > 0)
+		.sort((a, b) => b.amount - a.amount)
+		.slice(0, 3);
 
+	console.log(data_line);
 	console.log(data_line);
 </script>
 
 <div class="portfolio">
 	<Window {...pkg}>
-		<div class="chartbox">
-			{#each Array(1) as a}
-				<div class="radius rounded-xl">
-					<ChartDoughnut data={data_doughnut} />
+		<div class="relative w-[95%] h-fit border-b flex flex-row">
+			<p class="inline text-left text-2xl self-start">{$pfl_page == "stock" ? "보유 주식" : "그래프"}</p>
+			<div class="absolute right-0 flex justify-center align-end gap-4">
+				<div class="text-ash hover:text-black transition-colors duration-300" on:click={() => switch_page("stock")}>
+					보유 주식
 				</div>
-				<div class="radius rounded-xl">
-					<ChartBar data={data_bar} />
+				<div class="text-ash hover:text-black duration-300" on:click={() => switch_page("chart")}>그래프</div>
+			</div>
+		</div>
+		<div class="placeholder w-full h-full">
+			{#if $pfl_page === "chart"}
+				<div class="chartbox" transition:fade>
+					<div class="radius rounded antializing bg-white">
+						<ChartDoughnut data={data_doughnut} />
+					</div>
+					<div class="radius rounded antializing bg-white">
+						<ChartBar data={data_bar} />
+					</div>
+					<div class="radius rounded col-span-full antializing bg-white">
+						<ChartLine data={data_line} />
+					</div>
+
+					<div class="relative w-[99%] h-fit flex flex-col gap-4 col-span-full justify-self-center ">
+						<div class="border-b text-left text-xl">주요 보유주</div>
+						<div class="flex flex-row gap-4 box-border">
+							{#each top3 as stock}
+								<LilStock {...stock} {size} />
+							{/each}
+							<div
+								class="border rounded-2xl bg-gray hover:opacity-50 transition-all duration-300"
+								on:click={() => switch_page("stock")}
+							>
+								<svg
+									style="color: white"
+									xmlns="http://www.w3.org/2000/svg"
+									width="125"
+									height="125"
+									fill="currentColor"
+									class="bi bi-three-dots"
+									viewBox="0 0 16 16"
+								>
+									<path
+										d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"
+										fill="white"
+									/>
+								</svg>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="radius rounded-xl col-span-full antializing">
-					<ChartLine data={data_line} />
-				</div>
-			{:else}
-				<p>loading......</p>
-			{/each}
-			{#each user.filter((x) => x.amount > 0 && x.name !== "cash") as stock}
-				<p class="radius rounded-lg col-span-full text-3xl p-2 bg-white border-2 border-[#323232] border-inset">
-					(주){stock.name}
-					${stock.price}
-					{stock.fluct > 1 ? "▲" : stock.fluct < 1 ? "▼" : "◆"}
-					{Math.round((stock.fluct - 1) * 100)}% 보유수 {stock.amount}주
-				</p>
-			{:else}
-				<p>loading...</p>
-			{/each}
+			{:else if $pfl_page === "stock"}
+				{#each user.filter((x) => x.amount > 0 && x.name !== "cash") as stock}
+					<p
+						class="radius rounded-lg col-span-full text-3xl p-2 bg-white border-2 border-[#323232] border-inset text-black"
+					>
+						(주){stock.name}
+						${stock.price}
+						{stock.fluct > 1 ? "▲" : stock.fluct < 1 ? "▼" : "◆"}
+						{Math.round((stock.fluct - 1) * 100)}% 보유수 {stock.amount}주
+					</p>
+				{:else}
+					<p>loading...</p>
+				{/each}
+			{/if}
 		</div>
 	</Window>
 </div>
 
 <style>
-	* {
-		color: #000;
-		text-align: center;
-	}
-
 	.radius {
 		box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.2), 2px 4px 4px rgba(0, 0, 0, 0.2), 4px 8px 8px rgba(0, 0, 0, 0.2),
 			8px 16px 16px rgba(0, 0, 0, 0.2);
@@ -149,8 +188,8 @@
 		width: 100%;
 		height: 100%;
 		display: grid;
-		grid-template-columns: 50% 50%;
-		grid-template-rows: fit-content(90%);
+		grid-template-columns: 45% 55%;
+		grid-template-rows: minmax(40%, 45%) minmax(25%, 25%) minmax(30%, 30%);
 		gap: 20px;
 		justify-content: center;
 		padding: 10px 20px;

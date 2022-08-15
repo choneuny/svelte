@@ -11,17 +11,15 @@
 	import Footer from "./Footer.svelte";
 	import "./assets/font/galmuri.css";
 	let size = screen.width;
-	size = size;
+	$: size = screen.width;
 	// onMount(async () => {
 	// 	Develop_set();
 	// });
 	let develop_mode = false;
 	develop_mode = develop_mode;
 	let pagination = "main";
-	const path = (x) => `./img/${x}`;
 </script>
 
-<h2 class="ml-3 text-gray-600">ABC</h2>
 <div id="wrapper" style="--size:{size}">
 	<div id="inner">
 		<button
@@ -48,7 +46,7 @@
 <style>
 	#wrapper {
 		font-family: "Galmuri11, Proxima Nova, system-ui, sans-serif";
-		width: calc(var(--size) * 1.2px);
+		width: 100vw;
 		display: flex;
 		justify-content: center;
 		align-items: center;

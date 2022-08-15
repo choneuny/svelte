@@ -107,7 +107,7 @@
 		{#if diag_open}
 			<Typer bind:dialog={diag} bind:isopen={diag_open} />
 		{/if}
-		<Taskbar {step_done} {check_done} {increasecount} bind:current_apps={current_step.apps} />
+		<Taskbar bind:step_done {check_done} {increasecount} bind:current_apps={current_step.apps} />
 	</div>
 </div>
 
