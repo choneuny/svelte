@@ -8,11 +8,27 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+	scroll-behavior: smooth;
+}
+
 body {
-	font-family: "Galmuri", "갈무리", "Galmuri11";
+	font-family: roboto, Arial, Helvetica, sans-serif;
 	display: flex;
 	justify-content: center;
 	margin: 0;
+	overflow-x: hidden;
+}
+
+body::-webkit-scrollbar {
+	width: 20px;
+}
+body::-webkit-scrollbar-thumb {
+	background-color: #2f3542;
+	border-radius: 20px;
+}
+body::-webkit-scrollbar-track {
+	background-color: grey;
 }
 
 @keyframes blink {
@@ -21,6 +37,19 @@ body {
 	}
 	50% {
 		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes soft_blink {
+	0% {
+		opacity: 1;
+	}
+	50% {
+		filter: brightness(0.7);
+		opacity: 1;
 	}
 	100% {
 		opacity: 1;
@@ -44,6 +73,10 @@ div.black_bg_transparent {
 .blink {
 	animation: blink 1500ms infinite;
 }
+.soft_blink {
+	animation: soft_blink 2000ms infinite;
+}
+
 .invert {
 	filter: invert(100%);
 }
@@ -81,15 +114,6 @@ div.black_bg_transparent {
 	-moz-user-select: none;
 	-webkit-user-select: none;
 	-ms-user-select: none;
-}
-.next {
-	position: absolute;
-	width: 150px;
-	height: 100px;
-	right: 5px;
-	bottom: 5px;
-	filter: invert(100%);
-	z-index: 99;
 }
 
 ._6 {

@@ -180,6 +180,7 @@
 		border: calc(var(--size) * 0.005px) solid;
 		border-color: transparent white white transparent;
 		transform: rotate(-45deg);
+		box-sizing: content-box;
 	}
 
 	.arrowSliding {

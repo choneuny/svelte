@@ -35,7 +35,6 @@
 		top: 0,
 		bgcolor: "#b2b2b2",
 	};
-	// afterUpdate(() => console.log(document.querySelector(".content").offsetWidth));
 	const news_key = { symbol: "corp", title: "title", content: "body" };
 	let moveSlide;
 </script>
@@ -43,7 +42,7 @@
 {#if !newsopen}
 	<div class="container">
 		<div
-			class="newscomes"
+			class="newscomes soft_blink"
 			on:click={() => {
 				check_done();
 				newsopen = !newsopen;
@@ -59,31 +58,48 @@
 					<img class="absolute left-4 h-5/6" src="./img/icon/dart.svg" alt="./img/icon/alt.png" />
 				</div>
 				<div
-					class="content antialiased overflow-hidden border-4 border-black border-inset rounded"
+					class="content overflow-hidden box-border border-4 border-black border-inset rounded"
 					on:load={(e) => console.log(e.target.offsetWidth)}
 				>
-					<Carousel count={dailyNews.length} width={763} bind:moveSlide>
+					<Carousel count={dailyNews.length} width={763} bind:moveSlide show_control={false}>
 						{#each dailyNews as news, i}
 							<div
-								class="relative w-1/2 bg-white text-gray flex flex-col gap-8 p-8 box-border"
+								class="relative w-1/2 bg-white text-gray flex flex-col gap-8 p-8 pr-12"
 								on:dblclick={() => moveSlide(-1)}
 							>
-								<p class="font-bold text-2xl text-center antialiased">㈜{news[news_key.symbol]}</p>
-								<p class="font-bold text-2xl text-center antialiased">{news[news_key.title]}</p>
-								<p class="font-bold text-xl antialiased">
-									{@html news[news_key.content].replace(/-/g, "<br />&nbsp;&nbsp;-")}
+								<p class="text-center" style="font-size:{40}px">㈜{news[news_key.symbol]}</p>
+								<p class="text-center" style="font-size:{30}px">{news[news_key.title]}</p>
+								<p style="font-size:{20}px">
+									{@html news[news_key.content].replace(/-/g, "<br />&nbsp;-")}
 								</p>
-								<div class="absolute right-24 bottom-4 w-1/6 {i == 0 ? 'opacity-50' : ''}">
+								<!-- <svg class="w-full h-full" viewBox="0 0 500 500" preserveAspectRatio="none">
+									<foreignObject width="500" height="500">
+										<p class="text-center" style="font-size:{40}px">㈜{news[news_key.symbol]}</p>
+										<p class="text-center" style="font-size:{30}px">{news[news_key.title]}</p>
+										<p style="font-size:{20}px">
+											{@html news[news_key.content].replace(/-/g, "<br />&nbsp;-")}
+										</p>
+									</foreignObject>
+								</svg> -->
+								<div
+									class="absolute right-28 bottom-8 w-[100px] {i == 0
+										? 'opacity-50'
+										: 'transition duration-300 hover:opacity-50'}"
+								>
 									<img
-										class="transition duration-300 hover:opacity-50 rotate-90"
+										class="  rotate-90"
 										src="./img/icon/downward-nobg.png"
 										alt="next"
 										on:click={i === 0 ? null : () => moveSlide(1)}
 									/>
 								</div>
-								<div class="absolute right-4 bottom-4 w-1/6 {i == dailyNews.length - 1 ? 'opacity-50' : ''}">
+								<div
+									class="absolute right-8 bottom-8 w-[100px] {i == dailyNews.length - 1
+										? 'opacity-50'
+										: 'transition duration-300 hover:opacity-50 '}"
+								>
 									<img
-										class="transition duration-300 hover:opacity-50 -rotate-90"
+										class=" -rotate-90"
 										src="./img/icon/downward-nobg.png"
 										alt="next"
 										on:click={i === dailyNews.length - 1 ? null : () => moveSlide(-1)}
@@ -134,7 +150,7 @@
 		box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.25);
 	}
 	.newscomes {
-		background: url(./img/NEwspaper_alarmed.png) no-repeat;
+		background: url(./img/newspaper.svg) no-repeat;
 		background-size: contain;
 		background-position: center;
 		position: absolute;

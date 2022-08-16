@@ -1,12 +1,11 @@
 <script>
 	import { onMount } from "svelte";
 	import { fade } from "svelte/transition";
-	import Fairy from "./Fairy.svelte";
 	export let dialog;
 	export let isopen;
+	const fairy = "./img/icon/StockVity.png";
 	const dialogLen = dialog.length;
 	const typeSpeed = 20;
-	const fairy = "./img/icon/StockVity.png";
 	let done = true;
 	let dialogQueue = -1;
 	let part = "";
@@ -65,9 +64,16 @@
 	}}
 >
 	<img class="absolute scale-x-[-1] left-4 bottom-56 z-50" src={fairy} alt="err" />
-	<div class="dialog">
-		<p class="text-3xl antialiased">{part}</p>
-		<img class="next blink {done ? '' : 'hidden'}" src="./img/icon/downward-nobg.png" alt="error" />
+	<div class="relative dialog border-4 border-stone-300 rounded-t-2xl">
+		<p class="absolute -top-4 left-36 w-1/4 h-1/6 border-4 border-stone-300 rounded-xl text-2xl text-center bg-black">
+			스톡비티
+		</p>
+		<p class="text-3xl antialiased break-words leading-relaxed">{part}</p>
+		<img
+			class="next blink {done ? '' : 'hidden'} right-8 absolute"
+			src={dialogQueue >= dialogLen - 1 ? "./img/icon/close.svg" : "./img/icon/next.svg"}
+			alt="error"
+		/>
 	</div>
 </div>
 
@@ -79,7 +85,6 @@
 		top: 0;
 		background: rgba(255, 255, 255, 0.25);
 		backdrop-filter: blur(3px);
-
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -94,11 +99,20 @@
 		top: 70%;
 		height: 30%;
 		width: 100%;
-		padding: 2em;
+		padding: 3em 16em 2em 2em;
 		box-sizing: border-box;
-		overflow: hidden;
 		background: rgba(0, 0, 0, 0.8);
 		box-shadow: 5px 10px 10px 1px rgba(0, 0, 0, 0.3);
 		z-index: 20;
+	}
+
+	.next {
+		position: absolute;
+		height: 70px;
+		width: fit-content;
+		right: 15px;
+		bottom: 10px;
+		filter: invert(100%);
+		z-index: 99;
 	}
 </style>

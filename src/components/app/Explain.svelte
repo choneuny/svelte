@@ -1,9 +1,11 @@
 <script>
 	// @ts-nocheck
+	// definitions
 	import { onMount, afterUpdate } from "svelte/internal";
 	import Window from "../lib/Window.svelte";
 	import Carousel from "../lib/Carousel.svelte";
 	import SetCurrentNews from "../lib/SetCurrentNews.js";
+	export let check_done;
 	const dailyNews = JSON.parse(localStorage.getItem("news"));
 	const pkg = {
 		icon: "./img/icon/internet.svg",
@@ -13,6 +15,9 @@
 		bgcolor: "#b2b2b2",
 	};
 	const explain_key = { symbol: "corp", title: "title", content: "why" };
+
+	// run on mount
+	check_done();
 	console.log(dailyNews[0][explain_key.symbol]);
 </script>
 

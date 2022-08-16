@@ -8,13 +8,14 @@
 	import Corpmaster from "../data/Corpmaster.js";
 	import Carousel from "../lib/Carousel.svelte";
 	export let check_done;
+	const threshold = 2 + $round;
 	let user = JSON.parse(localStorage.getItem("user"));
 	let themes = JSON.parse(localStorage.getItem("theme"));
 	let next;
 	let cont = false;
-	const threshold = 2 + $round;
 	let selected = [];
 	let width = 1286;
+
 	const pkg = {
 		icon: "./img/icon/card_back.svg",
 		title: "Select Themes!",
@@ -42,20 +43,15 @@
 		const target = e.target;
 		const id = target.id;
 		const childs = [...target.parentNode.parentNode.children];
+		const is_init = $round === 0;
 		childs.forEach((element) => {
 			const input = element.querySelector("input");
 			input.checked = false;
-			console.log(user.find((x) => x.id == input.id));
 			user.find((x) => x.id == input.id).amount = 0;
 		});
 		target.checked = true;
-		if ($round === 0) {
-			user.find((x) => x.id == id).amount = 5;
-			user.filter((x) => x.amount > 0).length === threshold ? check_done() : null;
-		} else {
-			user.find((x) => x.id == id).amount = 2;
-			user.filter((x) => x.amount > 0).length === threshold ? check_done() : null;
-		}
+		user.find((x) => x.id == id).amount = is_init ? 5 : 2;
+		document.querySelectorAll("#check input:checked").length === (is_init ? 2 : 1) ? check_done() : null;
 		localStorage.setItem("user", JSON.stringify(user));
 	};
 	const push = (e) => {
@@ -71,14 +67,16 @@
 		selected = [...selected, tmp.filter((x) => x.id === theme_id)[0]];
 		themes = tmp;
 	};
-	$: cont = themes.filter((x) => x.checked).length === threshold;
-	$: localStorage.setItem("theme", JSON.stringify(themes));
+
 	onDestroy(() => {
 		themes.filter((x) => x.checked).forEach((x) => (x.fixed = true));
 		console.log(themes);
 		localStorage.setItem("theme", JSON.stringify(themes));
 		localStorage.setItem("user", JSON.stringify(user));
 	});
+
+	$: cont = themes.filter((x) => x.checked).length === threshold;
+	$: localStorage.setItem("theme", JSON.stringify(themes));
 </script>
 
 <div class="container">
@@ -132,7 +130,7 @@
 				{#each themes.filter((x) => x.checked && !x.fixed) as theme}
 					<div class="realative fill flexbox">
 						{#each user.filter((x) => x.theme === theme.theme) as user, i}
-							<label>
+							<label id="check">
 								<input id={user.id} type="checkbox" class="hidden" on:click={check_only_one} />
 								<div class="card" style="--z:{5 - i}">
 									<div class="card-face gap-6" style="--deg:{i * 10}deg;--trans:{Math.abs(-15 + i * 10) * 2}px">

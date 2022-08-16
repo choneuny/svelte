@@ -1,20 +1,15 @@
 <script>
 	import { onMount } from "svelte";
-	import About from "./About.svelte";
-	import Develop_set from "./Develop.js";
 	import Develop from "./Develop.svelte";
 	import Nav from "./Nav.svelte";
-	import Header from "./Header.svelte";
 	import EmbededGame from "./EmbededGame.svelte";
 	import Outline from "./Outline.svelte";
 	import Comment from "./Comment.svelte";
+	import About from "./About.svelte";
 	import Footer from "./Footer.svelte";
 	import "./assets/font/galmuri.css";
 	let size = screen.width;
 	$: size = screen.width;
-	// onMount(async () => {
-	// 	Develop_set();
-	// });
 	let develop_mode = false;
 	develop_mode = develop_mode;
 	let pagination = "main";
@@ -22,24 +17,12 @@
 
 <div id="wrapper" style="--size:{size}">
 	<div id="inner">
-		<button
-			on:click={() => {
-				pagination = "develop";
-				console.log(pagination);
-			}}>{pagination}</button
-		>
-		{#if pagination === "develop"}
-			<Develop />
-		{:else if pagination === "about"}
-			<Nav />
-			<About />
-		{:else}
-			<Nav />
-			<EmbededGame />
-			<Outline />
-			<Comment />
-			<Footer />
-		{/if}
+		<Nav />
+		<EmbededGame />
+		<Outline />
+		<Comment />
+		<About />
+		<Footer />
 	</div>
 </div>
 
@@ -55,6 +38,7 @@
 		z-index: -1;
 	}
 	#inner {
+		scroll-behavior: smooth;
 		width: calc(var(--size) * 0.8px);
 		height: inherit;
 		background: #404040;

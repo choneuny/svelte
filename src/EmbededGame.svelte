@@ -22,7 +22,7 @@
 	};
 </script>
 
-<div class="gamewrapper nodrag">
+<div id="embededgame" class="gamewrapper nodrag">
 	{#if page === "intro"}
 		<Intro bind:setPage />
 	{:else if page === "room"}
@@ -35,7 +35,7 @@
 
 <style>
 	* {
-		font-family: "galmuri11", "sans-serif";
+		font-family: "Galmuri", "갈무리", "Galmuri11";
 	}
 
 	.gamewrapper {

@@ -1,4 +1,5 @@
 <script>
+	// @ts-nocheck
 	import { afterUpdate } from "svelte";
 	import Chart from "chart.js/auto";
 	import ChartDataLabels from "chartjs-plugin-datalabels";
@@ -81,7 +82,6 @@
 		},
 	};
 	function renderChart() {
-		// @ts-ignore
 		const ctx = document.getElementById("chartbar").getContext("2d");
 		const chart = new Chart(ctx, {
 			type: "bar",
@@ -106,15 +106,13 @@
 		color: #000;
 		font-size: 40px;
 	}
-
 	.chartbar {
 		width: 100%;
 		height: 100%;
 	}
-
 	canvas {
 		width: 100%;
 		height: 100%;
-		background: #fff;
+		background-color: inherit;
 	}
 </style>
