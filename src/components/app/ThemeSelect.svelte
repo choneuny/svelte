@@ -7,6 +7,7 @@
 	import Window from "../lib/Window.svelte";
 	import Corpmaster from "../data/Corpmaster.js";
 	import Carousel from "../lib/Carousel.svelte";
+	import app_styles from "../lib/__AppStyles.js";
 	export let check_done;
 	const threshold = 2 + $round;
 	let user = JSON.parse(localStorage.getItem("user"));
@@ -16,12 +17,16 @@
 	let selected = [];
 	let width = 1286;
 
-	const pkg = {
-		icon: "./img/icon/card_back.svg",
+	const mystyle = {
+		width: 1300,
+		height: 750,
+		left: 120,
+		top: 5,
 		title: "Select Themes!",
-		left: 0,
-		top: 0,
+		icon: "./img/icon/card_back.svg",
 	};
+	const styles = Object.assign(app_styles, mystyle);
+	console.log(styles);
 	const [send, receive] = crossfade({
 		duration: (d) => Math.sqrt(d * 200),
 
@@ -79,91 +84,80 @@
 	$: localStorage.setItem("theme", JSON.stringify(themes));
 </script>
 
-<div class="container">
-	<Window {...pkg}>
-		<Carousel count={2} {width} bind:moveSlide={next} show_control={false}>
+<Window {styles}>
+	<Carousel count={2} {width} bind:moveSlide={next} show_control={false}>
+		<div class="fill flexbox">
 			<div class="fill flexbox">
-				<div class="fill flexbox">
-					{#each themes.filter((x) => !x.checked) as theme, i (theme.id)}
-						<div
-							id={theme.id}
-							class="card"
-							style="--z:{5 - i}"
-							on:click={push}
-							in:receive={{ key: theme.id }}
-							out:send={{ key: theme.id }}
-							animate:flip={{ duration: 200 }}
-						>
-							<div
-								class="card-face flex flex-col gap-8"
-								style="--deg:{-15 + i * 10}deg;--trans:{Math.abs(-15 + i * 10) * 2}px"
-							>
-								<h1 class="text-4xl">{theme.theme.toUpperCase()}</h1>
-								<h3 class="text-3xl">{theme.title}</h3>
-								<img class="cardback" src={theme.icon} alt="error!" />
-							</div>
-						</div>
-					{/each}
-				</div>
-				<div class="selected rounded bg-wooden text-2xl py-8 px-2 gap-6">
-					<h1 class="text-4xl">SELLECTED</h1>
-					{#each selected as item (item.id)}
-						<div
-							class="flex flex-col justify-center w-full h-32 bottom-3 rounded border text-center shadow-2xl"
-							in:receive={{ key: item.id }}
-							out:send={{ key: item.id }}
-							animate:flip={{ duration: 200 }}
-						>
-							<h1 class="text-4xl">
-								{item.title}
-							</h1>
-						</div>
-					{/each}
-					<button
-						class="absolute bottom-3 rounded border p-8 w-11/12 text-2xl shadow-2xl"
-						disabled={!cont}
-						on:click={() => next(-1)}>CONTINUE</button
+				{#each themes.filter((x) => !x.checked) as theme, i (theme.id)}
+					<div
+						id={theme.id}
+						class="card"
+						style="--z:{5 - i}"
+						on:click={push}
+						in:receive={{ key: theme.id }}
+						out:send={{ key: theme.id }}
+						animate:flip={{ duration: 200 }}
 					>
-				</div>
-			</div>
-			<div class="fill flexbox" transition:fade>
-				{#each themes.filter((x) => x.checked && !x.fixed) as theme}
-					<div class="realative fill flexbox">
-						{#each user.filter((x) => x.theme === theme.theme) as user, i}
-							<label id="check">
-								<input id={user.id} type="checkbox" class="hidden" on:click={check_only_one} />
-								<div class="card" style="--z:{5 - i}">
-									<div class="card-face gap-6" style="--deg:{i * 10}deg;--trans:{Math.abs(-15 + i * 10) * 2}px">
-										<div class="w-full h-1/4 flex flex-row align-center basis-0 pl-6">
-											<p class="grow-[3] text-3xl">{user.name}</p>
-											<div class="w-1/4">
-												<img class="w-1/4 object-fill" src={theme.icon} alt="error!" />
-											</div>
-										</div>
-										<p>{Corpmaster.filter((x) => x.name === user.name).map((y) => y.outline)[0]}</p>
-									</div>
-								</div>
-							</label>
-						{/each}
+						<div
+							class="card-face flex flex-col gap-8"
+							style="--deg:{-15 + i * 10}deg;--trans:{Math.abs(-15 + i * 10) * 2}px"
+						>
+							<h1 class="text-4xl">{theme.theme.toUpperCase()}</h1>
+							<h3 class="text-3xl">{theme.title}</h3>
+							<img class="cardback" src={theme.icon} alt="error!" />
+						</div>
 					</div>
 				{/each}
 			</div>
-		</Carousel>
-	</Window>
-</div>
+			<div class="selected rounded bg-wooden text-2xl py-8 px-2 gap-6">
+				<h1 class="text-4xl">SELLECTED</h1>
+				{#each selected as item (item.id)}
+					<div
+						class="flex flex-col justify-center w-full h-32 bottom-3 rounded border text-center shadow-2xl"
+						in:receive={{ key: item.id }}
+						out:send={{ key: item.id }}
+						animate:flip={{ duration: 200 }}
+					>
+						<h1 class="text-4xl">
+							{item.title}
+						</h1>
+					</div>
+				{/each}
+				<button
+					class="absolute bottom-3 rounded border p-8 w-11/12 text-2xl shadow-2xl"
+					disabled={!cont}
+					on:click={() => next(-1)}>CONTINUE</button
+				>
+			</div>
+		</div>
+		<div class="fill flexbox" transition:fade>
+			{#each themes.filter((x) => x.checked && !x.fixed) as theme}
+				<div class="realative fill flexbox">
+					{#each user.filter((x) => x.theme === theme.theme) as user, i}
+						<label id="check">
+							<input id={user.id} type="checkbox" class="hidden" on:click={check_only_one} />
+							<div class="card" style="--z:{5 - i}">
+								<div class="card-face gap-6" style="--deg:{i * 10}deg;--trans:{Math.abs(-15 + i * 10) * 2}px">
+									<div class="w-full h-1/4 flex flex-row align-center basis-0 pl-6">
+										<p class="grow-[3] text-3xl">{user.name}</p>
+										<div class="w-1/4">
+											<img class="w-1/4 object-fill" src={theme.icon} alt="error!" />
+										</div>
+									</div>
+									<p>{Corpmaster.filter((x) => x.name === user.name).map((y) => y.outline)[0]}</p>
+								</div>
+							</div>
+						</label>
+					{/each}
+				</div>
+			{/each}
+		</div>
+	</Carousel>
+</Window>
 
 <style>
 	* {
 		color: #000;
-	}
-
-	.container {
-		position: relative;
-		width: 1300px;
-		height: 750px;
-		margin-left: 120px;
-		margin-top: 5px;
-		background-color: transparent;
 	}
 
 	.flexbox {

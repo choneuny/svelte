@@ -100,9 +100,7 @@
 	<div class="wallpaper">
 		<Fairy />
 		{#each current_step.apps as app (app.id)}
-			<div class="w-fit h-fit" in:receive={{ key: app.id }} out:send={{ key: app.id }}>
-				<svelte:component this={app.component} {...app.props} />
-			</div>
+			<svelte:component this={app.component} {...app.props} />
 		{/each}
 		{#if diag_open}
 			<Typer bind:dialog={diag} bind:isopen={diag_open} />

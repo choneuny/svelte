@@ -5,7 +5,23 @@
 	import { fade } from "svelte/transition";
 	import Window from "../lib/Window.svelte";
 	import Carousel from "../lib/Carousel.svelte";
+	import app_styles from "../lib/__AppStyles.js";
 	export let check_done;
+
+	let newsopen = false;
+	let moveSlide;
+	const news_key = { symbol: "corp", title: "title", content: "body" };
+	const mystyle = {
+		width: 800,
+		height: 780,
+		left: 400,
+		top: 5,
+		title: "공시 발표",
+		icon: "./img/icon/internet.svg",
+		bgcolor: "#f5f5f5",
+	};
+	const styles = Object.assign(app_styles, mystyle);
+
 	const SetCurrentNews = () => {
 		const userstock = JSON.parse(localStorage.getItem("user"));
 		const validStock = userstock.filter((item) => item.amount > 0 && item.name !== "cash");
@@ -22,21 +38,8 @@
 		console.log(check);
 		return check;
 	};
-
 	let dailyNews = [...SetCurrentNews()];
-	console.log(`dailyNews: ${dailyNews}`);
 	afterUpdate(() => (dailyNews = [...SetCurrentNews()]));
-
-	let newsopen = false;
-	const pkg = {
-		icon: "./img/icon/internet.svg",
-		title: "인터넷",
-		left: 0,
-		top: 0,
-		bgcolor: "#b2b2b2",
-	};
-	const news_key = { symbol: "corp", title: "title", content: "body" };
-	let moveSlide;
 </script>
 
 {#if !newsopen}
@@ -51,28 +54,27 @@
 		/>
 	</div>
 {:else}
-	<div class="container" transition:fade>
-		<Window {...pkg}>
-			<div class="dart">
-				<div class="header relative border-4 border-black border-inset">
-					<img class="absolute left-4 h-5/6" src="./img/icon/dart.svg" alt="./img/icon/alt.png" />
-				</div>
-				<div
-					class="content overflow-hidden box-border border-4 border-black border-inset rounded"
-					on:load={(e) => console.log(e.target.offsetWidth)}
-				>
-					<Carousel count={dailyNews.length} width={763} bind:moveSlide show_control={false}>
-						{#each dailyNews as news, i}
-							<div
-								class="relative w-1/2 bg-white text-gray flex flex-col gap-8 p-8 pr-12"
-								on:dblclick={() => moveSlide(-1)}
-							>
-								<p class="text-center" style="font-size:{40}px">㈜{news[news_key.symbol]}</p>
-								<p class="text-center" style="font-size:{30}px">{news[news_key.title]}</p>
-								<p style="font-size:{20}px">
-									{@html news[news_key.content].replace(/-/g, "<br />&nbsp;-")}
-								</p>
-								<!-- <svg class="w-full h-full" viewBox="0 0 500 500" preserveAspectRatio="none">
+	<Window {styles}>
+		<div class="dart">
+			<div class="header relative border-4 border-black border-inset">
+				<img class="absolute left-4 h-5/6" src="./img/icon/dart.svg" alt="./img/icon/alt.png" />
+			</div>
+			<div
+				class="content overflow-hidden box-border border-4 border-black border-inset rounded"
+				on:load={(e) => console.log(e.target.offsetWidth)}
+			>
+				<Carousel count={dailyNews.length} width={763} bind:moveSlide show_control={false}>
+					{#each dailyNews as news, i}
+						<div
+							class="relative w-1/2 bg-white text-gray flex flex-col gap-8 p-8 pr-12"
+							on:dblclick={() => moveSlide(-1)}
+						>
+							<p class="text-center" style="font-size:{40}px">㈜{news[news_key.symbol]}</p>
+							<p class="text-center" style="font-size:{30}px">{news[news_key.title]}</p>
+							<p style="font-size:{20}px">
+								{@html news[news_key.content].replace(/-/g, "<br />&nbsp;-")}
+							</p>
+							<!-- <svg class="w-full h-full" viewBox="0 0 500 500" preserveAspectRatio="none">
 									<foreignObject width="500" height="500">
 										<p class="text-center" style="font-size:{40}px">㈜{news[news_key.symbol]}</p>
 										<p class="text-center" style="font-size:{30}px">{news[news_key.title]}</p>
@@ -81,49 +83,41 @@
 										</p>
 									</foreignObject>
 								</svg> -->
-								<div
-									class="absolute right-28 bottom-8 w-[100px] {i == 0
-										? 'opacity-50'
-										: 'transition duration-300 hover:opacity-50'}"
-								>
-									<img
-										class="  rotate-90"
-										src="./img/icon/downward-nobg.png"
-										alt="next"
-										on:click={i === 0 ? null : () => moveSlide(1)}
-									/>
-								</div>
-								<div
-									class="absolute right-8 bottom-8 w-[100px] {i == dailyNews.length - 1
-										? 'opacity-50'
-										: 'transition duration-300 hover:opacity-50 '}"
-								>
-									<img
-										class=" -rotate-90"
-										src="./img/icon/downward-nobg.png"
-										alt="next"
-										on:click={i === dailyNews.length - 1 ? null : () => moveSlide(-1)}
-									/>
-								</div>
+							<div
+								class="absolute right-28 bottom-8 w-[100px] {i == 0
+									? 'opacity-50'
+									: 'transition duration-300 hover:opacity-50'}"
+							>
+								<img
+									class="  rotate-90"
+									src="./img/icon/downward-nobg.png"
+									alt="next"
+									on:click={i === 0 ? null : () => moveSlide(1)}
+								/>
 							</div>
-						{/each}
-					</Carousel>
-				</div>
+							<div
+								class="absolute right-8 bottom-8 w-[100px] {i == dailyNews.length - 1
+									? 'opacity-50'
+									: 'transition duration-300 hover:opacity-50 '}"
+							>
+								<img
+									class=" -rotate-90"
+									src="./img/icon/downward-nobg.png"
+									alt="next"
+									on:click={i === dailyNews.length - 1 ? null : () => moveSlide(-1)}
+								/>
+							</div>
+						</div>
+					{/each}
+				</Carousel>
 			</div>
-		</Window>
-	</div>
+		</div>
+	</Window>
 {/if}
 
 <style>
 	* {
 		color: black;
-	}
-	.container {
-		position: absolute;
-		width: 52%;
-		height: 90%;
-		margin-left: calc(50% - 400px);
-		margin-top: 5px;
 	}
 	.dart {
 		width: 100%;

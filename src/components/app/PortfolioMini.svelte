@@ -2,13 +2,17 @@
 	import { onMount, afterUpdate } from "svelte";
 	import ChartDoughnut from "../lib/ChartDoughnut.svelte";
 	import Window from "../lib/Window.svelte";
-	const pkg = {
-		icon: "./img/icon/alt.png",
+	import app_styles from "../lib/__AppStyles";
+	const mystyle = {
+		width: 400,
+		height: 500,
+		left: 20,
+		top: 20,
 		title: "포트폴리오",
-		left: 0,
-		top: 0,
-		bgcolor: "#b2b2b2",
+		icon: "./img/icon/chart.png",
+		bgcolor: "#f5f5f5",
 	};
+	const styles = Object.assign(app_styles, mystyle);
 
 	const user = JSON.parse(localStorage.getItem("user"));
 	const data = user
@@ -29,13 +33,11 @@
 	};
 </script>
 
-<div class="portmini">
-	<Window {...pkg}>
-		<div class="radius">
-			<ChartDoughnut data={data_doughnut} />
-		</div>
-	</Window>
-</div>
+<Window {styles}>
+	<div class="radius">
+		<ChartDoughnut data={data_doughnut} />
+	</div>
+</Window>
 
 <style>
 	* {
@@ -52,13 +54,5 @@
 		padding: 3%;
 		box-sizing: border-box;
 		background-color: #fff;
-	}
-	.portmini {
-		position: absolute;
-		left: 10px;
-		top: 10px;
-		width: 400px;
-		height: 500px;
-		margin: 1%;
 	}
 </style>

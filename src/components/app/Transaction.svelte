@@ -50,17 +50,32 @@
 	.transaction {
 		position: absolute;
 		width: 60%;
-		height: 85%;
-		top: 10px;
+		height: 90%;
 		right: 50px;
+		top: 10px;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		margin: 20px;
-		padding: 10px;
+		padding: 30px 20px;
 		gap: 30px;
 		overflow-y: auto;
+		-ms-overflow-style: none; /* IE and Edge */
+		scrollbar-width: none; /* Firefox */
 		box-sizing: border-box;
+		mask-image: linear-gradient(
+			to top,
+			rgba(0, 0, 0, 0) 0%,
+			rgba(0, 0, 0, 1) 6%,
+			rgba(0, 0, 0, 1) 94%,
+			rgba(0, 0, 0, 0) 100%
+		);
+		-webkit-mask-image: linear-gradient(
+			to top,
+			rgba(0, 0, 0, 0) 0%,
+			rgba(0, 0, 0, 1) 6%,
+			rgba(0, 0, 0, 1) 94%,
+			rgba(0, 0, 0, 0) 100%
+		);
 	}
 
 	.flexrow {
@@ -72,14 +87,6 @@
 	}
 
 	.transaction::-webkit-scrollbar {
-		width: 10px;
-	}
-	.transaction::-webkit-scrollbar-thumb {
-		background-color: #2f3542;
-		border-radius: 10px;
-	}
-	.transaction::-webkit-scrollbar-track {
-		background-color: grey;
-		border-radius: 10px;
+		display: none; /* Chrome, Safari, Opera*/
 	}
 </style>

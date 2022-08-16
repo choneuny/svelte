@@ -1,60 +1,53 @@
 <script>
 	// @ts-nocheck
 	// definitions
-	import { onMount, afterUpdate } from "svelte/internal";
 	import Window from "../lib/Window.svelte";
 	import Carousel from "../lib/Carousel.svelte";
-	import SetCurrentNews from "../lib/SetCurrentNews.js";
+	import app_styles from "../lib/__AppStyles";
 	export let check_done;
 	const dailyNews = JSON.parse(localStorage.getItem("news"));
-	const pkg = {
-		icon: "./img/icon/internet.svg",
+	const explain_key = { symbol: "corp", title: "title", content: "why" };
+	const mystyle = {
+		width: 800,
+		height: 780,
+		left: 700,
+		top: 20,
 		title: "인터넷",
-		left: 0,
-		top: 0,
+		icon: "./img/icon/internet.svg",
 		bgcolor: "#b2b2b2",
 	};
-	const explain_key = { symbol: "corp", title: "title", content: "why" };
+	const styles = Object.assign(app_styles, mystyle);
 
 	// run on mount
 	check_done();
 	console.log(dailyNews[0][explain_key.symbol]);
 </script>
 
-<div class="explain">
-	<Window {...pkg}>
-		<div class="dart">
-			<div class="header">
-				<img src="./img/icon/dart.png" alt="./img/icon/alt.png" />
-			</div>
-			<div class="content">
-				<Carousel count={dailyNews.length} width={750}>
-					{#each dailyNews as news, i}
-						<div class="w-1/2 bg-white text-gray flex flex-col gap-8 p-8 box-border">
-							<p class="font-bold text-2xl text-center antialiased">
-								㈜{news[explain_key.symbol]} 공시 발표 직후 주가 변동 해설
-							</p>
-							<p class="font-bold text-xl antialiased">
-								{@html news[explain_key.content].replace(/-/g, "<br />&nbsp;&nbsp;-")}
-							</p>
-						</div>
-					{/each}
-				</Carousel>
-			</div>
+<Window {styles}>
+	<div class="dart">
+		<div class="header">
+			<img src="./img/icon/dart.png" alt="./img/icon/alt.png" />
 		</div>
-	</Window>
-</div>
+		<div class="content">
+			<Carousel count={dailyNews.length} width={750}>
+				{#each dailyNews as news, i}
+					<div class="w-1/2 bg-white text-gray flex flex-col gap-8 p-8 box-border">
+						<p class="font-bold text-2xl text-center antialiased">
+							㈜{news[explain_key.symbol]} 공시 발표 직후 주가 변동 해설
+						</p>
+						<p class="font-bold text-xl antialiased">
+							{@html news[explain_key.content].replace(/-/g, "<br />&nbsp;&nbsp;-")}
+						</p>
+					</div>
+				{/each}
+			</Carousel>
+		</div>
+	</div>
+</Window>
 
 <style>
 	* {
 		color: black;
-	}
-	.explain {
-		position: absolute;
-		width: 52%;
-		height: 90%;
-		margin-left: calc(50% - 100px);
-		margin-top: 20px;
 	}
 	.dart {
 		width: 800px;
