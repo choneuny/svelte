@@ -1,6 +1,7 @@
 <script>
 	// @ts-nocheck
 	// definitions
+	import { image } from "../data/GlovalVariable.js";
 	import Window from "../lib/Window.svelte";
 	import Carousel from "../lib/Carousel.svelte";
 	import app_styles from "../lib/__AppStyles";
@@ -13,7 +14,7 @@
 		left: 700,
 		top: 20,
 		title: "인터넷",
-		icon: "./img/icon/internet.svg",
+		icon: image.internet,
 		bgcolor: "#b2b2b2",
 	};
 	const styles = Object.assign(app_styles, mystyle);
@@ -26,7 +27,7 @@
 <Window {styles}>
 	<div class="dart">
 		<div class="header">
-			<img src="./img/icon/dart.png" alt="./img/icon/alt.png" />
+			<img src={image.dart} alt={image.alt} />
 		</div>
 		<div class="content">
 			<Carousel count={dailyNews.length} width={750}>

@@ -1,4 +1,5 @@
 <script>
+	import { image } from "../data/GlovalVariable.js";
 	import ChartDoughnut from "../lib/ChartDoughnut.svelte";
 	import ChartBar from "../lib/ChartBar.svelte";
 	import ChartLine from "../lib/ChartLine.svelte";
@@ -13,7 +14,7 @@
 		left: 10,
 		top: 10,
 		title: "포트폴리오",
-		icon: "./img/icon/chart.png",
+		icon: image.chart,
 		bgcolor: "#b2b2b2",
 	};
 	const styles = Object.assign(app_styles, mystyle);

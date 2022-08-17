@@ -1,4 +1,5 @@
 <script>
+	import { image } from "../data/GlovalVariable.js";
 	import { fade, crossfade } from "svelte/transition";
 	import { quintOut } from "svelte/easing";
 	import { flip } from "svelte/animate";
@@ -34,13 +35,9 @@
 		},
 	});
 	let apps = [
-		// { id: "themeselect", component: ThemeSelect, props: { check_done }, icon: "./img/icon/card_back.svg" },
-		{ id: "announce", component: Announce, props: { check_done }, icon: "./img/icon/internet.svg" },
-		// { id: "transaction", component: Transaction, props: { check_done }, icon: "./img/icon/transaction_icon.svg" },
-		{ id: "pfl", component: Portfolio, props: { check_done }, icon: "./img/icon/chart.png" },
-		// { id: "pfl_mini", component: PortfolioMini, props: { check_done }, icon: "./img/icon/chart.png" },
-		{ id: "explain", component: Explain, props: { check_done }, icon: "./img/icon/adtech-7.png" },
-		// { id: "news", component: News, props: { check_done }, icon: "./img/icon/internet.svg" },
+		{ id: "announce", component: Announce, props: { check_done }, icon: image.internet },
+		{ id: "pfl", component: Portfolio, props: { check_done }, icon: image.chart },
+		{ id: "history", component: Explain, props: { check_done }, icon: image.history },
 		// {
 		// 	id: "roundclear",
 		// 	title: "Round Clear",

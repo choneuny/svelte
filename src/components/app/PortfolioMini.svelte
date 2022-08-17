@@ -1,5 +1,5 @@
 <script>
-	import { onMount, afterUpdate } from "svelte";
+	import { image } from "../data/GlovalVariable.js";
 	import ChartDoughnut from "../lib/ChartDoughnut.svelte";
 	import Window from "../lib/Window.svelte";
 	import app_styles from "../lib/__AppStyles";
@@ -9,7 +9,7 @@
 		left: 20,
 		top: 20,
 		title: "포트폴리오",
-		icon: "./img/icon/chart.png",
+		icon: image.chart,
 		bgcolor: "#f5f5f5",
 	};
 	const styles = Object.assign(app_styles, mystyle);

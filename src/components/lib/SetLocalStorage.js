@@ -1,24 +1,25 @@
 import Corpmaster from "../data/Corpmaster.js";
+import { image } from "../data/GlovalVariable.js";
 
 const SetLocalStorage = () => {
 	const theme = [
-		{ id: "theme_01", theme: "webtoon", title: "웹툰", checked: false, fixed: false, icon: "./img/icon/webtoon.svg" },
+		{ id: "theme_01", theme: "webtoon", title: "웹툰", checked: false, fixed: false, icon: image.webtoon },
 		{
 			id: "theme_02",
 			theme: "robot",
 			title: "로봇/데이터",
 			checked: false,
 			fixed: false,
-			icon: "./img/icon/robot.svg",
+			icon: image.robot,
 		},
-		{ id: "theme_03", theme: "adtech", title: "애드테크", checked: false, fixed: false, icon: "./img/icon/adtech.svg" },
+		{ id: "theme_03", theme: "adtech", title: "애드테크", checked: false, fixed: false, icon: image.adtech },
 		{
 			id: "theme_04",
 			theme: "sensor",
 			title: "첨단 센서",
 			checked: false,
 			fixed: false,
-			icon: "./img/icon/sensor.svg",
+			icon: image.sensor,
 		},
 	];
 	const UserStock = Corpmaster.map((x) => {

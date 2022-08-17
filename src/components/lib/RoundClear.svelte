@@ -1,4 +1,5 @@
 <script>
+	import { background as bg } from "../data/GlovalVariable.js";
 	import { next_round } from "../data/stores.js";
 	export let increasecount;
 
@@ -30,10 +31,10 @@
 	}, 2000);
 </script>
 
-<img src="./img/background/Sunset.gif" alt="RoundClear" />
+<div style={bg.roundclear} />
 
 <style>
-	img {
+	div {
 		position: absolute;
 		width: 100%;
 		height: 100%;

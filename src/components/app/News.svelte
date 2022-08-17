@@ -1,5 +1,6 @@
 <script>
 	// @ts-nocheck
+	import { image, background as bg } from "../data/GlovalVariable.js";
 	import { fade } from "svelte/transition";
 	import Newsmaster from "../data/Newsmaster";
 	import Window from "../lib/Window.svelte";
@@ -15,13 +16,6 @@
 	const theme = JSON.parse(localStorage.getItem("theme"));
 	const news = Newsmaster.filter((x) => x.corp == "");
 
-	const icon_path = (x) => "./img/icon/" + x + ".svg";
-	const icons = {
-		sensor: icon_path("sensor"),
-		robot: icon_path("robot"),
-		adtech: icon_path("adtech"),
-		webtoon: icon_path("webtoon"),
-	};
 	const news_generator = () => {
 		const unchosen = theme.filter((x) => x.checked == false).map((x) => x.theme);
 		unchosen.forEach((x) => {
@@ -49,7 +43,7 @@
 		left: 400,
 		top: 10,
 		title: "인터넷",
-		icon: "./img/icon/internet.svg",
+		icon: image.internet,
 		bgcolor: "#b2b2b2",
 	};
 	const styles = Object.assign(app_styles, mystyle);
@@ -64,7 +58,8 @@
 
 {#if !newsopen}
 	<div
-		class="newscomes"
+		class="newscomes soft_blink"
+		style={bg.newspaper}
 		on:click={() => {
 			newsopen = !newsopen;
 			console.log(newsopen);
@@ -99,8 +94,8 @@
 								<img
 									class="absolute bottom-8 rotate-90  
 										{i == 0 ? 'opacity-50' : 'transition duration-300 hover:opacity-50'}"
-									src="./img/icon/downward-nobg.png"
-									alt="next"
+									src={image.down_arrow}
+									alt={image.alt}
 									on:click={i === 0 ? null : () => moveSlide(1)}
 								/>
 							</div>
@@ -108,7 +103,7 @@
 							<div class="w-3/4 h-full flex flex-col gap-4">
 								<!--NEWS IMAGE-->
 								<div class="w-full h-1/4 bg-[#bcbcbc] flex flex-row items-center justify-center gap-12">
-									<img class="h-full" src={icons[news.theme]} alt="err" />
+									<img class="h-full" src={image[news.theme]} alt="err" />
 									<h style="font-size:{40}px">{news.theme}</h>
 								</div>
 								<!--NEWS BODY-->
@@ -128,8 +123,8 @@
 								<img
 									class="absolute bottom-8 -rotate-90
 										{i == news_list.length - 1 ? 'opacity-50' : 'transition duration-300 hover:opacity-50 '}"
-									src="./img/icon/downward-nobg.png"
-									alt="next"
+									src={image.down_arrow}
+									alt={image.alt}
 									on:click={i === news_list.length - 1 ? null : () => moveSlide(-1)}
 								/>
 							</div>
@@ -158,7 +153,7 @@
 		border: 1px solid transparent;
 	}
 	.newscomes {
-		background: url(./img/NEwspaper_alarmed.png) no-repeat;
+		background-repeat: no-repeat;
 		background-size: contain;
 		background-position: center;
 		position: absolute;

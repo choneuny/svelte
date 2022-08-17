@@ -2,7 +2,6 @@
 	// width, height, left, top are integers
 	// title, bgcolor, icon are strings, + icon is a path to an image
 	export let styles;
-	let alt = "./img/icon/alt.png";
 	let moving = false;
 
 	// object to css styles
@@ -23,7 +22,7 @@
 	<!-- TITLEBAR -->
 	<div class="titlebar" on:mousedown={() => (moving = true)}>
 		<div class="nav">
-			<img src={styles.icon} {alt} />
+			<img src={styles.icon} alt={null} />
 		</div>
 		<p id="title">{styles.title}</p>
 	</div>

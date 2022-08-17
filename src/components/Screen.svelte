@@ -1,5 +1,6 @@
 <script>
 	// @ts-nocheck
+	import { image, background as bg } from "./data/GlovalVariable.js";
 	import { fade, crossfade } from "svelte/transition";
 	import { quintOut } from "svelte/easing";
 	import Taskbar from "./lib/Taskbar.svelte";
@@ -96,8 +97,8 @@
 	let diag = InitDialog[current_step.id];
 </script>
 
-<div class="screen" transition:fade>
-	<div class="wallpaper">
+<div class="screen" style={bg.monitor} transition:fade>
+	<div class="wallpaper" style={bg.gradient}>
 		<Fairy />
 		{#each current_step.apps as app (app.id)}
 			<svelte:component this={app.component} {...app.props} />
@@ -114,8 +115,6 @@
 		position: relative;
 		width: inherit;
 		height: inherit;
-		background: url(./img/background/monitor.png) no-repeat;
-		background-size: cover;
 	}
 	.wallpaper {
 		position: absolute;
@@ -124,7 +123,6 @@
 		width: 99%;
 		height: 98.5%;
 		transform: translate(-50%, -50%);
-		background: url(./img/background/gradient.png);
 		background-size: contain;
 	}
 </style>

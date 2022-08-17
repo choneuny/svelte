@@ -1,9 +1,9 @@
 <script>
+	import { image } from "../data/GlovalVariable.js";
 	import { onMount } from "svelte";
 	import { fade } from "svelte/transition";
 	export let dialog;
 	export let isopen;
-	const fairy = "./img/icon/StockVity.png";
 	const dialogLen = dialog.length;
 	const typeSpeed = 20;
 	let done = true;
@@ -63,7 +63,7 @@
 		nextDialog();
 	}}
 >
-	<img class="absolute scale-x-[-1] left-4 bottom-56 z-50" src={fairy} alt="err" />
+	<img class="absolute scale-x-[-1] left-4 bottom-56 z-50" src={image.fairy} alt={image.alt} />
 	<div class="relative dialog border-4 border-stone-300 rounded-t-2xl">
 		<p class="absolute -top-4 left-36 w-1/4 h-1/6 border-4 border-stone-300 rounded-xl text-2xl text-center bg-black">
 			스톡비티
@@ -71,7 +71,7 @@
 		<p class="text-3xl antialiased break-words leading-relaxed">{part}</p>
 		<img
 			class="next blink {done ? '' : 'hidden'} right-8 absolute"
-			src={dialogQueue >= dialogLen - 1 ? "./img/icon/close.svg" : "./img/icon/next.svg"}
+			src={dialogQueue >= dialogLen - 1 ? image.close : image.next}
 			alt="error"
 		/>
 	</div>

@@ -1,13 +1,15 @@
 <script>
+	import { image, background as bg } from "./data/GlovalVariable.js";
 	import { fade } from "svelte/transition";
 	import Typer from "./lib/Typer.svelte";
 	import InitDialog from "./data/InitDialog";
 	export let page;
 	export let setPage;
-	const fairy = "./img/icon/StockVity.png";
+
 	const dialog = [...InitDialog[page]];
 	console.log(dialog);
 	let isopen = true;
+
 	// if (!isopen) {
 	// 	setTimeout(() => {
 	// 		setPage("screen");
@@ -15,11 +17,11 @@
 	// }
 </script>
 
-<div class="room" transition:fade>
+<div class="room" style={bg.desk} transition:fade>
 	<Typer {dialog} bind:isopen />
 	{#if isopen}
 		<div class="absolute w-1/4 right-4 top-8" transition:fade>
-			<img class="w-full h-fit" src={fairy} alt="err" />
+			<img class="w-full h-fit" src={image.fairy} alt="err" />
 		</div>
 	{:else}
 		{setTimeout(() => {
@@ -33,7 +35,7 @@
 		position: absolute;
 		width: inherit;
 		height: inherit;
-		background: url(./img/background/desk.png) no-repeat;
+		background-repeat: no-repeat;
 		background-size: cover;
 	}
 </style>

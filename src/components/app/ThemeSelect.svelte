@@ -1,4 +1,5 @@
 <script>
+	import { image } from "../data/GlovalVariable.js";
 	import { onDestroy, tick } from "svelte";
 	import { flip } from "svelte/animate";
 	import { quintOut } from "svelte/easing";
@@ -23,7 +24,8 @@
 		left: 120,
 		top: 5,
 		title: "Select Themes!",
-		icon: "./img/icon/card_back.svg",
+		icon: image.card_back,
+		bgcolor: "transparent",
 	};
 	const styles = Object.assign(app_styles, mystyle);
 	console.log(styles);

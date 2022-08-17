@@ -1,4 +1,5 @@
 <script>
+	import { image } from "./components/data/GlovalVariable.js";
 	import Intro from "./components/Intro.svelte";
 	import Room from "./components/Room.svelte";
 	import Screen from "./components/Screen.svelte";
@@ -30,7 +31,11 @@
 	{:else if page === "screen"}
 		<Screen />
 	{/if}
-	<button class="fullscreen" on:click={(e) => toggleFullScreenMode(e)} />
+	<button
+		class="fullscreen"
+		style="background: url({image.fullscreen}) no-repeat;"
+		on:click={(e) => toggleFullScreenMode(e)}
+	/>
 </div>
 
 <style>
@@ -43,7 +48,7 @@
 		z-index: 3;
 		width: calc(var(--size) * 0.8px);
 		height: calc(var(--size) * 0.45px);
-		margin: 3% 0px;
+		margin: 3% 0;
 		border: none;
 		align-items: center;
 		background-color: white;
@@ -57,7 +62,6 @@
 		height: calc(var(--size) * 0.025px);
 		right: 5px;
 		bottom: 5px;
-		background: url(./img/icon/fullscreen.svg) no-repeat;
 		background-size: cover;
 		padding: 0;
 		border: 0;

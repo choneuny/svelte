@@ -1,8 +1,8 @@
 <script>
 	// @ts-nocheck
+	import { image, background as bg } from "../data/GlovalVariable.js";
 	import Newsmaster from "../data/Newsmaster";
 	import { onMount, afterUpdate } from "svelte/internal";
-	import { fade } from "svelte/transition";
 	import Window from "../lib/Window.svelte";
 	import Carousel from "../lib/Carousel.svelte";
 	import app_styles from "../lib/__AppStyles.js";
@@ -17,7 +17,7 @@
 		left: 400,
 		top: 5,
 		title: "공시 발표",
-		icon: "./img/icon/internet.svg",
+		icon: image.internet,
 		bgcolor: "#f5f5f5",
 	};
 	const styles = Object.assign(app_styles, mystyle);
@@ -46,6 +46,7 @@
 	<div class="container">
 		<div
 			class="newscomes soft_blink"
+			style={bg.announce}
 			on:click={() => {
 				check_done();
 				newsopen = !newsopen;
@@ -57,7 +58,7 @@
 	<Window {styles}>
 		<div class="dart">
 			<div class="header relative border-4 border-black border-inset">
-				<img class="absolute left-4 h-5/6" src="./img/icon/dart.svg" alt="./img/icon/alt.png" />
+				<img class="absolute left-4 h-5/6" src={image.dart} alt={image.alt} />
 			</div>
 			<div
 				class="content overflow-hidden box-border border-4 border-black border-inset rounded"
@@ -90,7 +91,7 @@
 							>
 								<img
 									class="  rotate-90"
-									src="./img/icon/downward-nobg.png"
+									src={image.down_arrow}
 									alt="next"
 									on:click={i === 0 ? null : () => moveSlide(1)}
 								/>
@@ -102,7 +103,7 @@
 							>
 								<img
 									class=" -rotate-90"
-									src="./img/icon/downward-nobg.png"
+									src={image.down_arrow}
 									alt="next"
 									on:click={i === dailyNews.length - 1 ? null : () => moveSlide(-1)}
 								/>
@@ -144,7 +145,7 @@
 		box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.25);
 	}
 	.newscomes {
-		background: url(./img/newspaper.svg) no-repeat;
+		background-repeat: no-repeat;
 		background-size: contain;
 		background-position: center;
 		position: absolute;

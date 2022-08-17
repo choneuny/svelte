@@ -1,7 +1,7 @@
-<nav class="bg-black">
+<nav class="bg-black" style="position: Sticky; top:0px; z-index:999;">
 	<!-- NAV VAR-->
 	<div class="mx-14 px-2 sm:px-6 lg:px-2">
-		<div class="relative flex items-center justify-between h-16">
+		<div class="relative flex items-center justify-between h-20">
 			<!-- Mobile menu button-->
 			<div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
 				<button
@@ -52,24 +52,29 @@
 			<!-- DESKTOP-->
 			<div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
 				<div class=" sm:block sm:ml-6">
-					<div class="flex space-x-4">
+					<div class="flex space-x-4 gap-8">
 						<!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-						<a href={null} class="bg-gray-700 text-white px-3 py-2 rounded-md text-xl font-medium" aria-current="page"
-							>Dashboard</a
+						<p
+							class="nodrag text-white px-3 py-2 tracking-widest"
+							style="font-family: roboto; font-size: 28px; font-weight: 600;"
 						>
+							STOCKVITY
+						</p>
 
 						<a
 							href={"#embededgame"}
-							class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-xl font-medium"
+							class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-3 rounded-md align-middle"
+							style="font-family: roboto; font-size: 22px;"
 						>
-							Play
+							PLAY
 						</a>
 
 						<a
 							href={"#about"}
-							class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-xl font-medium"
+							class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-3 rounded-md"
+							style="font-family: roboto; font-size: 22px;"
 						>
-							About
+							ABOUT
 						</a>
 					</div>
 				</div>
