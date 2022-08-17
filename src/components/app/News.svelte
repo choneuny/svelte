@@ -13,8 +13,19 @@
 	const news_key = { symbol: "", title: "title", content: "body" };
 
 	const user = JSON.parse(localStorage.getItem("user"));
-	const theme = JSON.parse(localStorage.getItem("theme"));
+	const themes = JSON.parse(localStorage.getItem("theme"));
 	const news = Newsmaster.filter((x) => x.corp == "");
+
+	let theme = [...themes];
+	theme.forEach((x) => {
+		if (user.filter((y) => y.theme === x.theme).reduce((a, b) => a + b.amount, 0) === 0) {
+			x.checked = false;
+			x.fixed = false;
+		}
+	});
+	localStorage.setItem("theme", JSON.stringify(theme));
+	console.log(themes);
+	console.log(theme);
 
 	const news_generator = () => {
 		const unchosen = theme.filter((x) => x.checked == false).map((x) => x.theme);

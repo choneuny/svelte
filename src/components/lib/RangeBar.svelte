@@ -4,24 +4,47 @@
 	import "../../assets/css/range.scss";
 	export let id, amount, price; // from user
 	export let transaction;
-	export let max;
+	export let budget;
 	const size = 500;
 	const this_stock = transaction.find((x) => x.id == id);
-	const cash = JSON.parse(localStorage.getItem("cash")).amount;
 	let range;
-	let unchecked;
-	let value = 0;
-	let whole = 0;
-	let disabled = false;
-	max = Math.floor(cash / price);
+	let range_value = 0;
+	let max = Math.floor(budget / price);
+	let current = amount * 1.0;
 	afterUpdate(() => {
+		console.log("child update");
 		range = document.getElementById(JSON.stringify(id));
-		value = range.disabled ? Number(value) : Number(range.value);
-		console.log(range);
-		console.log("value:", value, "id:", range.id);
-		range.parentNode.style.setProperty("--value", range.value);
-		range.parentNode.style.setProperty("--text-value", JSON.stringify(range.value));
 	});
+	$: {
+		if (range?.value) {
+			range_value = Number(range.value);
+			console.log("outside", "id:", range.id, "value:", range_value, "max:", max, " budget:", budget, " price:", price);
+			if (!range.disabled) {
+				max = Math.floor(budget / price);
+				range.value > max ? (range.value = max) : null;
+				range_value = Number(range.value);
+				console.log(
+					"inside",
+					"id:",
+					range.id,
+					"value:",
+					range_value,
+					"max:",
+					max,
+					" budget:",
+					budget,
+					" price:",
+					price,
+					"current is",
+					current
+				);
+
+				range.parentNode.style.setProperty("--value", range.value);
+				range.parentNode.style.setProperty("--text-value", JSON.stringify(range.value));
+				current = range_value + amount;
+			}
+		}
+	}
 </script>
 
 <div class="transaction overflow-hidden" style="--size:{size}px">
@@ -40,29 +63,19 @@
 		<div class="range__progress" />
 	</div>
 	<div>
-		<p class="font-bold">최종 보유 수 : {value + amount}</p>
+		<p class="font-bold">최종 보유 수 : {current}</p>
 	</div>
 	<div class="check {id}">
 		<input
 			type="checkbox"
 			id="num{id}"
 			on:click={(e) => {
-				this_stock.amount = e.target.checked ? Number(value) : 0;
+				let check = e.target.checked;
+				check ? null : (range.value = 0);
+				this_stock.amount = e.target.checked ? Number(range.value) : 0;
 				console.log("stock is", this_stock.amount);
-				whole = transaction.reduce((arr, cur) => arr + cur.amount * cur.price, 0);
-				max = Math.floor((cash - whole) / price);
-				console.log(max);
-				range.disabled = e.target.checked;
-				unchecked = document.querySelectorAll(".range input");
-				for (let x of unchecked) {
-					if (x.disabled) {
-						console.log(x.id, "is disabled");
-						continue;
-					} else {
-						console.log(x.value);
-						x.value = x.value > max ? max : x.value;
-					}
-				}
+				console.log("max is", max);
+				range.disabled = check;
 				transaction = [...transaction];
 				console.log("transaction:", transaction);
 			}}

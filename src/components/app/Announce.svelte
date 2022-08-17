@@ -67,7 +67,7 @@
 				<Carousel count={dailyNews.length} width={763} bind:moveSlide show_control={false}>
 					{#each dailyNews as news, i}
 						<div
-							class="relative w-1/2 bg-white text-gray flex flex-col gap-8 p-8 pr-12"
+							class="relative w-full bg-white text-gray flex flex-col gap-8 p-8 pr-12"
 							on:dblclick={() => moveSlide(-1)}
 						>
 							<p class="text-center" style="font-size:{40}px">㈜{news[news_key.symbol]}</p>

@@ -12,6 +12,7 @@
 	export let check_done;
 	const threshold = 2 + $round;
 	let user = JSON.parse(localStorage.getItem("user"));
+	let history = JSON.parse(localStorage.getItem("history"));
 	let themes = JSON.parse(localStorage.getItem("theme"));
 	let next;
 	let cont = false;
@@ -78,8 +79,11 @@
 	onDestroy(() => {
 		themes.filter((x) => x.checked).forEach((x) => (x.fixed = true));
 		console.log(themes);
+		history.pop();
+		history.push(user);
 		localStorage.setItem("theme", JSON.stringify(themes));
 		localStorage.setItem("user", JSON.stringify(user));
+		localStorage.setItem("history", JSON.stringify(history));
 	});
 
 	$: cont = themes.filter((x) => x.checked).length === threshold;

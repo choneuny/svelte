@@ -1,31 +1,40 @@
 <script>
+	import { onMount } from "svelte";
 	import { background as bg } from "../data/GlovalVariable.js";
-	import { next_round } from "../data/stores.js";
+	import { transaction, next_round } from "../data/stores.js";
 	export let increasecount;
+	let news, user, history;
+	const reflect = () => {
+		const infl = news.reduce(function (total, current) {
+			const infl_list = current.infl.split("-");
+			infl_list.forEach((x) => total.push({ infl: x, fluct: current.fluct }));
+			return total;
+		}, []);
+		user.forEach((x) => (x.fluct = 1));
+		infl.forEach((x) => (user.find((y) => y.name === x.infl).fluct += x.fluct * 0.01));
+		user.forEach((x) => (x.price = x.price * x.fluct));
+	};
 
-	setTimeout(() => {
-		const cash = JSON.parse(localStorage.getItem("cash"));
-		const news = JSON.parse(localStorage.getItem("news"));
-		const user = JSON.parse(localStorage.getItem("user"));
-		const history = JSON.parse(localStorage.getItem("history"));
-		const reflect = () => {
-			const infl = news.reduce(function (total, current) {
-				const infl_list = current.infl.split("-");
-				infl_list.forEach((x) => total.push({ infl: x, fluct: current.fluct }));
-				return total;
-			}, []);
-			console.log("infl is ", infl);
-			user.forEach((x) => (x.fluct = 1));
-			infl.forEach((x) => (user.find((y) => y.name === x.infl).fluct += x.fluct * 0.01));
-			user.forEach((x) => (x.price = x.price * x.fluct));
-			console.log("user is ", user);
-		};
+	onMount(() => {
+		news = JSON.parse(localStorage.getItem("news"));
+		user = JSON.parse(localStorage.getItem("user"));
+		history = JSON.parse(localStorage.getItem("history"));
+		console.log("before: ", history);
+		console.log("transaction :", $transaction);
+		$transaction.forEach((x) => {
+			user.find((y) => y.name === x.name).amount += Number(x.amount);
+			user.find((y) => y.name === "cash").amount -= Number(x.amount) * Number(x.price);
+		});
+
 		reflect();
-		user.pop();
-		user.push(cash);
 		history.push(user);
+		console.log("user is ", user);
+		console.log("history is ", history);
 		localStorage.setItem("user", JSON.stringify(user));
 		localStorage.setItem("history", JSON.stringify(history));
+	});
+
+	setTimeout(() => {
 		increasecount();
 		next_round();
 	}, 2000);

@@ -67,8 +67,10 @@ let stocks = [
 		fluct: 1,
 	},
 ];
+export const transaction = writable([]);
 export const stock_store = writable(stocks);
 export const round = writable(0);
 export const pfl_page = writable("chart");
+export const record_transaction = (data) => transaction.update((value) => data);
 export const switch_page = (page) => pfl_page.update((value) => page);
 export const next_round = () => round.update((x) => x + 1);

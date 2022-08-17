@@ -1,6 +1,6 @@
 <script lang="js">
 	// @ts-nocheck
-
+	import { round, record_transaction } from "../data/stores.js";
 	import { afterUpdate, onDestroy } from "svelte";
 	import { fade } from "svelte/transition";
 	import LilStock from "../lib/LilStock.svelte";
@@ -8,40 +8,41 @@
 	export let check_done;
 	const user = JSON.parse(localStorage.getItem("user"));
 	const history = JSON.parse(localStorage.getItem("history"));
+	const cash = user.find((x) => x.name === "cash").amount;
+	let budget = cash * 1.0;
+
 	const validstock = user.filter((x) => x.amount > 0 && x.name !== "cash");
 	let transaction = validstock.map((x) => {
-		return { id: x.id, name: x.name, price: x.price, amount: 0 };
+		return { id: x.id, name: x.name, price: x.price, amount: 0, round: $round };
 	});
-	let max;
 	afterUpdate(() => {
+		console.log("parent update");
 		let checked = document.querySelectorAll(".check input");
 		let checked_count = [...checked].filter((x) => x.checked).length;
-		if (checked_count === checked.length) {
+		let done = checked_count === checked.length;
+		budget = cash * 1.0 - transaction.reduce((arr, cur) => arr + cur.amount * cur.price, 0);
+
+		console.log(transaction);
+		console.log(budget);
+		if (done) {
 			check_done();
+			record_transaction(transaction);
+			console.log("transaction is ", transaction);
+			console.log("history is ", history);
+			console.log("user is ", user);
+		} else {
+			check_done(false);
 		}
 	});
-	onDestroy(() => {
-		transaction.forEach((x) => {
-			user.find((y) => y.name === x.name).amount += Number(x.amount);
-		});
-		console.log("before: ");
-		console.log(history);
-		history.pop();
-		history.push(user);
-		console.log("after: ");
-		console.log(history);
-		localStorage.setItem("user", JSON.stringify(user));
-		console.log("user: ");
-		console.log(user);
-		localStorage.setItem("history", JSON.stringify(history));
-	});
+
+	$: console.log("budget : ", budget);
 </script>
 
 <div class="transaction" transition:fade>
 	{#each validstock as stock}
 		<div class="flexrow">
 			<LilStock {...stock} />
-			<RangeBar {...stock} bind:transaction bind:max />
+			<RangeBar {...stock} bind:transaction bind:budget />
 		</div>
 	{/each}
 </div>

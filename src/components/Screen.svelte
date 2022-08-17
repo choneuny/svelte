@@ -35,8 +35,8 @@
 	});
 	let diag_open = true;
 	let step_done = false;
-	let check_done = () => {
-		step_done = true;
+	let check_done = (...args) => {
+		step_done = args.length > 0 ? false : true;
 		console.log("done");
 	};
 	let count = 0;
@@ -99,7 +99,9 @@
 
 <div class="screen" style={bg.monitor} transition:fade>
 	<div class="wallpaper" style={bg.gradient}>
-		<Fairy />
+		{#if count !== step.length - 3}
+			<Fairy />
+		{/if}
 		{#each current_step.apps as app (app.id)}
 			<svelte:component this={app.component} {...app.props} />
 		{/each}

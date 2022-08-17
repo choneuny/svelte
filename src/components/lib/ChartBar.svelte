@@ -38,6 +38,9 @@
 		},
 		plugins: {
 			datalabels: {
+				display: function (context) {
+					return context.dataset.data[context.dataIndex] !== 0; // or >= 1 or ...
+				},
 				color: "blue",
 				formatter: (val, ctx) => {
 					// Grab the label for this value
