@@ -8,6 +8,7 @@
 	let newsopen = false;
 	let moveSlide;
 	const news_list = JSON.parse(localStorage.getItem("news")).news;
+	console.log(news_list);
 	const mystyle = {
 		width: 800,
 		height: 780,

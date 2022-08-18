@@ -6,13 +6,22 @@
 	import Comment from "./Comment.svelte";
 	import About from "./About.svelte";
 	import Footer from "./Footer.svelte";
-	let size = screen.width;
-	$: size = screen.width;
+
+	let width, media;
+	const media_check = () => {
+		const size = screen.width;
+		if (size < 768) return [size * 0.8, "small"];
+		if (size < 1024) return [size * 0.7, "medium"];
+		return [size * 0.7, "large"];
+	};
+	$: [width, media] = media_check();
+	$: console.log(width, media, screen.width, window.innerWidth);
 </script>
 
 <div
 	id="wrapper"
-	style="--size:{size}; background:radial-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5)), url({background.brickwall});"
+	style:--size={width}
+	style:background="radial-gradient(#0000001a, #00000050), url({background.brickwall})"
 >
 	<div id="inner">
 		<Nav />
@@ -36,7 +45,6 @@
 		z-index: -1;
 	}
 	#inner {
-		scroll-behavior: smooth;
 		width: calc(var(--size) * 0.8px);
 		height: inherit;
 		background: #404040;

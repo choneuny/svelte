@@ -34,7 +34,7 @@
 		});
 		let unchosen = have_any.filter((x) => x.checked == false).map((x) => x.theme);
 		if (unchosen.length > count) unchosen = unchosen.sort(() => 0.5 - Math.random()).slice(0, count);
-		const newsarray = unchosen.map((x) => randompick(Newsmaster.filter((y) => y.theme === x)));
+		const newsarray = unchosen.map((x) => randompick(Newsmaster.filter((y) => !y.corp && y.theme === x)));
 
 		news.news = newsarray;
 	};
