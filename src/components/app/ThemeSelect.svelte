@@ -67,7 +67,8 @@
 		const tmp = [...themes];
 		console.log(tmp.filter((x) => x.id === theme_id)[0]);
 		tmp.filter((x) => x.id === theme_id)[0].checked = true;
-		const max = $round === 0 ? 2 : 1;
+		const max = threshold - themes.filter((x) => x.fixed === true).length;
+		console.log(max);
 		if (selected.length >= max) {
 			let i = selected.shift();
 			i.checked = false;

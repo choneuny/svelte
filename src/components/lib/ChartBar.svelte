@@ -39,7 +39,7 @@
 		plugins: {
 			datalabels: {
 				display: function (context) {
-					return context.dataset.data[context.dataIndex] !== 0; // or >= 1 or ...
+					return context.dataset.data[context.dataIndex] > 200; // or >= 1 or ...
 				},
 				color: "blue",
 				formatter: (val, ctx) => {

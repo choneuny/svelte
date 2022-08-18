@@ -21,7 +21,10 @@
 		bgcolor: "#f5f5f5",
 	};
 	const styles = Object.assign(app_styles, mystyle);
-
+	const line_feed = (x) => {
+		const find = new RegExp("-\\s", "g");
+		return x.replace(find, "<br />&nbsp;-&nbsp;");
+	};
 	const SetCurrentNews = () => {
 		const userstock = JSON.parse(localStorage.getItem("user"));
 		const validStock = userstock.filter((item) => item.amount > 0 && item.name !== "cash");
@@ -73,7 +76,7 @@
 							<p class="text-center" style="font-size:{40}px">㈜{news[news_key.symbol]}</p>
 							<p class="text-center" style="font-size:{30}px">{news[news_key.title]}</p>
 							<p style="font-size:{20}px">
-								{@html news[news_key.content].replace(/-/g, "<br />&nbsp;-")}
+								{@html line_feed(news[news_key.content])}
 							</p>
 							<!-- <svg class="w-full h-full" viewBox="0 0 500 500" preserveAspectRatio="none">
 									<foreignObject width="500" height="500">
