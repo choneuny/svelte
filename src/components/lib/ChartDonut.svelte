@@ -1,9 +1,10 @@
 <script>
 	// @ts-nocheck
-	import { afterUpdate } from "svelte";
+	import { afterUpdate, onMount } from "svelte";
 	import Chart from "chart.js/auto";
 	import ChartDataLabels from "chartjs-plugin-datalabels";
 	export let data;
+	export let before = "";
 	const option = {
 		maintainAspectRatio: false,
 		responsive: true,
@@ -62,7 +63,7 @@
 		},
 	};
 	function renderChart() {
-		const ctx = document.getElementById("chartdoughnut").getContext("2d");
+		const ctx = document.getElementById(before + "chartdoughnut").getContext("2d");
 		const chart = new Chart(ctx, {
 			type: "doughnut",
 			data: data,
@@ -78,7 +79,7 @@
 </script>
 
 <div class="doughnut rounded-xl overflow-hidden">
-	<canvas id="chartdoughnut" />
+	<canvas id={before + "chartdoughnut"} />
 </div>
 
 <style>

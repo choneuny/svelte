@@ -1,8 +1,26 @@
 <script>
+	import { quadOut, quadIn } from "svelte/easing";
+	import { scale } from "svelte/transition";
 	// width, height, left, top are integers
 	// title, bgcolor, icon are strings, + icon is a path to an image
 	export let styles;
 	let moving = false;
+
+	function spin(node, { duration, go_up = true }) {
+		console.log(node);
+		return {
+			duration,
+			css: (t) => {
+				const eased = quadOut(t);
+				const eased_tozero = quadOut(t) - 1;
+				return `
+					perspective: 1000px;
+					transform-origin: center bottom 0px;
+				  top: 1000px;
+					transform: scale(${quadIn(t)}) translateY(-${eased * 1000}px) rotateX(${eased_tozero * 180}deg);`;
+			},
+		};
+	}
 
 	// object to css styles
 	$: cssVarStyles = Object.entries(styles)
@@ -18,7 +36,7 @@
 	}
 </script>
 
-<div class="window draggable" style={cssVarStyles}>
+<div class="window draggable" style={cssVarStyles} transition:spin={{ duration: 600, go_up: true }}>
 	<!-- TITLEBAR -->
 	<div class="titlebar" on:mousedown={() => (moving = true)}>
 		<div class="nav">
@@ -31,7 +49,7 @@
 		<slot />
 	</div>
 </div>
-<!-- DRAGGABLE WINDOWS -->
+<!-- WINDOWS EVENTLITSENOR -->
 <svelte:window on:mouseup={() => (moving = false)} on:mousemove={onMouseMove} />
 
 <style>

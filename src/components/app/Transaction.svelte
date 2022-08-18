@@ -22,8 +22,6 @@
 		let done = checked_count === checked.length;
 		budget = cash * 1.0 - transaction.reduce((arr, cur) => arr + cur.amount * cur.price, 0);
 
-		console.log(transaction);
-		console.log(budget);
 		if (done) {
 			check_done();
 			record_transaction(transaction);

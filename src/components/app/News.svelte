@@ -1,53 +1,13 @@
 <script>
 	// @ts-nocheck
 	import { image, background as bg } from "../data/GlovalVariable.js";
-	import { fade } from "svelte/transition";
-	import Newsmaster from "../data/Newsmaster";
 	import Window from "../lib/Window.svelte";
 	import Carousel from "../lib/Carousel.svelte";
 	import app_styles from "../lib/__AppStyles";
 	export let check_done;
 	let newsopen = false;
 	let moveSlide;
-	let news_list = [];
-	const news_key = { symbol: "", title: "title", content: "body" };
-
-	const user = JSON.parse(localStorage.getItem("user"));
-	const themes = JSON.parse(localStorage.getItem("theme"));
-	const news = Newsmaster.filter((x) => x.corp == "");
-
-	let theme = [...themes];
-	theme.forEach((x) => {
-		if (user.filter((y) => y.theme === x.theme).reduce((a, b) => a + b.amount, 0) === 0) {
-			x.checked = false;
-			x.fixed = false;
-		}
-	});
-	localStorage.setItem("theme", JSON.stringify(theme));
-	console.log(themes);
-	console.log(theme);
-
-	const news_generator = () => {
-		const unchosen = theme.filter((x) => x.checked == false).map((x) => x.theme);
-		unchosen.forEach((x) => {
-			const valid = news.filter((y) => y.theme === x);
-			const picked = valid[Math.floor(Math.random() * valid.length)];
-			news_list.push(picked);
-		});
-	};
-	const reflect = () => {
-		const infl = news_list.reduce(function (total, current) {
-			const infl_list = current.infl.split("-");
-			infl_list.forEach((x) => total.push({ infl: x, fluct: current.fluct }));
-			return total;
-		}, []);
-		console.log(infl);
-		user.forEach((x) => (x.fluct = 1));
-		infl.forEach((x) => (user.find((y) => y.name === x.infl).fluct += x.fluct * 0.01));
-		user.forEach((x) => (x.price = Math.round(x.price * x.fluct)));
-		console.log(user);
-		localStorage.setItem("user", JSON.stringify(user));
-	};
+	const news_list = JSON.parse(localStorage.getItem("news")).news;
 	const mystyle = {
 		width: 800,
 		height: 780,
@@ -58,8 +18,7 @@
 		bgcolor: "#b2b2b2",
 	};
 	const styles = Object.assign(app_styles, mystyle);
-	news_generator();
-	reflect();
+	const news_key = { symbol: "", title: "title", content: "body" };
 
 	const random = (min, max) =>
 		Math.floor(Math.random() * (max - min + 1) + min)
@@ -91,7 +50,7 @@
 			<!--CAROUSEL FRAME-->
 			<div class="w-full content h-full" on:load={(e) => console.log(e.target.offsetWidth)}>
 				<!--CAROUSEL CONTAINER-->
-				<Carousel count={news_list.length} width={776} bind:moveSlide show_control={false}>
+				<Carousel bind:count={news_list.length} width={776} bind:moveSlide show_control={false}>
 					{#each news_list as news, i}
 						<!--CAROUSEL ITEM-->
 						<div
@@ -133,10 +92,10 @@
 							>
 								<img
 									class="absolute bottom-8 -rotate-90
-										{i == news_list.length - 1 ? 'opacity-50' : 'transition duration-300 hover:opacity-50 '}"
+										{i == news.length - 1 ? 'opacity-50' : 'transition duration-300 hover:opacity-50 '}"
 									src={image.down_arrow}
 									alt={image.alt}
-									on:click={i === news_list.length - 1 ? null : () => moveSlide(-1)}
+									on:click={i === news.length - 1 ? null : () => moveSlide(-1)}
 								/>
 							</div>
 							<!--NEWS ENDS-->

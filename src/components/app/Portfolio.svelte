@@ -1,6 +1,6 @@
 <script>
 	import { image } from "../data/GlovalVariable.js";
-	import ChartDoughnut from "../lib/ChartDoughnut.svelte";
+	import ChartDonut from "../lib/ChartDonut.svelte";
 	import ChartBar from "../lib/ChartBar.svelte";
 	import ChartLine from "../lib/ChartLine.svelte";
 	import LilStock from "../lib/LilStock.svelte";
@@ -22,17 +22,17 @@
 	const chart_colors = ["#ff6384", "#36a2eb", "#2b92d8", "#2ab96a", "#e9c061", "#d95d6b", "#9173d8"];
 	const user = JSON.parse(localStorage.getItem("user"));
 	const history = JSON.parse(localStorage.getItem("history"));
-	const doughnut = user
+	const donut = user
 		.filter((x) => x.amount > 0)
 		.map((x) => {
 			const amount = x.price * x.amount;
 			return { id: x.name === "cash" ? "현금" : x.name, amount: amount };
 		});
-	const data_doughnut = {
-		labels: doughnut.map((x) => x.id),
+	const data_donut = {
+		labels: donut.map((x) => x.id),
 		datasets: [
 			{
-				data: doughnut.map((x) => x.amount),
+				data: donut.map((x) => x.amount),
 				backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
 			},
 		],
@@ -118,13 +118,13 @@
 	<div class="placeholder w-full h-full">
 		{#if $pfl_page === "chart"}
 			<div class="chartbox" transition:fade>
-				<div class="radius rounded antializing bg-white">
-					<ChartDoughnut data={data_doughnut} />
+				<div id="pfl_donut" class="radius rounded antializing bg-white">
+					<ChartDonut data={data_donut} />
 				</div>
-				<div class="radius rounded antializing bg-white">
+				<div id="pfl_bar" class="radius rounded antializing bg-white">
 					<ChartBar data={data_bar} />
 				</div>
-				<div class="radius rounded col-span-full antializing bg-white">
+				<div id="pfl_line" class="radius rounded col-span-full antializing bg-white">
 					<ChartLine data={data_line} />
 				</div>
 

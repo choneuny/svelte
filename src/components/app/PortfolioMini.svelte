@@ -1,6 +1,6 @@
 <script>
 	import { image } from "../data/GlovalVariable.js";
-	import ChartDoughnut from "../lib/ChartDoughnut.svelte";
+	import ChartDoughnut from "../lib/ChartDonut.svelte";
 	import Window from "../lib/Window.svelte";
 	import app_styles from "../lib/__AppStyles";
 	const mystyle = {
@@ -34,8 +34,8 @@
 </script>
 
 <Window {styles}>
-	<div class="radius">
-		<ChartDoughnut data={data_doughnut} />
+	<div id="pflmini_donut" class="radius">
+		<ChartDoughnut data={data_doughnut} before="mini" />
 	</div>
 </Window>
 
@@ -48,7 +48,7 @@
 		width: 98%;
 		height: 98%;
 		border: 1px solid transparent;
-		border-radius: 20px;
+		border-radius: 12px;
 		box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.2), 2px 4px 4px rgba(0, 0, 0, 0.2), 4px 8px 8px rgba(0, 0, 0, 0.2),
 			8px 16px 16px rgba(0, 0, 0, 0.2), 16px 32px 32px rgba(0, 0, 0, 0.2);
 		padding: 3%;

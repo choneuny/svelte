@@ -6,7 +6,6 @@
 	import Carousel from "../lib/Carousel.svelte";
 	import app_styles from "../lib/__AppStyles";
 	export let check_done;
-	const dailyNews = JSON.parse(localStorage.getItem("news"));
 	const explain_key = { symbol: "corp", title: "title", content: "why" };
 	const mystyle = {
 		width: 800,
@@ -20,8 +19,11 @@
 	const styles = Object.assign(app_styles, mystyle);
 
 	// run on mount
+	const news = JSON.parse(localStorage.getItem("news"));
+	const announce = news.announce;
+	console.log(news);
+	console.log(announce);
 	check_done();
-	console.log(dailyNews[0][explain_key.symbol]);
 </script>
 
 <Window {styles}>
@@ -30,8 +32,8 @@
 			<img src={image.dart} alt={image.alt} />
 		</div>
 		<div class="content">
-			<Carousel count={dailyNews.length} width={750}>
-				{#each dailyNews as news, i}
+			<Carousel count={announce.length} width={750}>
+				{#each announce as news, i}
 					<div class="w-1/2 bg-white text-gray flex flex-col gap-8 p-8 box-border">
 						<p class="font-bold text-2xl text-center antialiased">
 							㈜{news[explain_key.symbol]} 공시 발표 직후 주가 변동 해설

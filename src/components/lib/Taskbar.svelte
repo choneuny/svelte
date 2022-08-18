@@ -1,99 +1,50 @@
 <script>
 	import { image } from "../data/GlovalVariable.js";
-	import { fade, crossfade } from "svelte/transition";
-	import { quintOut } from "svelte/easing";
-	import { flip } from "svelte/animate";
-	import ThemeSelect from "../app/ThemeSelect.svelte";
+	import { scale } from "svelte/transition";
 	import Announce from "../app/Announce.svelte";
-	import Transaction from "../app/Transaction.svelte";
 	import Portfolio from "../app/Portfolio.svelte";
-	import PortfolioMini from "../app/PortfolioMini.svelte";
-	import RoundClear from "../lib/RoundClear.svelte";
 	import Explain from "../app/Explain.svelte";
-	import News from "../app/News.svelte";
 
-	import { round, next_round } from "../data/stores.js";
+	import { round } from "../data/stores.js";
 	export let step_done;
 	export let check_done;
 	export let increasecount;
 	export let current_apps;
-	const [send, receive] = crossfade({
-		duration: (d) => Math.sqrt(d * 200),
-
-		fallback(node, params) {
-			const style = getComputedStyle(node);
-			const transform = style.transform === "none" ? "" : style.transform;
-
-			return {
-				duration: 600,
-				easing: quintOut,
-				css: (t) => `
-					transform: ${transform} scale(${t});
-					opacity: ${t}
-				`,
-			};
-		},
-	});
 	let apps = [
-		{ id: "announce", component: Announce, props: { check_done }, icon: image.internet },
-		{ id: "pfl", component: Portfolio, props: { check_done }, icon: image.chart },
-		{ id: "history", component: Explain, props: { check_done }, icon: image.history },
-		// {
-		// 	id: "roundclear",
-		// 	title: "Round Clear",
-		// 	apps: [{ id: "loading", component: RoundClear, props: { increasecount } }],
-		// },
+		{
+			id: "announce",
+			component: Announce,
+			props: { check_done: check_done, instant_show: true },
+			icon: image.internet,
+			on: true,
+		},
+		{ id: "pfl", component: Portfolio, props: { check_done }, icon: image.chart, on: true },
+		{ id: "history", component: Explain, props: { check_done }, icon: image.history, on: true },
 	];
 
 	let open = (e) => {
-		console.log(e);
-		console.log(e.target);
-		console.log(e.target.id);
-		console.log(e.target.parentNode.id);
-		const target = e.target.parentNode.id;
-		if (current_apps.find((x) => x.id == target) == undefined) {
-			current_apps = [...current_apps, apps.find((x) => x.id == target)];
-		} else {
-			current_apps = current_apps.filter((x) => x.id != target);
-		}
-		console.log(current_apps);
+		const target = e.target;
+		const app = apps.find((app) => app.id === target.id);
+		const is_open = current_apps.find((x) => x.id == app.id);
+		current_apps = is_open
+			? current_apps.filter((x) => x.id != app.id)
+			: [...current_apps, apps.find((x) => x.id == app.id)];
+		target.style.filter = "brightness(" + (is_open ? "1" : "0.5") + ")";
 	};
-	let current = apps.filter((x) => current_apps.map((y) => y.id).includes(x.id));
-	let deactivated = apps.filter((x) => !current_apps.map((y) => y.id).includes(x.id));
-	$: current = apps.filter((x) => current_apps.map((y) => y.id).includes(x.id));
-	$: deactivated = apps.filter((x) => !current_apps.map((y) => y.id).includes(x.id));
+
+	// let current = apps.filter((x) => current_apps.map((y) => y.id).includes(x.id));
+	// let deactivated = apps.filter((x) => !current_apps.map((y) => y.id).includes(x.id));
+	// $: current = apps.filter((x) => current_apps.map((y) => y.id).includes(x.id));
+	// $: deactivated = apps.filter((x) => !current_apps.map((y) => y.id).includes(x.id));
+	$: apps.forEach((x) => (x.on = !current_apps.map((y) => y.id).includes(x.id)));
 </script>
 
 <div class="taskbar">
-	<!-- {#each current as app (app.id)}
-		<div
-			id={app.id}
-			class="absolute top-[-770px] w-fit h-fit"
-			in:receive={{ key: app.id }}
-			out:send={{ key: app.id }}
-			animate:flip={{ duration: 500 }}
-		>
-			<svelte:component this={app.component} {...app.props} />
-		</div>
-	{/each} -->
 	{#each apps as app (app.id)}
-		<button
-			id={app.id}
-			class="custom-button"
-			disabled={$round === 0}
-			on:click={open}
-			in:receive={{ key: app.id }}
-			out:send={{ key: app.id }}
-			animate:flip={{ duration: 200 }}
-		>
-			<img class="custom-icon" src={app.icon} alt="error" />
+		<button id={app.id} class="custom-button" disabled={$round === 0} on:click={open} transition:scale>
+			<img class="custom-icon pointer-events-none" src={app.icon} alt="error" />
 		</button>
 	{/each}
-	<!-- {#each current as app}
-		<button id={app.id} class="custom-button" on:click={open}>
-			<img class="custom-icon" src={app.icon} alt="error" />
-		</button>
-	{/each} -->
 	<button class="custom-button" on:click={() => (step_done = !step_done)} />
 	<div
 		id="arrowAnim"

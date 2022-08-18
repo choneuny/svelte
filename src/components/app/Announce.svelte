@@ -1,15 +1,21 @@
 <script>
 	// @ts-nocheck
 	import { image, background as bg } from "../data/GlovalVariable.js";
-	import Newsmaster from "../data/Newsmaster";
-	import { onMount, afterUpdate } from "svelte/internal";
+	import { afterUpdate } from "svelte/internal";
 	import Window from "../lib/Window.svelte";
 	import Carousel from "../lib/Carousel.svelte";
 	import app_styles from "../lib/__AppStyles.js";
 	export let check_done;
+	export let instant_show = false;
 
-	let newsopen = false;
 	let moveSlide;
+	let announce = [];
+	const newsopen = () => {
+		const news = JSON.parse(localStorage.getItem("news"));
+		announce = news.announce;
+		check_done();
+		instant_show = true;
+	};
 	const news_key = { symbol: "corp", title: "title", content: "body" };
 	const mystyle = {
 		width: 800,
@@ -21,43 +27,21 @@
 		bgcolor: "#f5f5f5",
 	};
 	const styles = Object.assign(app_styles, mystyle);
+
 	const line_feed = (x) => {
 		const find = new RegExp("-\\s", "g");
 		return x.replace(find, "<br />&nbsp;-&nbsp;");
 	};
-	const SetCurrentNews = () => {
-		const userstock = JSON.parse(localStorage.getItem("user"));
-		const validStock = userstock.filter((item) => item.amount > 0 && item.name !== "cash");
-		const validCorpname = validStock.map((item) => item.name);
-		console.log(validCorpname);
-		let Newsarray = [];
-		for (let corp of validCorpname) {
-			const validNewses = Newsmaster.filter((x) => x.corp === corp);
-			const picked = validNewses[Math.floor(Math.random() * validNewses.length)];
-			Newsarray.push(picked);
-		}
-		localStorage.setItem("news", JSON.stringify(Newsarray));
-		const check = JSON.parse(localStorage.getItem("news"));
-		console.log(check);
-		return check;
-	};
-	let dailyNews = [...SetCurrentNews()];
-	afterUpdate(() => (dailyNews = [...SetCurrentNews()]));
+	if (instant_show) {
+		newsopen();
+	}
 </script>
 
-{#if !newsopen}
+{#if !instant_show}
 	<div class="container">
-		<div
-			class="newscomes soft_blink"
-			style={bg.announce}
-			on:click={() => {
-				check_done();
-				newsopen = !newsopen;
-				console.log(newsopen);
-			}}
-		/>
+		<div class="newscomes soft_blink" style={bg.announce} on:click={newsopen} />
 	</div>
-{:else}
+{:else if instant_show}
 	<Window {styles}>
 		<div class="dart">
 			<div class="header relative border-4 border-black border-inset">
@@ -67,8 +51,8 @@
 				class="content overflow-hidden box-border border-4 border-black border-inset rounded"
 				on:load={(e) => console.log(e.target.offsetWidth)}
 			>
-				<Carousel count={dailyNews.length} width={763} bind:moveSlide show_control={false}>
-					{#each dailyNews as news, i}
+				<Carousel bind:count={announce.length} width={763} bind:moveSlide show_control={false}>
+					{#each announce as news, i}
 						<div
 							class="relative w-full bg-white text-gray flex flex-col gap-8 p-8 pr-12"
 							on:dblclick={() => moveSlide(-1)}
@@ -78,15 +62,6 @@
 							<p style="font-size:{20}px">
 								{@html line_feed(news[news_key.content])}
 							</p>
-							<!-- <svg class="w-full h-full" viewBox="0 0 500 500" preserveAspectRatio="none">
-									<foreignObject width="500" height="500">
-										<p class="text-center" style="font-size:{40}px">㈜{news[news_key.symbol]}</p>
-										<p class="text-center" style="font-size:{30}px">{news[news_key.title]}</p>
-										<p style="font-size:{20}px">
-											{@html news[news_key.content].replace(/-/g, "<br />&nbsp;-")}
-										</p>
-									</foreignObject>
-								</svg> -->
 							<div
 								class="absolute right-28 bottom-8 w-[100px] {i == 0
 									? 'opacity-50'
@@ -100,7 +75,7 @@
 								/>
 							</div>
 							<div
-								class="absolute right-8 bottom-8 w-[100px] {i == dailyNews.length - 1
+								class="absolute right-8 bottom-8 w-[100px] {i == announce.length - 1
 									? 'opacity-50'
 									: 'transition duration-300 hover:opacity-50 '}"
 							>
@@ -108,7 +83,7 @@
 									class=" -rotate-90"
 									src={image.down_arrow}
 									alt="next"
-									on:click={i === dailyNews.length - 1 ? null : () => moveSlide(-1)}
+									on:click={i === announce.length - 1 ? null : () => moveSlide(-1)}
 								/>
 							</div>
 						</div>

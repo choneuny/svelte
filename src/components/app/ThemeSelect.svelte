@@ -5,20 +5,24 @@
 	import { quintOut } from "svelte/easing";
 	import { fade, crossfade } from "svelte/transition";
 	import { round } from "../data/stores.js";
+	import Newsmaster from "../data/Newsmaster.js";
 	import Window from "../lib/Window.svelte";
 	import Corpmaster from "../data/Corpmaster.js";
 	import Carousel from "../lib/Carousel.svelte";
 	import app_styles from "../lib/__AppStyles.js";
 	export let check_done;
-	const threshold = 2 + $round;
+	let news = JSON.parse(localStorage.getItem("news"));
 	let user = JSON.parse(localStorage.getItem("user"));
 	let history = JSON.parse(localStorage.getItem("history"));
 	let themes = JSON.parse(localStorage.getItem("theme"));
+	const threshold = 2 + $round;
+	const init = $round === 0;
+	const max = Math.min(2, threshold - themes.filter((x) => x.fixed === true).length);
+	const salary = init ? 10 : 2;
 	let next;
 	let cont = false;
 	let selected = [];
 	let width = 1286;
-
 	const mystyle = {
 		width: 1300,
 		height: 750,
@@ -29,7 +33,14 @@
 		bgcolor: "transparent",
 	};
 	const styles = Object.assign(app_styles, mystyle);
-	console.log(styles);
+
+	const randompick = (arr) => {
+		const index = Math.floor(Math.random() * arr.length);
+		console.log(index);
+		console.log(arr);
+		console.log(arr[index]);
+		return arr[index];
+	};
 	const [send, receive] = crossfade({
 		duration: (d) => Math.sqrt(d * 200),
 
@@ -51,15 +62,14 @@
 		const target = e.target;
 		const id = target.id;
 		const childs = [...target.parentNode.parentNode.children];
-		const is_init = $round === 0;
 		childs.forEach((element) => {
 			const input = element.querySelector("input");
 			input.checked = false;
 			user.find((x) => x.id == input.id).amount = 0;
 		});
 		target.checked = true;
-		user.find((x) => x.id == id).amount = is_init ? 5 : 2;
-		document.querySelectorAll("#check input:checked").length === (is_init ? 2 : 1) ? check_done() : null;
+		user.find((x) => x.id == id).amount = salary / max;
+		document.querySelectorAll("#check input:checked").length === max ? check_done() : null;
 		localStorage.setItem("user", JSON.stringify(user));
 	};
 	const push = (e) => {
@@ -67,8 +77,6 @@
 		const tmp = [...themes];
 		console.log(tmp.filter((x) => x.id === theme_id)[0]);
 		tmp.filter((x) => x.id === theme_id)[0].checked = true;
-		const max = threshold - themes.filter((x) => x.fixed === true).length;
-		console.log(max);
 		if (selected.length >= max) {
 			let i = selected.shift();
 			i.checked = false;
@@ -79,12 +87,19 @@
 
 	onDestroy(() => {
 		themes.filter((x) => x.checked).forEach((x) => (x.fixed = true));
-		console.log(themes);
+		const validStock = user.filter((x) => x.amount > 0 && x.name !== "cash");
+		const validCorpname = validStock.map((x) => x.name);
+		const announce = validCorpname.map((x) => randompick(Newsmaster.filter((y) => y.corp === x)));
+		news["announce"] = announce;
+
+		console.log(news);
+
 		history.pop();
 		history.push(user);
 		localStorage.setItem("theme", JSON.stringify(themes));
 		localStorage.setItem("user", JSON.stringify(user));
 		localStorage.setItem("history", JSON.stringify(history));
+		localStorage.setItem("news", JSON.stringify(news));
 	});
 
 	$: cont = themes.filter((x) => x.checked).length === threshold;

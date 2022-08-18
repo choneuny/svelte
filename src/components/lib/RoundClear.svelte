@@ -1,13 +1,24 @@
 <script>
 	import { onMount } from "svelte";
 	import { background as bg } from "../data/GlovalVariable.js";
+	import Newsmaster from "../data/Newsmaster.js";
 	import { transaction, next_round } from "../data/stores.js";
 	export let increasecount;
-	let news, user, history;
+	let news, user, theme, history;
+	const count = 2;
+	const randompick = (arr) => {
+		const index = Math.floor(Math.random() * arr.length);
+		return arr[index];
+	};
+
 	const reflect = () => {
-		const infl = news.reduce(function (total, current) {
-			const infl_list = current.infl.split("-");
-			infl_list.forEach((x) => total.push({ infl: x, fluct: current.fluct }));
+		const infl = Object.values(news).reduce((total, current) => {
+			current.forEach((x) => {
+				console.log(x);
+				const infl_list = x.infl.split("-");
+				infl_list.forEach((y) => total.push({ infl: y, fluct: x.fluct }));
+			});
+			console.log(total);
 			return total;
 		}, []);
 		user.forEach((x) => (x.fluct = 1));
@@ -15,9 +26,23 @@
 		user.forEach((x) => (x.price = x.price * x.fluct));
 	};
 
+	const news_generator = () => {
+		const have_any = theme.filter((x) => !user.filter((y) => y.theme === x.theme).some((y) => y.amount > 0));
+		have_any.forEach((x) => {
+			x.checked = false;
+			x.fixed = false;
+		});
+		let unchosen = have_any.filter((x) => x.checked == false).map((x) => x.theme);
+		if (unchosen.length > count) unchosen = unchosen.sort(() => 0.5 - Math.random()).slice(0, count);
+		const newsarray = unchosen.map((x) => randompick(Newsmaster.filter((y) => y.theme === x)));
+
+		news.news = newsarray;
+	};
+
 	onMount(() => {
 		news = JSON.parse(localStorage.getItem("news"));
 		user = JSON.parse(localStorage.getItem("user"));
+		theme = JSON.parse(localStorage.getItem("theme"));
 		history = JSON.parse(localStorage.getItem("history"));
 		console.log("before: ", history);
 		console.log("transaction :", $transaction);
@@ -26,11 +51,20 @@
 			user.find((y) => y.name === "cash").amount -= Number(x.amount) * Number(x.price);
 		});
 
+		console.log(news);
+		console.log(Object.values(news));
+
 		reflect();
+		news_generator();
+
 		history.push(user);
+		console.log("news is ", news);
 		console.log("user is ", user);
+		console.log("theme is ", theme);
 		console.log("history is ", history);
+		localStorage.setItem("news", JSON.stringify(news));
 		localStorage.setItem("user", JSON.stringify(user));
+		localStorage.setItem("theme", JSON.stringify(theme));
 		localStorage.setItem("history", JSON.stringify(history));
 	});
 
