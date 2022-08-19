@@ -1,8 +1,10 @@
 @font-face {
-	font-family: "Galmuri", "PowerPixle7", "Times New Roman", Times, Arial, Helvetica, sans-serif;
-	src: url("./assets/font/Galmuri11.woff2") format("woff2"), url("./assets/font/Galmuri11.woff") format("woff");
-	src: url("./assets/font/PowerPixel7.woff");
-	src: local(※), url("./assets/font/Galmuri11.ttf") format("truetype");
+	font-family: "Galmuri", "PowerPixle7", "Times New Roman", Times, Arial,
+		Helvetica, sans-serif;
+	src: url("font/Galmuri11.woff2") format("woff2"),
+		url("font/Galmuri11.woff") format("woff");
+	src: url("font/PowerPixel7.woff");
+	src: local(※), url("font/Galmuri11.ttf") format("truetype");
 }
 @tailwind base;
 @tailwind components;
@@ -10,6 +12,14 @@
 
 html {
 	scroll-behavior: smooth;
+	--deep-shadow: drop-shadow(0.1rem 0.2rem 0.2rem rgba(0, 0, 0, 0.2))
+		drop-shadow(0.2rem 0.4rem 0.4rem rgba(0, 0, 0, 0.2))
+		drop-shadow(0.4rem 0.8rem 0.8rem rgba(0, 0, 0, 0.2))
+		drop-shadow(0.8rem 1.6rem 1.6rem rgba(0, 0, 0, 0.2))
+		drop-shadow(1.6rem 3.2rem 3.2rem rgba(0, 0, 0, 0.2));
+	--shallow-shadow: drop-shadow(0.1rem 0.2rem 0.2rem rgba(0, 0, 0, 0.2))
+		drop-shadow(0.2rem 0.4rem 0.4rem rgba(0, 0, 0, 0.2))
+		drop-shadow(0.4rem 0.8rem 0.8rem rgba(0, 0, 0, 0.2));
 }
 
 body {
@@ -68,6 +78,34 @@ div.white_bg {
 }
 div.black_bg_transparent {
 	background-color: rgba(0, 0, 0, 0.5);
+}
+
+.shadow {
+	filter: drop-shadow(0.1rem 0.2rem 0.2rem rgba(0, 0, 0, 0.2))
+		drop-shadow(0.2rem 0.4rem 0.4rem rgba(0, 0, 0, 0.2))
+		drop-shadow(0.4rem 0.8rem 0.8rem rgba(0, 0, 0, 0.2))
+		drop-shadow(0.8rem 1.6rem 1.6rem rgba(0, 0, 0, 0.2))
+		drop-shadow(1.6rem 3.2rem 3.2rem rgba(0, 0, 0, 0.2));
+}
+
+.smallest {
+	font-size: 0.6rem;
+}
+
+.smaller {
+	font-size: 1.2rem;
+}
+.small {
+	font-size: 1.5rem;
+}
+.medium {
+	font-size: 2rem;
+}
+.large {
+	font-size: 3rem;
+}
+.larger {
+	font-size: 4rem;
 }
 
 .blink {

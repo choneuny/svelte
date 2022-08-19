@@ -2,7 +2,9 @@
 	import { afterUpdate } from "svelte";
 	import Chart from "chart.js/auto";
 	import ChartDataLabels from "chartjs-plugin-datalabels";
+	import { width as wd } from "../data/stores";
 	export let data;
+	const rem = $wd * 0.008;
 	const option = {
 		maintainAspectRatio: false,
 		devicePixelRatio: 2,
@@ -13,7 +15,7 @@
 					font: {
 						family: "Galmuri11",
 						color: "#969696",
-						size: 20,
+						size: rem * 1.5,
 						weight: "bold",
 					},
 				},
@@ -66,7 +68,7 @@
 				},
 				font: {
 					family: "Galmuri11",
-					size: 16,
+					size: rem,
 					weight: 600,
 				},
 			},
@@ -100,7 +102,7 @@
 <style>
 	* {
 		color: #000;
-		font-size: 40px;
+		font-size: 3rem;
 		--size: 100%;
 	}
 

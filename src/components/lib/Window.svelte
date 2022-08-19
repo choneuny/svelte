@@ -17,7 +17,9 @@
 					perspective: 1000px;
 					transform-origin: center bottom 0px;
 				  top: 1000px;
-					transform: scale(${quadIn(t)}) translateY(-${eased * 1000}px) rotateX(${eased_tozero * 180}deg);`;
+					transform: scale(${quadIn(t)}) translateY(-${eased * 1000}px) rotateX(${
+					eased_tozero * 180
+				}deg);`;
 			},
 		};
 	}
@@ -36,7 +38,7 @@
 	}
 </script>
 
-<div class="window draggable" style={cssVarStyles} transition:spin={{ duration: 600, go_up: true }}>
+<div class="window draggable" style={cssVarStyles} transition:scale>
 	<!-- TITLEBAR -->
 	<div class="titlebar" on:mousedown={() => (moving = true)}>
 		<div class="nav">
@@ -54,7 +56,7 @@
 
 <style>
 	p {
-		font-size: 24px;
+		font-size: 2.2rem;
 		font-weight: 600;
 		color: #fff;
 	}
@@ -79,8 +81,8 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		border: 2px solid #000000;
-		border-radius: 8px;
+		border: 0.15rem solid #000000;
+		border-radius: 0.5rem;
 		box-sizing: border-box;
 		backdrop-filter: blur(10px);
 		overflow: hidden;
@@ -93,22 +95,22 @@
 		flex-direction: row;
 		justify-content: center;
 		align-items: center;
-		padding: 5px 20px;
+		padding: 0.3rem 1.5rem;
 
 		top: 0;
 		width: calc(100% + 4px);
-		height: 50px;
+		height: 4rem;
 
 		overflow: hidden;
 		background: #2c2c2c;
-		border-radius: 8px 8px 0 0;
+		border-radius: 0.15rem 0.15rem 0 0;
 		box-sizing: border-box;
 	}
 	.nav {
 		position: absolute;
-		left: 15px;
-		width: 36px;
-		height: 36px;
+		left: 1rem;
+		width: 3rem;
+		height: 3rem;
 	}
 	.slot {
 		width: 100%;
@@ -117,7 +119,7 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		overflow: auto;
+		overflow: hidden;
 		background: inherit;
 	}
 

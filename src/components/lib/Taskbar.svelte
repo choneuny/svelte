@@ -18,8 +18,20 @@
 			icon: image.internet,
 			on: true,
 		},
-		{ id: "pfl", component: Portfolio, props: { check_done }, icon: image.chart, on: true },
-		{ id: "history", component: Explain, props: { check_done }, icon: image.history, on: true },
+		{
+			id: "pfl",
+			component: Portfolio,
+			props: { check_done },
+			icon: image.chart,
+			on: true,
+		},
+		{
+			id: "history",
+			component: Explain,
+			props: { check_done },
+			icon: image.history,
+			on: true,
+		},
 	];
 
 	let open = (e) => {
@@ -36,12 +48,20 @@
 	// let deactivated = apps.filter((x) => !current_apps.map((y) => y.id).includes(x.id));
 	// $: current = apps.filter((x) => current_apps.map((y) => y.id).includes(x.id));
 	// $: deactivated = apps.filter((x) => !current_apps.map((y) => y.id).includes(x.id));
-	$: apps.forEach((x) => (x.on = !current_apps.map((y) => y.id).includes(x.id)));
+	$: apps.forEach(
+		(x) => (x.on = !current_apps.map((y) => y.id).includes(x.id))
+	);
 </script>
 
 <div class="taskbar">
 	{#each apps as app (app.id)}
-		<button id={app.id} class="custom-button" disabled={$round === 0} on:click={open} transition:scale>
+		<button
+			id={app.id}
+			class="custom-button"
+			disabled={$round === 0}
+			on:click={open}
+			transition:scale
+		>
 			<img class="custom-icon pointer-events-none" src={app.icon} alt="error" />
 		</button>
 	{/each}
@@ -72,16 +92,16 @@
 <style>
 	.taskbar {
 		position: absolute;
-		left: calc(var(--size) * 0.07px);
-		bottom: -1px;
-		width: calc(var(--size) * 0.65px);
-		height: calc(var(--size) * 0.035px);
+		width: 80%;
+		height: 8%;
+		margin-left: 10%;
+		bottom: -0.01%;
 		background: black;
 		opacity: 0.9;
-		border-radius: 8px 8px 0 0;
+		border-radius: 0.5rem 0.5rem 0 0;
 
 		display: flex;
-		gap: 15px;
+		gap: 1.5%;
 		flex-direction: row;
 		justify-content: center;
 		align-items: center;
@@ -89,8 +109,8 @@
 
 	.custom-button {
 		position: relative;
-		width: calc(var(--size) * 0.03px);
-		height: calc(var(--size) * 0.03px);
+		height: 83%;
+		aspect-ratio: 1;
 
 		background-color: white;
 		background-size: cover;

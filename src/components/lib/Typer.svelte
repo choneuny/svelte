@@ -41,7 +41,10 @@
 				dialogQueue++;
 				cursor = 0;
 				done = false;
-				typeDialog = setInterval(() => type(dialog[dialogQueue]?.text), typeSpeed);
+				typeDialog = setInterval(
+					() => type(dialog[dialogQueue]?.text),
+					typeSpeed
+				);
 			} else {
 				done = true;
 			}
@@ -63,14 +66,34 @@
 		nextDialog();
 	}}
 >
-	<img class="absolute scale-x-[-1] left-4 bottom-56 z-50" src={image.fairy} alt={image.alt} />
-	<div class="relative dialog border-4 border-stone-300 rounded-t-2xl">
-		<p class="absolute -top-4 left-36 w-1/4 h-1/6 border-4 border-stone-300 rounded-xl text-2xl text-center bg-black">
-			스톡비티
+	<img
+		class="absolute scale-x-[-1] left-4 bottom-56 z-50"
+		style:width="12rem"
+		style:height="12rem"
+		src={image.fairy}
+		alt={image.alt}
+	/>
+	<div
+		id="dialog"
+		class="dialog relative"
+		style:border="0.2rem solid #d6d3d1"
+		style:border-radius="0.5rem"
+	>
+		<p
+			class="small absolute w-1/4 h-1/6 text-center bg-black"
+			style:top="-1rem"
+			style:left="8rem"
+			style:border="0.2rem solid #d6d3d1"
+			style:border-radius="0.5rem"
+		>
+			스탁비티
 		</p>
-		<p class="text-3xl antialiased break-words leading-relaxed">{part}</p>
+		<p class="small antialiased break-words leading-relaxed">{part}</p>
 		<img
-			class="next blink {done ? '' : 'hidden'} right-8 absolute"
+			class="next blink {done ? '' : 'hidden'} absolute"
+			style:width="12rem"
+			style:height="5rem"
+			style:right="1rem"
 			src={dialogQueue >= dialogLen - 1 ? image.close : image.next}
 			alt="error"
 		/>

@@ -4,23 +4,23 @@
 	import { image } from "../data/GlovalVariable.js";
 	import Window from "../lib/Window.svelte";
 	import Carousel from "../lib/Carousel.svelte";
-	import app_styles from "../lib/__AppStyles";
+	import { width as wd } from "../data/stores.js";
 	export let check_done;
 	const explain_key = { symbol: "corp", title: "title", content: "why" };
-	const mystyle = {
-		width: 800,
-		height: 780,
-		left: 700,
-		top: 20,
+	const styles = {
+		width: $wd * 0.475,
+		height: $wd * 0.465,
+		left: $wd * 0.4,
+		top: $wd * 0.01,
 		title: "인터넷",
 		icon: image.internet,
 		bgcolor: "#b2b2b2",
 	};
-	const styles = Object.assign(app_styles, mystyle);
 
 	// run on mount
 	const news = JSON.parse(localStorage.getItem("news"));
 	const announce = news.announce;
+	let moveSlide;
 	console.log(news);
 	console.log(announce);
 	check_done();
@@ -28,19 +28,69 @@
 
 <Window {styles}>
 	<div class="dart">
-		<div class="header">
-			<img src={image.dart} alt={image.alt} />
+		<div class="header" style:height="100%">
+			<img class="h-5/6" src={image.teacher} alt={image.alt} />
+			<p class="larger">주가 변동 해설</p>
 		</div>
 		<div class="content">
-			<Carousel count={announce.length} width={750}>
+			<Carousel
+				bind:count={announce.length}
+				width={$wd * 0.462}
+				bind:moveSlide
+				show_control={false}
+			>
 				{#each announce as news, i}
-					<div class="w-1/2 bg-white text-gray flex flex-col gap-8 p-8 box-border">
-						<p class="font-bold text-2xl text-center antialiased">
-							㈜{news[explain_key.symbol]} 공시 발표 직후 주가 변동 해설
-						</p>
-						<p class="font-bold text-xl antialiased">
-							{@html news[explain_key.content].replace(/-/g, "<br />&nbsp;&nbsp;-")}
-						</p>
+					<div
+						class="relative w-full bg-white text-gray flex flex-col"
+						style:box-sizing="border-box"
+						style:gap="2rem"
+						style:padding="1.5rem"
+						on:dblclick={() => moveSlide(-1)}
+					>
+						<div
+							class="w-full bg-white text-gray flex flex-col gap-[2rem] box-border"
+						>
+							<p class="font-bold medium text-center antialiased">
+								㈜{news[explain_key.symbol]} 공시 발표 직후 주가 변동 해설
+							</p>
+							<p
+								class="font-normal small antialiased"
+								style:word-break="keep-all"
+							>
+								{news[explain_key.content]}
+							</p>
+						</div>
+
+						<div
+							class="absolute w-[7rem] {i == 0
+								? 'opacity-50'
+								: 'transition duration-300 hover:opacity-50'}"
+							style:left="1.5rem"
+							style:bottom="1.5rem"
+						>
+							<img
+								class="  rotate-90"
+								src={image.down_arrow}
+								alt="next"
+								on:click={i === 0 ? null : () => moveSlide(1)}
+							/>
+						</div>
+						<div
+							class="absolute w-[7rem] {i == announce.length - 1
+								? 'opacity-50'
+								: 'transition duration-300 hover:opacity-50 '}"
+							style:right="1.5rem"
+							style:bottom="1.5rem"
+						>
+							<img
+								class=" -rotate-90"
+								src={image.down_arrow}
+								alt="next"
+								on:click={i === announce.length - 1
+									? null
+									: () => moveSlide(-1)}
+							/>
+						</div>
 					</div>
 				{/each}
 			</Carousel>
@@ -53,30 +103,32 @@
 		color: black;
 	}
 	.dart {
-		width: 800px;
-		height: 700px;
-		padding: 10px;
-		gap: 10px;
+		width: 100%;
+		height: 100%;
+		padding: 0.5rem;
+		gap: 0.5rem;
 		box-sizing: border-box;
 		display: grid;
 
-		grid-template-rows: 0.5fr 2fr;
+		grid-template-rows: 20% 80%;
 	}
 	.header {
 		width: 100%;
-		height: 0.5fr;
+		height: 100%;
 		border: 1px solid transparent;
-		border-radius: 8px;
-		box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.25);
+		border-radius: 1rem;
+		box-shadow: var(--shallow-shadow);
 		background-color: #1975db;
 		display: flex;
 		flex-direction: row;
 		align-items: center;
+		gap: 2rem;
+		padding: 0 1rem;
 	}
 	.content {
 		overflow: hidden;
 		border: 1px solid transparent;
-		border-radius: 12px;
-		box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.25);
+		border-radius: 1rem;
+		box-shadow: var(--shallow-shadow);
 	}
 </style>

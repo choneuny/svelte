@@ -33,6 +33,10 @@
 			};
 		},
 	});
+	const diag_event = (dialog) => {
+		diag_open = true;
+		diag = InitDialog[dialog];
+	};
 	let diag_open = true;
 	let step_done = false;
 	let check_done = (...args) => {
@@ -58,7 +62,13 @@
 		{
 			id: "select",
 			title: "Select Theme",
-			apps: [{ id: "themeselect", component: ThemeSelect, props: { check_done } }],
+			apps: [
+				{
+					id: "themeselect",
+					component: ThemeSelect,
+					props: { check_done: check_done, diag_event: diag_event },
+				},
+			],
 		},
 		{
 			id: "announce",
@@ -76,7 +86,9 @@
 		{
 			id: "roundclear",
 			title: "Round Clear",
-			apps: [{ id: "loading", component: RoundClear, props: { increasecount } }],
+			apps: [
+				{ id: "loading", component: RoundClear, props: { increasecount } },
+			],
 		},
 		{
 			id: "roundstart",
@@ -100,7 +112,7 @@
 <div class="screen" style={bg.monitor} transition:fade>
 	<div class="wallpaper" style={bg.gradient}>
 		{#if count !== step.length - 3}
-			<Fairy />
+			<Fairy stop_it={diag_event} />
 		{/if}
 		{#each current_step.apps as app (app.id)}
 			<svelte:component this={app.component} {...app.props} />
@@ -108,23 +120,27 @@
 		{#if diag_open}
 			<Typer bind:dialog={diag} bind:isopen={diag_open} />
 		{/if}
-		<Taskbar bind:step_done {check_done} {increasecount} bind:current_apps={current_step.apps} />
+		<Taskbar
+			bind:step_done
+			{check_done}
+			{increasecount}
+			bind:current_apps={current_step.apps}
+		/>
 	</div>
 </div>
 
 <style>
 	.screen {
 		position: relative;
-		width: inherit;
-		height: inherit;
+		width: 100%;
+		height: 100%;
 	}
 	.wallpaper {
 		position: absolute;
-		left: 50%;
-		top: 50%;
 		width: 99%;
-		height: 98.5%;
-		transform: translate(-50%, -50%);
-		background-size: contain;
+		height: 97.5%;
+		left: 0.5%;
+		top: 1%;
+		overflow: hidden;
 	}
 </style>

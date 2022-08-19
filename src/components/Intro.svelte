@@ -2,7 +2,6 @@
 	import { image, background as bg } from "./data/GlovalVariable.js";
 	export let setPage;
 	let done = false;
-	console.log(bg.intro);
 </script>
 
 <div id="intro" class="anim nodrag" style={bg.intro}>
@@ -14,20 +13,24 @@
 		}}
 	>
 		<img class="title nodrag" src={image.title} alt="TITLE" />
-		<img class="title subtitle blink nodrag" src={image.taptostart} alt="subtitle" />
+		<img
+			class="title subtitle blink nodrag"
+			src={image.taptostart}
+			alt="subtitle"
+		/>
 	</div>
 </div>
 
 <style>
 	.anim {
 		position: relative;
-		width: inherit;
+		width: 100%;
 		height: inherit;
 	}
 
 	.hiddeninput {
-		position: absolute;
-		width: inherit;
+		position: relative;
+		width: 100%;
 		height: inherit;
 		/* backdrop-filter: blur(3px); */
 		display: flex;

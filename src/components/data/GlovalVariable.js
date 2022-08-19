@@ -1,4 +1,5 @@
-const bg_cover = (x) => "background:url(img/background/" + x + ") no-repeat; background-size:cover;";
+const bg_cover = (x) =>
+	"background:url(img/background/" + x + ") no-repeat; background-size:cover;";
 
 const gloval_variable = {
 	image: {
@@ -21,7 +22,9 @@ const gloval_variable = {
 		chart: "img/icon/chart.png",
 		taptostart: "img/taptostart.png",
 		title: "img/title.png",
-		dart: "img/icon/dart.svg",
+		krx: "img/icon/krx.svg",
+		krx_logo: "img/icon/krx_logo.svg",
+		teacher: "img/icon/teacher.svg",
 	},
 	background: {
 		brickwall: "img/background/brickwall.webp",

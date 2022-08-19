@@ -1,10 +1,12 @@
 <script>
 	// @ts-nocheck
 	import { afterUpdate, onMount } from "svelte";
+	import { width as wd } from "../data/stores";
 	import Chart from "chart.js/auto";
 	import ChartDataLabels from "chartjs-plugin-datalabels";
 	export let data;
 	export let before = "";
+	const rem = $wd * 0.008;
 	const option = {
 		maintainAspectRatio: false,
 		responsive: true,
@@ -25,7 +27,7 @@
 				display: true,
 				text: "자산 비중",
 				font: {
-					size: 30,
+					size: rem * 2,
 					family: "Galmuri11",
 					weight: "bold",
 				},
@@ -56,14 +58,14 @@
 				},
 				font: {
 					family: "Galmuri11",
-					size: 16,
+					size: rem,
 					weight: 600,
 				},
 			},
 		},
 	};
 	function renderChart() {
-		const ctx = document.getElementById(before + "chartdoughnut").getContext("2d");
+		const ctx = document.getElementById(before + "chartdonut").getContext("2d");
 		const chart = new Chart(ctx, {
 			type: "doughnut",
 			data: data,
@@ -78,15 +80,15 @@
 	});
 </script>
 
-<div class="doughnut rounded-xl overflow-hidden">
-	<canvas id={before + "chartdoughnut"} />
+<div class="donut rounded-xl overflow-hidden">
+	<canvas id={before + "chartdonut"} />
 </div>
 
 <style>
 	* {
 		color: #000;
 	}
-	.doughnut {
+	.donut {
 		width: 100%;
 		height: 100%;
 	}

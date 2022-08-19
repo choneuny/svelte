@@ -1,21 +1,26 @@
 <script>
 	import { image } from "./components/data/GlovalVariable.js";
+	import { width as wd, set_width } from "./components/data/stores.js";
 	import Intro from "./components/Intro.svelte";
 	import Room from "./components/Room.svelte";
 	import Screen from "./components/Screen.svelte";
 	import SetLocalStorage from "./components/lib/SetLocalStorage";
-	SetLocalStorage();
+	export let width = 1920;
+	const height_ratio = 0.52875;
 	let page = "intro";
-	let isfull = false;
+	let isfull;
+	document.addEventListener("fullscreenchange", () => {
+		isfull = document.fullscreen;
+		isfull ? set_width(screen.width) : set_width(width);
+		isfull ? console.log(screen.width) : console.log(width);
+	});
 	function toggleFullScreenMode(event) {
 		const doc = event.target.parentElement;
-		isfull = doc.fullscreenElement !== null;
-		if (isfull) {
-			doc.requestFullscreen();
-		} else {
-			doc.exitFullscreen();
-		}
+		if (isfull) return document.exitFullscreen();
+		return doc.requestFullscreen();
 	}
+
+	SetLocalStorage();
 	let setPage = (newpage) => {
 		setTimeout(() => {
 			page = newpage;
@@ -23,7 +28,14 @@
 	};
 </script>
 
-<div id="embededgame" class="gamewrapper nodrag">
+<!-- svelte-ignore missing-declaration -->
+<div
+	id="embededgame"
+	class="gamewrapper nodrag"
+	style:width={$wd + "px"}
+	style:height={(isfull ? window.innerWidth : width) * height_ratio + "px"}
+	style:padding={"0 " + (isfull ? 0 : width * 0.03) + "px"}
+>
 	{#if page === "intro"}
 		<Intro bind:setPage />
 	{:else if page === "room"}
@@ -33,7 +45,8 @@
 	{/if}
 	<button
 		class="fullscreen"
-		style="background: url({image.fullscreen}) no-repeat;"
+		style:background="url({image.fullscreen}) center center no-repeat"
+		style:background-size="cover"
 		on:click={(e) => toggleFullScreenMode(e)}
 	/>
 </div>
@@ -46,22 +59,19 @@
 	.gamewrapper {
 		position: relative;
 		z-index: 3;
-		width: calc(var(--size) * 0.8px);
-		height: calc(var(--size) * 0.45px);
-		margin: 3% 0;
 		border: none;
 		align-items: center;
-		background-color: white;
+		background-color: #111111;
 		overflow: hidden;
-		/* box-shadow: 0px -2px 10px -1px #444; */
+		box-shadow: 0px -8px 5px rgba(0, 0, 0, 0.2);
 	}
 
 	button.fullscreen {
 		position: absolute;
 		width: calc(var(--size) * 0.025px);
 		height: calc(var(--size) * 0.025px);
-		right: 5px;
-		bottom: 5px;
+		right: calc(var(--size) * 0.0025px);
+		bottom: calc(var(--size) * 0.0025px);
 		background-size: cover;
 		padding: 0;
 		border: 0;

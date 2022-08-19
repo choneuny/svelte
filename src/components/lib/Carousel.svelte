@@ -10,7 +10,10 @@
 		const carousel = document.querySelector("#carousel").style;
 		carousel.transform = `translateX(0)`;
 		moveSlide = (moveStep) => {
-			const current = carousel.transform.split("(")[1].split(")")[0].split("px")[0];
+			const current = carousel.transform
+				.split("(")[1]
+				.split(")")[0]
+				.split("px")[0];
 			const move = moveStep * width;
 			let new_current = Number(current) + move;
 			if (new_current <= -size) {
@@ -24,12 +27,16 @@
 			// @ts-ignore
 		};
 	});
-	console.log(size);
+	console.log("carousel size :", size);
 </script>
 
 <!-- Implement the carousel -->
 <div class="relative w-full h-full overflow-hidden">
-	<div id="carousel" class="relative h-full flex flex-row" style="width:{size}px">
+	<div
+		id="carousel"
+		class="relative h-full flex flex-row shrink-0 grow-0"
+		style="width:{size}px"
+	>
 		<slot />
 	</div>
 	{#if show_control}

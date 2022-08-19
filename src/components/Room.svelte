@@ -32,8 +32,8 @@
 
 <style>
 	.room {
-		position: absolute;
-		width: inherit;
+		position: relative;
+		width: 100%;
 		height: inherit;
 		background-repeat: no-repeat;
 		background-size: cover;

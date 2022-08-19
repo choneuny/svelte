@@ -20,7 +20,9 @@
 		let checked = document.querySelectorAll(".check input");
 		let checked_count = [...checked].filter((x) => x.checked).length;
 		let done = checked_count === checked.length;
-		budget = cash * 1.0 - transaction.reduce((arr, cur) => arr + cur.amount * cur.price, 0);
+		budget =
+			cash * 1.0 -
+			transaction.reduce((arr, cur) => arr + cur.amount * cur.price, 0);
 
 		if (done) {
 			check_done();
@@ -48,15 +50,15 @@
 <style lang="scss">
 	.transaction {
 		position: absolute;
-		width: 60%;
+		width: 70%;
 		height: 90%;
-		right: 50px;
-		top: 10px;
+		right: 4rem;
+		top: 0.8rem;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		padding: 30px 20px;
-		gap: 30px;
+		padding: 2.5rem 1.5rem;
+		gap: 2.5rem;
 		overflow-y: auto;
 		-ms-overflow-style: none; /* IE and Edge */
 		scrollbar-width: none; /* Firefox */
@@ -82,7 +84,7 @@
 		flex-direction: row;
 		justify-content: center;
 		align-items: center;
-		gap: 30px;
+		gap: 2.5rem;
 	}
 
 	.transaction::-webkit-scrollbar {

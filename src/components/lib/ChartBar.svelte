@@ -1,9 +1,11 @@
 <script>
 	// @ts-nocheck
 	import { afterUpdate } from "svelte";
+	import { width as wd } from "../data/stores";
 	import Chart from "chart.js/auto";
 	import ChartDataLabels from "chartjs-plugin-datalabels";
 	export let data;
+	const rem = $wd * 0.008;
 	const option = {
 		responsive: true,
 		maintainAspectRatio: false,
@@ -30,7 +32,7 @@
 				ticks: {
 					font: {
 						family: "Galmuri11",
-						size: 20,
+						size: rem,
 						weight: "bold",
 					},
 				},
@@ -66,7 +68,7 @@
 				},
 				font: {
 					family: "Galmuri11",
-					size: 16,
+					size: rem,
 					weight: 600,
 				},
 			},
@@ -78,7 +80,7 @@
 				text: "자산 현황",
 				font: {
 					family: "Galmuri11",
-					size: 30,
+					size: rem * 2,
 					weight: "bold",
 				},
 			},
@@ -107,7 +109,7 @@
 <style>
 	* {
 		color: #000;
-		font-size: 40px;
+		font-size: 3rem;
 	}
 	.chartbar {
 		width: 100%;

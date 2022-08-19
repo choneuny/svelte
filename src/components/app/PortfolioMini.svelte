@@ -1,19 +1,18 @@
 <script>
 	import { image } from "../data/GlovalVariable.js";
-	import ChartDoughnut from "../lib/ChartDonut.svelte";
+	import ChartDonut from "../lib/ChartDonut.svelte";
 	import Window from "../lib/Window.svelte";
-	import app_styles from "../lib/__AppStyles";
-	const mystyle = {
-		width: 400,
-		height: 500,
-		left: 20,
-		top: 20,
+	import { width as wd } from "../data/stores.js";
+	const styles = {
+		width: $wd * 0.25,
+		height: $wd * 0.32,
+		left: $wd * 0.01,
+		top: $wd * 0.01,
 		title: "포트폴리오",
 		icon: image.chart,
 		bgcolor: "#f5f5f5",
 	};
-	const styles = Object.assign(app_styles, mystyle);
-
+	const chart_colors = ["#ff6384", "#36a2eb", "#2ab96a", "#e9c061", "#9173d8"];
 	const user = JSON.parse(localStorage.getItem("user"));
 	const data = user
 		.map((x) => {
@@ -27,7 +26,7 @@
 		datasets: [
 			{
 				data: data.map((x) => x.amount),
-				backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+				backgroundColor: chart_colors,
 			},
 		],
 	};
@@ -35,7 +34,7 @@
 
 <Window {styles}>
 	<div id="pflmini_donut" class="radius">
-		<ChartDoughnut data={data_doughnut} before="mini" />
+		<ChartDonut data={data_doughnut} before="mini" />
 	</div>
 </Window>
 
@@ -48,9 +47,8 @@
 		width: 98%;
 		height: 98%;
 		border: 1px solid transparent;
-		border-radius: 12px;
-		box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.2), 2px 4px 4px rgba(0, 0, 0, 0.2), 4px 8px 8px rgba(0, 0, 0, 0.2),
-			8px 16px 16px rgba(0, 0, 0, 0.2), 16px 32px 32px rgba(0, 0, 0, 0.2);
+		border-radius: 1rem;
+		box-shadow: var(--deep-shadow);
 		padding: 3%;
 		box-sizing: border-box;
 		background-color: #fff;
