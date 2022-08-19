@@ -3,6 +3,7 @@
 	import { round, record_transaction } from "../data/stores.js";
 	import { afterUpdate, onDestroy } from "svelte";
 	import { fade } from "svelte/transition";
+	import { width as wd } from "../data/stores.js";
 	import LilStock from "../lib/LilStock.svelte";
 	import RangeBar from "../lib/RangeBar.svelte";
 	export let check_done;

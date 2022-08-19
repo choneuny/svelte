@@ -58,7 +58,7 @@ const InitDialog = {
 			text: "아직 살펴봐야 할 다른 기업들이 있으니 현금은 남겨두길 바래!",
 		},
 	],
-	roundstart: [
+	roundstart_1: [
 		{
 			queue: 0,
 			text: "이제 우리의 선택이 옳았을 지 확인하는 시간이야! 너무 기대되지 않니?! >_<",
@@ -72,7 +72,7 @@ const InitDialog = {
 			text: "참! 주가가 왜 그렇게 움직였는지 내 설명을 읽어보는 것도 잊지마!",
 		},
 	],
-	news: [
+	news_1: [
 		{
 			queue: 0,
 			text: "​이제 다른 산업에도 관심을 가질 차례야!",
@@ -82,32 +82,25 @@ const InitDialog = {
 			text: "요즘 새롭게 뜨는 산업에 대한 뉴스와 관련 기업의 공시를 보게 될텐데 이번에도 잘할 수 있지?!",
 		},
 	],
-	transaction_2: [
+	select_1: [
 		{
 			queue: 0,
 			text: "뉴스를 유심히 읽어봤다면 이번 선택은 어렵지 않겠지?!",
 		},
 	],
-	corpselect_2: [
+	corpselect_1: [
 		{
 			queue: 0,
 			text: "이번에는 총 2주의 주식을 줄거야! 어떤 기업을 선택하는게 좋을까나~?",
 		},
 	],
-	announce_2: [
+	announce_1: [
 		{
 			queue: 0,
 			text: "이제 기업의 공시 발표는 조금 익숙해졌지?! 이번에도 꼼꼼히 읽어보자!",
 		},
 	],
-
-	transaction_end: [
-		{
-			queue: 0,
-			text: "확실해?",
-		},
-	],
-	last_round: [
+	transaction_1: [
 		{
 			queue: 0,
 			text: "이제 마지막 선택이야! 과연 우리의 목표 금액을 넘길 수 있을지 너무 기대된다!!",
@@ -117,7 +110,14 @@ const InitDialog = {
 			text: "만약 좀전에 확인한 공시가 기억나지 않는다면 지구본 모양의 아이콘을 눌러서 다시 확인할 수 있어!",
 		},
 	],
-	ending: [
+
+	transaction_end: [
+		{
+			queue: 0,
+			text: "확실해?",
+		},
+	],
+	roundstart_2: [
 		{
 			queue: 0,
 			text: "처음 시작(현금 1000만원, 주식 1000만원)에서 얼마나 잘 운용했는지 확인해볼까?!",

@@ -2,7 +2,7 @@
 	import { onMount } from "svelte";
 	import { background as bg } from "../data/GlovalVariable.js";
 	import Newsmaster from "../data/Newsmaster.js";
-	import { transaction, next_round } from "../data/stores.js";
+	import { transaction, next_round, round } from "../data/stores.js";
 	export let increasecount;
 	let news, user, theme, history;
 	const count = 2;
@@ -22,19 +22,31 @@
 			return total;
 		}, []);
 		user.forEach((x) => (x.fluct = 1));
-		infl.forEach((x) => (user.find((y) => y.name === x.infl).fluct += x.fluct * 0.01));
+		infl.forEach(
+			(x) => (user.find((y) => y.name === x.infl).fluct += x.fluct * 0.01)
+		);
 		user.forEach((x) => (x.price = x.price * x.fluct));
 	};
 
 	const news_generator = () => {
-		const have_any = theme.filter((x) => !user.filter((y) => y.theme === x.theme).some((y) => y.amount > 0));
+		const have_any = theme.filter(
+			(x) => !user.filter((y) => y.theme === x.theme).some((y) => y.amount > 0)
+		);
 		have_any.forEach((x) => {
 			x.checked = false;
 			x.fixed = false;
 		});
-		let unchosen = have_any.filter((x) => x.checked == false).map((x) => x.theme);
-		if (unchosen.length > count) unchosen = unchosen.sort(() => 0.5 - Math.random()).slice(0, count);
-		const newsarray = unchosen.map((x) => randompick(Newsmaster.filter((y) => !y.corp && y.theme === x)));
+		let unchosen = have_any.filter((x) => !x.checked).map((x) => x.theme);
+		if (unchosen.length < count) {
+			unchosen.push(
+				randompick(theme.filter((x) => x.checked).map((x) => x.theme))
+			);
+		} else {
+			unchosen = unchosen.sort(() => 0.5 - Math.random()).slice(0, count);
+		}
+		const newsarray = unchosen.map((x) =>
+			randompick(Newsmaster.filter((y) => !y.corp && y.theme === x))
+		);
 
 		news.news = newsarray;
 	};
@@ -48,7 +60,8 @@
 		console.log("transaction :", $transaction);
 		$transaction.forEach((x) => {
 			user.find((y) => y.name === x.name).amount += Number(x.amount);
-			user.find((y) => y.name === "cash").amount -= Number(x.amount) * Number(x.price);
+			user.find((y) => y.name === "cash").amount -=
+				Number(x.amount) * Number(x.price);
 		});
 
 		console.log(news);
@@ -69,8 +82,9 @@
 	});
 
 	setTimeout(() => {
-		increasecount();
 		next_round();
+		console.log("round is", $round);
+		increasecount();
 	}, 2000);
 </script>
 

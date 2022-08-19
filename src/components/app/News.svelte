@@ -24,6 +24,7 @@
 			.padStart(2, "0");
 
 	console.log(news_list);
+	let before = "news_";
 </script>
 
 {#if !newsopen}
@@ -58,6 +59,7 @@
 			>
 				<!--CAROUSEL CONTAINER-->
 				<Carousel
+					{before}
 					bind:count={news_list.length}
 					width={$wd * 0.5}
 					bind:moveSlide
@@ -84,7 +86,7 @@
 								/>
 							</div>
 							<!--ADDITIONAL FRAME-->
-							<div class="w-3/4 h-full flex flex-col gap-[1rem]">
+							<div class="w-3/4 h-full flex flex-col overflow-auto gap-[1rem]">
 								<!--NEWS IMAGE-->
 								<div
 									class="w-full h-1/4 bg-[#bcbcbc] flex flex-row items-center justify-center gap-[3rem]"

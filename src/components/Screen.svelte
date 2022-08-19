@@ -3,6 +3,7 @@
 	import { image, background as bg } from "./data/GlovalVariable.js";
 	import { fade, crossfade } from "svelte/transition";
 	import { quintOut } from "svelte/easing";
+	import { round } from "./data/stores.js";
 	import Taskbar from "./lib/Taskbar.svelte";
 	import Typer from "./lib/Typer.svelte";
 	import ThemeSelect from "./app/ThemeSelect.svelte";
@@ -15,6 +16,7 @@
 	import News from "./app/News.svelte";
 	import Fairy from "./lib/Fairy.svelte";
 	import InitDialog from "./data/InitDialog.js";
+	import Ending from "./lib/Ending.svelte";
 
 	const [send, receive] = crossfade({
 		duration: (d) => Math.sqrt(d * 200),
@@ -45,14 +47,32 @@
 	};
 	let count = 0;
 	let increasecount = () => {
+		if ($round >= 2 && count > 3) {
+			current_step = {
+				apps: [
+					{
+						id: "ending",
+						component: Ending,
+						props: {},
+					},
+				],
+			};
+			return;
+		}
 		if (count < step.length - 1) {
 			count++;
 		} else {
 			count = 0;
 		}
 		current_step = step[count];
-		diag = InitDialog[current_step.id];
-		if (diag.length > 0) {
+		if ($round === 0) {
+			diag = InitDialog[current_step.id];
+		} else {
+			diag = InitDialog[current_step.id + "_" + $round.toString()];
+		}
+		console.log("diag id is", diag);
+		console.log("diag id is", current_step.id + "_" + $round.toString());
+		if (diag?.length > 0) {
 			diag_open = true;
 		}
 		console.log(count);
@@ -80,7 +100,7 @@
 			title: "Transaction",
 			apps: [
 				{ id: "transaction", component: Transaction, props: { check_done } },
-				{ id: "pfl_mini", component: PortfolioMini, props: { check_done } },
+				{ id: "pfl_mini", component: PortfolioMini, props: {} },
 			],
 		},
 		{
@@ -94,7 +114,7 @@
 			id: "roundstart",
 			title: "Round Start",
 			apps: [
-				{ id: "pfl", component: Portfolio, props: { check_done } },
+				{ id: "pfl", component: Portfolio, props: {} },
 				{ id: "explain", component: Explain, props: { check_done } },
 			],
 		},

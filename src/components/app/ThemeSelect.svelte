@@ -13,7 +13,8 @@
 	import { width as wd, media as md } from "../data/stores.js";
 	export let check_done;
 	export let diag_event;
-	let additional_dialog = "corpselect";
+	let additional_dialog =
+		$round == 0 ? "corpselect" : "corpselect_" + $round.toString();
 	let news = JSON.parse(localStorage.getItem("news"));
 	let user = JSON.parse(localStorage.getItem("user"));
 	let history = JSON.parse(localStorage.getItem("history"));
@@ -35,6 +36,12 @@
 		bgcolor: "transparent",
 	};
 	console.log("style", styles);
+	console.log(
+		"max",
+		max,
+		threshold,
+		themes.filter((x) => x.fixed === true).length
+	);
 	let next;
 	let cont = false;
 	let selected = [];
@@ -115,7 +122,7 @@
 		localStorage.setItem("news", JSON.stringify(news));
 	});
 
-	$: cont = themes.filter((x) => x.checked).length === max;
+	$: cont = selected.length === max;
 	$: localStorage.setItem("theme", JSON.stringify(themes));
 </script>
 
@@ -179,7 +186,7 @@
 			{#each themes.filter((x) => x.checked && !x.fixed) as theme}
 				<div class="realative fill flexbox box-border" style:gap="-1rem">
 					<div
-						class="large font-bold absolute uppercase rounded top-[1rem] bg-[#fff9af] w-1/6 h-1/6 py-[1%]"
+						class="large font-bold absolute uppercase top-[1rem] w-1/6 h-1/6 py-[1%]"
 						style:filter="var(--deep-shadow)"
 						style:box-sizing="border-box"
 						style:text-align="center"

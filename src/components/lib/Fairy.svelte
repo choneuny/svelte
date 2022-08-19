@@ -8,9 +8,6 @@
 	let top = $wd * 0.005;
 	function mousemove(e) {
 		if (moving) {
-			console.log(e.movementX);
-			console.log("client", e.clientX, e.clientY);
-			console.log("XY", left, top);
 			left += e.movementX;
 			top += e.movementY;
 		}
@@ -18,9 +15,6 @@
 	function outside_check() {
 		let x_out = left > $wd * 0.87 || left < $wd * -0.05;
 		let y_out = top > $wd * 0.4 || top < $wd * -0.09;
-		console.log($wd * 0.85, $wd * 0.4);
-		console.log("XY", left, top);
-		console.log(left > $wd * 0.85);
 		if (x_out || y_out) {
 			left = $wd * 0.75;
 			top = $wd * 0.005;

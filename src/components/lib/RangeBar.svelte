@@ -1,11 +1,12 @@
 <script>
 	// @ts-nocheck
+	import { width as wd } from "../data/stores";
 	import { afterUpdate } from "svelte/internal";
 	import "../../assets/css/range.scss";
 	export let id, amount, price; // from user
 	export let transaction;
 	export let budget;
-	const size = 500;
+	const size = $wd * 0.325;
 	const this_stock = transaction.find((x) => x.id == id);
 	let range;
 	let range_value = 0;
@@ -18,7 +19,19 @@
 	$: {
 		if (range?.value) {
 			range_value = Number(range.value);
-			console.log("outside", "id:", range.id, "value:", range_value, "max:", max, " budget:", budget, " price:", price);
+			console.log(
+				"outside",
+				"id:",
+				range.id,
+				"value:",
+				range_value,
+				"max:",
+				max,
+				" budget:",
+				budget,
+				" price:",
+				price
+			);
 			if (!range.disabled) {
 				max = Math.floor(budget / price);
 				range.value > max ? (range.value = max) : null;
@@ -40,7 +53,10 @@
 				);
 
 				range.parentNode.style.setProperty("--value", range.value);
-				range.parentNode.style.setProperty("--text-value", JSON.stringify(range.value));
+				range.parentNode.style.setProperty(
+					"--text-value",
+					JSON.stringify(range.value)
+				);
 				current = range_value + amount;
 			}
 		}
@@ -48,7 +64,11 @@
 </script>
 
 <div class="transaction overflow-hidden" style="--size:{size}px">
-	<div class="range" style="--min:{-1 * amount}; --max:{max}" data-ticks-position="top">
+	<div
+		class="range"
+		style="--min:{-1 * amount}; --max:{max}"
+		data-ticks-position="top"
+	>
 		<input
 			{id}
 			type="range"
@@ -111,8 +131,9 @@
 
 		padding: calc(var(--size) * 0.1);
 		box-sizing: border-box;
-		box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.2), 2px 4px 4px rgba(0, 0, 0, 0.2), 4px 8px 8px rgba(0, 0, 0, 0.2),
-			8px 16px 16px rgba(0, 0, 0, 0.2), 16px 32px 32px rgba(0, 0, 0, 0.2);
+		box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.2), 2px 4px 4px rgba(0, 0, 0, 0.2),
+			4px 8px 8px rgba(0, 0, 0, 0.2), 8px 16px 16px rgba(0, 0, 0, 0.2),
+			16px 32px 32px rgba(0, 0, 0, 0.2);
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
@@ -134,14 +155,15 @@
 	div.check {
 		width: calc(var(--size) * 0.5);
 		height: calc(var(--size) * 0.1);
-		box-shadow: inset 1px 2px 2px rgba(0, 0, 0, 0.2), inset 2px 4px 4px rgba(0, 0, 0, 0.2),
-			inset 4px 8px 8px rgba(0, 0, 0, 0.2);
+		box-shadow: inset 1px 2px 2px rgba(0, 0, 0, 0.2),
+			inset 2px 4px 4px rgba(0, 0, 0, 0.2), inset 4px 8px 8px rgba(0, 0, 0, 0.2);
 	}
 	div.check {
 		width: calc(var(--size) * 0.5);
 		height: calc(var(--size) * 0.1);
 		transition: box-shadow 0.3s ease-in-out;
-		box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.2), 2px 4px 4px rgba(0, 0, 0, 0.2), 4px 8px 8px rgba(0, 0, 0, 0.2);
+		box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.2), 2px 4px 4px rgba(0, 0, 0, 0.2),
+			4px 8px 8px rgba(0, 0, 0, 0.2);
 		/* input {
 			:checked & {
 				box-shadow: inset 1px 2px 2px rgba(0, 0, 0, 0.2), inset 2px 4px 4px rgba(0, 0, 0, 0.2),

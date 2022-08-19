@@ -4,6 +4,7 @@
 	import { fade } from "svelte/transition";
 	export let dialog;
 	export let isopen;
+	isopen = dialog ? true : false;
 	const dialogLen = dialog.length;
 	const typeSpeed = 20;
 	let done = true;

@@ -25,6 +25,7 @@ const gloval_variable = {
 		krx: "img/icon/krx.svg",
 		krx_logo: "img/icon/krx_logo.svg",
 		teacher: "img/icon/teacher.svg",
+		goodbye: "img/icon/goodbye.png",
 	},
 	background: {
 		brickwall: "img/background/brickwall.webp",

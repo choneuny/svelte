@@ -24,6 +24,7 @@
 	console.log(news);
 	console.log(announce);
 	check_done();
+	let before = "explain_";
 </script>
 
 <Window {styles}>
@@ -34,6 +35,7 @@
 		</div>
 		<div class="content">
 			<Carousel
+				{before}
 				bind:count={announce.length}
 				width={$wd * 0.462}
 				bind:moveSlide

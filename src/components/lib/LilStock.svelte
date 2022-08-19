@@ -1,10 +1,11 @@
 <script>
+	import { width as wd } from "../data/stores";
 	export let name;
 	export let theme;
 	export let price;
 	export let fluct;
 	export let amount;
-	export let size = 1000;
+	export let size = $wd * 0.65;
 	fluct = (fluct - 1) * 100;
 	const base = size / 4;
 	const space = "\u00a0";
@@ -16,8 +17,12 @@
 		<text class="symbol" y={base * 0.2}>{name}</text>
 		<text class="corp uppercase" y={base * 0.35}>{theme}</text>
 		<text class="price" y={base * 0.75}>${price}</text>
-		<text class="fluct" y={base * 0.9} style="fill: {color}">{space}{Math.round(fluct)}%</text>
-		<text class="amount fill-ash text-[40]" y={base * 1} x={base * 0.1}>{amount.toString().padStart(2, space)}</text>
+		<text class="fluct" y={base * 0.9} style="fill: {color}"
+			>{space}{Math.round(fluct)}%</text
+		>
+		<text class="amount fill-ash text-[40]" y={base * 1} x={base * 0.1}
+			>{amount.toString().padStart(2, space)}</text
+		>
 	</svg>
 </div>
 
@@ -63,7 +68,8 @@
 		border-radius: calc(var(--base) * 0.15);
 		width: var(--base);
 		height: var(--base);
-		box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.2), 2px 4px 4px rgba(0, 0, 0, 0.2), 4px 8px 8px rgba(0, 0, 0, 0.2),
-			8px 16px 16px rgba(0, 0, 0, 0.2), 16px 32px 32px rgba(0, 0, 0, 0.2);
+		box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.2), 2px 4px 4px rgba(0, 0, 0, 0.2),
+			4px 8px 8px rgba(0, 0, 0, 0.2), 8px 16px 16px rgba(0, 0, 0, 0.2),
+			16px 32px 32px rgba(0, 0, 0, 0.2);
 	}
 </style>

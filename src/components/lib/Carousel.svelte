@@ -3,11 +3,12 @@
 	export let count = 3;
 	export let width = 1536;
 	export let show_control = true;
+	export let before = "";
 	export let moveSlide = (x) => {};
 	let size = width * count;
 	afterUpdate(() => {
 		// @ts-ignore
-		const carousel = document.querySelector("#carousel").style;
+		const carousel = document.querySelector("#" + before + "carousel").style;
 		carousel.transform = `translateX(0)`;
 		moveSlide = (moveStep) => {
 			const current = carousel.transform
@@ -33,9 +34,10 @@
 <!-- Implement the carousel -->
 <div class="relative w-full h-full overflow-hidden">
 	<div
-		id="carousel"
+		id={before + "carousel"}
 		class="relative h-full flex flex-row shrink-0 grow-0"
 		style="width:{size}px"
+		style:transition="all 800ms ease-in-out 0s"
 	>
 		<slot />
 	</div>

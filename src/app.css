@@ -80,18 +80,9 @@ div.black_bg_transparent {
 	background-color: rgba(0, 0, 0, 0.5);
 }
 
-.shadow {
-	filter: drop-shadow(0.1rem 0.2rem 0.2rem rgba(0, 0, 0, 0.2))
-		drop-shadow(0.2rem 0.4rem 0.4rem rgba(0, 0, 0, 0.2))
-		drop-shadow(0.4rem 0.8rem 0.8rem rgba(0, 0, 0, 0.2))
-		drop-shadow(0.8rem 1.6rem 1.6rem rgba(0, 0, 0, 0.2))
-		drop-shadow(1.6rem 3.2rem 3.2rem rgba(0, 0, 0, 0.2));
-}
-
 .smallest {
 	font-size: 0.6rem;
 }
-
 .smaller {
 	font-size: 1.2rem;
 }
@@ -109,7 +100,7 @@ div.black_bg_transparent {
 }
 
 .blink {
-	animation: blink 1500ms infinite;
+	animation: blink 2000ms infinite;
 }
 .soft_blink {
 	animation: soft_blink 2000ms infinite;

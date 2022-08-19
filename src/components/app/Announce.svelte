@@ -9,6 +9,7 @@
 	export let check_done;
 	export let instant_show = false;
 
+	let before = "announce_";
 	let moveSlide;
 	let announce = [];
 	const newsopen = () => {
@@ -58,6 +59,7 @@
 				on:load={(e) => console.log(e.target.offsetWidth)}
 			>
 				<Carousel
+					{before}
 					bind:count={announce.length}
 					width={$wd * 0.475}
 					bind:moveSlide

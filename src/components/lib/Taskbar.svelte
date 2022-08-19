@@ -65,7 +65,7 @@
 			<img class="custom-icon pointer-events-none" src={app.icon} alt="error" />
 		</button>
 	{/each}
-	<button class="custom-button" on:click={() => (step_done = !step_done)} />
+	<!-- <button class="custom-button" on:click={() => (step_done = !step_done)} /> -->
 	<div
 		id="arrowAnim"
 		class={step_done ? "" : "invisible disabled"}
