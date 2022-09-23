@@ -43,12 +43,12 @@
 	{:else if page === "screen"}
 		<Screen />
 	{/if}
-	<button
+	<!-- <button
 		class="fullscreen"
 		style:background="url({image.fullscreen}) center center no-repeat"
 		style:background-size="cover"
 		on:click={(e) => toggleFullScreenMode(e)}
-	/>
+	/> -->
 </div>
 
 <style>
@@ -65,7 +65,7 @@
 		overflow: hidden;
 		box-shadow: 0px -8px 5px rgba(0, 0, 0, 0.2);
 	}
-
+	/* 
 	button.fullscreen {
 		position: absolute;
 		width: calc(var(--size) * 0.025px);
@@ -83,5 +83,5 @@
 	}
 	button.fullscreen:active {
 		opacity: 0.5;
-	}
+	} */
 </style>

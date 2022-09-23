@@ -38,7 +38,7 @@
 	{#if isopen}
 		<Typer bind:dialog bind:isopen />
 	{:else}
-		<div class="score">
+		<!-- <div class="score">
 			<ol>
 				<li>시작 : 2000만원</li>
 				<li>
@@ -54,7 +54,7 @@
 					)}만원
 				</li>
 			</ol>
-		</div>
+		</div> -->
 		<img class="title nodrag blink not" src={image.goodbye} alt="good bye" />
 	{/if}
 </div>
@@ -65,9 +65,6 @@
 		width: 100%;
 		height: 100%;
 		z-index: 98;
-	}
-	.score {
-		z-index: 99;
 	}
 	.title {
 		left: calc(var(--size) * 0.22px);
