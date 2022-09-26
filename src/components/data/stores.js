@@ -1,5 +1,5 @@
 import { derived, get, writable } from "svelte/store";
-import { image } from "./GlovalVariable.js";
+import { image } from "./GlobalVariable.js";
 
 let apps = ["chart", "news", "stock", "develop", "history"];
 let stocks = [

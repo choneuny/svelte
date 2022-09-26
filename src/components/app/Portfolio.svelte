@@ -1,5 +1,5 @@
 <script>
-	import { image } from "../data/GlovalVariable.js";
+	import { image } from "../data/GlobalVariable.js";
 	import ChartDonut from "../lib/ChartDonut.svelte";
 	import ChartBar from "../lib/ChartBar.svelte";
 	import ChartLine from "../lib/ChartLine.svelte";
@@ -68,22 +68,12 @@
 		});
 		for (let i of history) {
 			for (let j of arr) {
-				j.data.push(
-					Math.floor(i.filter((x) => x.name === j.name).map((x) => x.price)[0])
-				);
-				j.amount.push(
-					i.filter((x) => x.name === j.name).map((x) => x.amount)[0]
-				);
+				j.data.push(Math.floor(i.filter((x) => x.name === j.name).map((x) => x.price)[0]));
+				j.amount.push(i.filter((x) => x.name === j.name).map((x) => x.amount)[0]);
 			}
 		}
 		const newSeries = arr
-			.filter(
-				(x) =>
-					x.amount.reduce(
-						(accumulator, current) => accumulator + current,
-						0
-					) !== 0 && x.name !== "cash"
-			)
+			.filter((x) => x.amount.reduce((accumulator, current) => accumulator + current, 0) !== 0 && x.name !== "cash")
 			.map((x) => {
 				return { name: x.name, data: x.data };
 			});
@@ -119,21 +109,11 @@
 		<p class="inline small text-left self-start">
 			{$pfl_page == "stock" ? "보유 주식" : "그래프"}
 		</p>
-		<div
-			class="absolute right-0 bottom-0 flex justify-center align-end gap-[1rem]"
-		>
-			<div
-				class="text-ash hover:text-black transition-colors duration-300"
-				on:click={() => switch_page("stock")}
-			>
+		<div class="absolute right-0 bottom-0 flex justify-center align-end gap-[1rem]">
+			<div class="text-ash hover:text-black transition-colors duration-300" on:click={() => switch_page("stock")}>
 				보유 주식
 			</div>
-			<div
-				class="text-ash hover:text-black duration-300"
-				on:click={() => switch_page("chart")}
-			>
-				그래프
-			</div>
+			<div class="text-ash hover:text-black duration-300" on:click={() => switch_page("chart")}>그래프</div>
 		</div>
 	</div>
 	<div class="placeholder w-full h-[94%]">
@@ -145,16 +125,11 @@
 				<div id="pfl_bar" class="radius rounded antializing bg-white">
 					<ChartBar data={data_bar} />
 				</div>
-				<div
-					id="pfl_line"
-					class="radius rounded col-span-full antializing bg-white"
-				>
+				<div id="pfl_line" class="radius rounded col-span-full antializing bg-white">
 					<ChartLine data={data_line} />
 				</div>
 
-				<div
-					class="relative w-[99%] h-fit flex flex-col gap-[0.5rem] col-span-full justify-self-center "
-				>
+				<div class="relative w-[99%] h-fit flex flex-col gap-[0.5rem] col-span-full justify-self-center ">
 					<div class="border-b text-left smaller">주요 보유주</div>
 					<div class="flex flex-row gap-[1rem] box-border">
 						{#each top3 as stock}

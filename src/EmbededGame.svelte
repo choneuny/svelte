@@ -1,5 +1,5 @@
 <script>
-	import { image } from "./components/data/GlovalVariable.js";
+	import { image } from "./components/data/GlobalVariable.js";
 	import { width as wd, set_width } from "./components/data/stores.js";
 	import Intro from "./components/Intro.svelte";
 	import Room from "./components/Room.svelte";

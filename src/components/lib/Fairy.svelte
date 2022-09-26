@@ -1,5 +1,5 @@
 <script>
-	import { image } from "../data/GlovalVariable.js";
+	import { image } from "../data/GlobalVariable.js";
 	import { width as wd } from "../data/stores";
 	export let stop_it;
 	let dialog = "fairy";

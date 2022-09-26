@@ -1,7 +1,7 @@
 <script>
 	// @ts-nocheck
 	// definitions
-	import { image } from "../data/GlovalVariable.js";
+	import { image } from "../data/GlobalVariable.js";
 	import Window from "../lib/Window.svelte";
 	import Carousel from "../lib/Carousel.svelte";
 	import { width as wd } from "../data/stores.js";
@@ -34,13 +34,7 @@
 			<p class="larger">주가 변동 해설</p>
 		</div>
 		<div class="content">
-			<Carousel
-				{before}
-				bind:count={announce.length}
-				width={$wd * 0.462}
-				bind:moveSlide
-				show_control={false}
-			>
+			<Carousel {before} bind:count={announce.length} width={$wd * 0.462} bind:moveSlide show_control={false}>
 				{#each announce as news, i}
 					<div
 						class="relative w-full bg-white text-gray flex flex-col"
@@ -49,24 +43,17 @@
 						style:padding="1.5rem"
 						on:dblclick={() => moveSlide(-1)}
 					>
-						<div
-							class="w-full bg-white text-gray flex flex-col gap-[2rem] box-border"
-						>
+						<div class="w-full bg-white text-gray flex flex-col gap-[2rem] box-border">
 							<p class="font-bold medium text-center antialiased">
 								㈜{news[explain_key.symbol]} 공시 발표 직후 주가 변동 해설
 							</p>
-							<p
-								class="font-normal small antialiased"
-								style:word-break="keep-all"
-							>
+							<p class="font-normal small antialiased" style:word-break="keep-all">
 								{news[explain_key.content]}
 							</p>
 						</div>
 
 						<div
-							class="absolute w-[7rem] {i == 0
-								? 'opacity-50'
-								: 'transition duration-300 hover:opacity-50'}"
+							class="absolute w-[7rem] {i == 0 ? 'opacity-50' : 'transition duration-300 hover:opacity-50'}"
 							style:left="1.5rem"
 							style:bottom="1.5rem"
 						>
@@ -88,9 +75,7 @@
 								class=" -rotate-90"
 								src={image.down_arrow}
 								alt="next"
-								on:click={i === announce.length - 1
-									? null
-									: () => moveSlide(-1)}
+								on:click={i === announce.length - 1 ? null : () => moveSlide(-1)}
 							/>
 						</div>
 					</div>

@@ -1,6 +1,6 @@
 <script>
 	// @ts-nocheck
-	import { image, background as bg } from "../data/GlovalVariable.js";
+	import { image, background as bg } from "../data/GlobalVariable.js";
 	import { afterUpdate } from "svelte/internal";
 	import Window from "../lib/Window.svelte";
 	import Carousel from "../lib/Carousel.svelte";
@@ -46,25 +46,14 @@
 	<Window {styles}>
 		<div class="dart">
 			<div class="header relative" style:border="0.3rem inset #000">
-				<img
-					class="absolute h-5/6"
-					style:left="1rem"
-					src={image.krx}
-					alt={image.alt}
-				/>
+				<img class="absolute h-5/6" style:left="1rem" src={image.krx} alt={image.alt} />
 			</div>
 			<div
 				class="content overflow-hidden box-border rounded"
 				style:border="0.3rem inset #000"
 				on:load={(e) => console.log(e.target.offsetWidth)}
 			>
-				<Carousel
-					{before}
-					bind:count={announce.length}
-					width={$wd * 0.475}
-					bind:moveSlide
-					show_control={false}
-				>
+				<Carousel {before} bind:count={announce.length} width={$wd * 0.475} bind:moveSlide show_control={false}>
 					{#each announce as news, i}
 						<div
 							class="relative w-full bg-white text-gray flex flex-col"
@@ -83,9 +72,7 @@
 								{@html line_feed(news[news_key.content])}
 							</p>
 							<div
-								class="absolute w-[7rem] {i == 0
-									? 'opacity-50'
-									: 'transition duration-300 hover:opacity-50'}"
+								class="absolute w-[7rem] {i == 0 ? 'opacity-50' : 'transition duration-300 hover:opacity-50'}"
 								style:left="1.5rem"
 								style:top="1.5rem"
 							>
@@ -107,9 +94,7 @@
 									class=" -rotate-90"
 									src={image.down_arrow}
 									alt="next"
-									on:click={i === announce.length - 1
-										? null
-										: () => moveSlide(-1)}
+									on:click={i === announce.length - 1 ? null : () => moveSlide(-1)}
 								/>
 							</div>
 						</div>

@@ -1,5 +1,5 @@
 <script>
-	import { background as bg } from "./components/data/GlovalVariable.js";
+	import { background as bg } from "./components/data/GlobalVariable.js";
 </script>
 
 <div class="header" style="background:url({bg.headeralt})" />

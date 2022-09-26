@@ -1,5 +1,5 @@
 <script>
-	import { image } from "../data/GlovalVariable.js";
+	import { image } from "../data/GlobalVariable.js";
 	import { onMount } from "svelte";
 	import { fade } from "svelte/transition";
 	export let dialog;
@@ -42,10 +42,7 @@
 				dialogQueue++;
 				cursor = 0;
 				done = false;
-				typeDialog = setInterval(
-					() => type(dialog[dialogQueue]?.text),
-					typeSpeed
-				);
+				typeDialog = setInterval(() => type(dialog[dialogQueue]?.text), typeSpeed);
 			} else {
 				done = true;
 			}
@@ -74,12 +71,7 @@
 		src={image.fairy}
 		alt={image.alt}
 	/>
-	<div
-		id="dialog"
-		class="dialog relative"
-		style:border="0.2rem solid #d6d3d1"
-		style:border-radius="0.5rem"
-	>
+	<div id="dialog" class="dialog relative" style:border="0.2rem solid #d6d3d1" style:border-radius="0.5rem">
 		<p
 			class="small absolute w-1/4 h-1/6 text-center bg-black"
 			style:top="-1rem"

@@ -1,5 +1,5 @@
 <script>
-	import { image } from "../data/GlovalVariable.js";
+	import { image } from "../data/GlobalVariable.js";
 	import { onDestroy, tick } from "svelte";
 	import { flip } from "svelte/animate";
 	import { quintOut } from "svelte/easing";
@@ -13,18 +13,14 @@
 	import { width as wd, media as md } from "../data/stores.js";
 	export let check_done;
 	export let diag_event;
-	let additional_dialog =
-		$round == 0 ? "corpselect" : "corpselect_" + $round.toString();
+	let additional_dialog = $round == 0 ? "corpselect" : "corpselect_" + $round.toString();
 	let news = JSON.parse(localStorage.getItem("news"));
 	let user = JSON.parse(localStorage.getItem("user"));
 	let history = JSON.parse(localStorage.getItem("history"));
 	let themes = JSON.parse(localStorage.getItem("theme"));
 	const threshold = 2 + $round;
 	const init = $round === 0;
-	const max = Math.min(
-		2,
-		threshold - themes.filter((x) => x.fixed === true).length
-	);
+	const max = Math.min(2, threshold - themes.filter((x) => x.fixed === true).length);
 	const salary = init ? 10 : 2;
 	const styles = {
 		width: $wd * 0.8,
@@ -36,12 +32,7 @@
 		bgcolor: "transparent",
 	};
 	console.log("style", styles);
-	console.log(
-		"max",
-		max,
-		threshold,
-		themes.filter((x) => x.fixed === true).length
-	);
+	console.log("max", max, threshold, themes.filter((x) => x.fixed === true).length);
 	let next;
 	let cont = false;
 	let selected = [];
@@ -85,9 +76,7 @@
 		});
 		target.checked = true;
 		user.find((x) => x.id == id).amount = salary / max;
-		document.querySelectorAll("#check input:checked").length === max
-			? check_done()
-			: null;
+		document.querySelectorAll("#check input:checked").length === max ? check_done() : null;
 		localStorage.setItem("user", JSON.stringify(user));
 	};
 	const push = (e) => {
@@ -107,9 +96,7 @@
 		themes.filter((x) => x.checked).forEach((x) => (x.fixed = true));
 		const validStock = user.filter((x) => x.amount > 0 && x.name !== "cash");
 		const validCorpname = validStock.map((x) => x.name);
-		const announce = validCorpname.map((x) =>
-			randompick(Newsmaster.filter((y) => y.corp === x))
-		);
+		const announce = validCorpname.map((x) => randompick(Newsmaster.filter((y) => y.corp === x)));
 		news["announce"] = announce;
 
 		console.log(news);
@@ -142,8 +129,7 @@
 					>
 						<div
 							class="card-face flex flex-col gap-8"
-							style="--deg:{-15 + i * 10}deg;--trans:{Math.abs(-1.5 + i) *
-								2}rem"
+							style="--deg:{-15 + i * 10}deg;--trans:{Math.abs(-1.5 + i) * 2}rem"
 						>
 							<p class="medium">{theme.theme.toUpperCase()}</p>
 							<p class="medium">{theme.title}</p>
@@ -152,10 +138,7 @@
 					</div>
 				{/each}
 			</div>
-			<div
-				class="selected rounded bg-wooden medium py-8 px-2 gap-6"
-				style:width={$wd * 0.2 + "px"}
-			>
+			<div class="selected rounded bg-wooden medium py-8 px-2 gap-6" style:width={$wd * 0.2 + "px"}>
 				<p class="medium font-semibold">SELLECTED</p>
 				{#each selected as item (item.id)}
 					<div
@@ -195,17 +178,9 @@
 					</div>
 					{#each user.filter((x) => x.theme === theme.theme) as user, i}
 						<label id="check">
-							<input
-								id={user.id}
-								type="checkbox"
-								class="hidden"
-								on:click={check_only_one}
-							/>
+							<input id={user.id} type="checkbox" class="hidden" on:click={check_only_one} />
 							<div class="card" style="--z:{5 - i}">
-								<div
-									class="card-face"
-									style="--deg:{i * 6}deg;--trans:{Math.abs(-0.5 + i) * 2}rem"
-								>
+								<div class="card-face" style="--deg:{i * 6}deg;--trans:{Math.abs(-0.5 + i) * 2}rem">
 									<div class="w-full h-1/4 flex flex-row align-center basis-0">
 										<p class="grow-[3] medium">{user.name}</p>
 										<div class="w-[20%]">
@@ -213,26 +188,15 @@
 										</div>
 									</div>
 
-									<p
-										class="{$md == 'large'
-											? 'smaller'
-											: 'smallest'} font-normal"
-										style:word-break="keep-all"
-									>
+									<p class="{$md == 'large' ? 'smaller' : 'smallest'} font-normal" style:word-break="keep-all">
 										{@html Corpmaster.find((x) => x.name == user.name)
 											.outline.replace(
 												Corpmaster.find((x) => x.name == user.name).emphasis[0],
-												"<b>" +
-													Corpmaster.find((x) => x.name == user.name)
-														.emphasis[0] +
-													"</b>"
+												"<b>" + Corpmaster.find((x) => x.name == user.name).emphasis[0] + "</b>"
 											)
 											.replace(
 												Corpmaster.find((x) => x.name == user.name).emphasis[1],
-												"<b>" +
-													Corpmaster.find((x) => x.name == user.name)
-														.emphasis[1] +
-													"</b>"
+												"<b>" + Corpmaster.find((x) => x.name == user.name).emphasis[1] + "</b>"
 											)}
 									</p>
 								</div>
@@ -293,12 +257,7 @@
 		right: 0;
 		top: 0;
 		content: "";
-		background: linear-gradient(
-					to right bottom,
-					transparent 50%,
-					rgba(0, 0, 0, 0.4) 0
-				)
-				no-repeat 0% 0 / 2em 2em,
+		background: linear-gradient(to right bottom, transparent 50%, rgba(0, 0, 0, 0.4) 0) no-repeat 0% 0 / 2em 2em,
 			linear-gradient(135deg, transparent 1.41em, #8d6e63 0);
 		transition: 800ms cubic-bezier(0.19, 1, 0.22, 1) transform;
 		transform: rotate(var(--deg)) translate(0, var(--trans));

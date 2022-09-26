@@ -1,5 +1,5 @@
 import Corpmaster from "../data/Corpmaster.js";
-import { image } from "../data/GlovalVariable.js";
+import { image } from "../data/GlobalVariable.js";
 
 const SetLocalStorage = () => {
 	const theme = [

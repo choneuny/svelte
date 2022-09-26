@@ -1,5 +1,5 @@
 <script>
-	import { image } from "../data/GlovalVariable.js";
+	import { image } from "../data/GlobalVariable.js";
 	import ChartDonut from "../lib/ChartDonut.svelte";
 	import Window from "../lib/Window.svelte";
 	import { width as wd } from "../data/stores.js";

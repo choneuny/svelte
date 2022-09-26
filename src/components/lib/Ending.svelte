@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from "svelte";
-	import { image, background as bg } from "../data/GlovalVariable.js";
+	import { image, background as bg } from "../data/GlobalVariable.js";
 	import Typer from "./Typer.svelte";
 	const user = JSON.parse(localStorage.getItem("user"));
 	const history = JSON.parse(localStorage.getItem("history"));
@@ -34,6 +34,7 @@
 	});
 </script>
 
+s
 <div class="bg" style={bg.roundclear}>
 	{#if isopen}
 		<Typer bind:dialog bind:isopen />

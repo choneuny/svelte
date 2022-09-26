@@ -1,5 +1,5 @@
 <script>
-	import { image, background as bg } from "./data/GlovalVariable.js";
+	import { image, background as bg } from "./data/GlobalVariable.js";
 	export let setPage;
 	let done = false;
 </script>
@@ -13,11 +13,7 @@
 		}}
 	>
 		<img class="title nodrag" src={image.title} alt="TITLE" />
-		<img
-			class="title subtitle blink nodrag"
-			src={image.taptostart}
-			alt="subtitle"
-		/>
+		<img class="title subtitle blink nodrag" src={image.taptostart} alt="subtitle" />
 	</div>
 </div>
 

@@ -1,6 +1,6 @@
 <script>
 	// @ts-nocheck
-	import { image, background as bg } from "./data/GlovalVariable.js";
+	import { image, background as bg } from "./data/GlobalVariable.js";
 	import { fade, crossfade } from "svelte/transition";
 	import { quintOut } from "svelte/easing";
 	import { round } from "./data/stores.js";
@@ -106,9 +106,7 @@
 		{
 			id: "roundclear",
 			title: "Round Clear",
-			apps: [
-				{ id: "loading", component: RoundClear, props: { increasecount } },
-			],
+			apps: [{ id: "loading", component: RoundClear, props: { increasecount } }],
 		},
 		{
 			id: "roundstart",
@@ -140,12 +138,7 @@
 		{#if diag_open}
 			<Typer bind:dialog={diag} bind:isopen={diag_open} />
 		{/if}
-		<Taskbar
-			bind:step_done
-			{check_done}
-			{increasecount}
-			bind:current_apps={current_step.apps}
-		/>
+		<Taskbar bind:step_done {check_done} {increasecount} bind:current_apps={current_step.apps} />
 	</div>
 </div>
 

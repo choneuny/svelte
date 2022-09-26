@@ -1,11 +1,6 @@
 <script>
-	import {
-		width as wd,
-		set_width,
-		media as md,
-		set_media,
-	} from "./components/data/stores.js";
-	import { background } from "./components/data/GlovalVariable.js";
+	import { width as wd, set_width, media as md, set_media } from "./components/data/stores.js";
+	import { background } from "./components/data/GlobalVariable.js";
 	import Nav from "./Nav.svelte";
 	import EmbededGame from "./EmbededGame.svelte";
 	import Outline from "./Outline.svelte";

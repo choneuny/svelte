@@ -1,5 +1,5 @@
 <script>
-	import { image } from "../data/GlovalVariable.js";
+	import { image } from "../data/GlobalVariable.js";
 	import { scale } from "svelte/transition";
 	import Announce from "../app/Announce.svelte";
 	import Portfolio from "../app/Portfolio.svelte";
@@ -48,20 +48,12 @@
 	// let deactivated = apps.filter((x) => !current_apps.map((y) => y.id).includes(x.id));
 	// $: current = apps.filter((x) => current_apps.map((y) => y.id).includes(x.id));
 	// $: deactivated = apps.filter((x) => !current_apps.map((y) => y.id).includes(x.id));
-	$: apps.forEach(
-		(x) => (x.on = !current_apps.map((y) => y.id).includes(x.id))
-	);
+	$: apps.forEach((x) => (x.on = !current_apps.map((y) => y.id).includes(x.id)));
 </script>
 
 <div class="taskbar">
 	{#each apps as app (app.id)}
-		<button
-			id={app.id}
-			class="custom-button"
-			disabled={$round === 0}
-			on:click={open}
-			transition:scale
-		>
+		<button id={app.id} class="custom-button" disabled={$round === 0} on:click={open} transition:scale>
 			<img class="custom-icon pointer-events-none" src={app.icon} alt="error" />
 		</button>
 	{/each}

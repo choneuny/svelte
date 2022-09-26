@@ -1,5 +1,5 @@
 <script>
-	import { image, background as bg } from "./data/GlovalVariable.js";
+	import { image, background as bg } from "./data/GlobalVariable.js";
 	import { fade } from "svelte/transition";
 	import Typer from "./lib/Typer.svelte";
 	import InitDialog from "./data/InitDialog";

@@ -1,5 +1,4 @@
-const bg_cover = (x) =>
-	"background:url(img/background/" + x + ") no-repeat; background-size:cover;";
+const bg_cover = (x) => "background:url(img/background/" + x + ") no-repeat; background-size:cover;";
 
 const gloval_variable = {
 	image: {

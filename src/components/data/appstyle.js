@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { image, background as bg } from "../data/GlovalVariable.js";
+import { image, background as bg } from "./GlobalVariable.js";
 import { width } from "../data/stores.js";
 let styles = () => {
 	let wd;
