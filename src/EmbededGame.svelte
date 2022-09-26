@@ -1,6 +1,7 @@
 <script>
 	import { image } from "./components/data/GlobalVariable.js";
 	import { width as wd, set_width } from "./components/data/stores.js";
+	// import Username from "./Username.svelte";
 	import Intro from "./components/Intro.svelte";
 	import Room from "./components/Room.svelte";
 	import Screen from "./components/Screen.svelte";
@@ -37,6 +38,7 @@
 	style:padding={"0 " + (isfull ? 0 : width * 0.03) + "px"}
 >
 	{#if page === "intro"}
+		<!-- <Username /> -->
 		<Intro bind:setPage />
 	{:else if page === "room"}
 		<Room bind:setPage {page} />

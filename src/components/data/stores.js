@@ -77,5 +77,7 @@ export const pfl_page = writable("chart");
 export const set_width = (w) => width.update((v) => w);
 export const set_media = (w) => media.update((v) => w);
 export const record_transaction = (data) => transaction.update((value) => data);
-export const switch_page = (page) => pfl_page.update((value) => page);
+export const switch_page = (page) => {
+	return;
+}; //pfl_page.update((value) => page);
 export const next_round = () => round.update((x) => x + 1);

@@ -1,10 +1,15 @@
 <script>
-	import { width as wd, set_width, media as md, set_media } from "./components/data/stores.js";
+	import {
+		width as wd,
+		set_width,
+		media as md,
+		set_media,
+	} from "./components/data/stores.js";
 	import { background } from "./components/data/GlobalVariable.js";
 	import Nav from "./Nav.svelte";
 	import EmbededGame from "./EmbededGame.svelte";
 	import Outline from "./Outline.svelte";
-	import Comment from "./Comment.svelte";
+	// import Comment from "./Comment.svelte";
 	import About from "./About.svelte";
 	import Footer from "./Footer.svelte";
 
@@ -33,10 +38,10 @@
 	<div id="inner">
 		<Nav {media} />
 		<EmbededGame {width} />
-		<!-- <Outline />
-		<Comment />
-		<About /> -->
-		<!-- <Footer /> -->
+		<Outline />
+		<!-- <Comment /> -->
+		<About />
+		<Footer />
 	</div>
 </div>
 
@@ -44,7 +49,6 @@
 	#wrapper {
 		font-family: "Galmuri11, Proxima Nova, system-ui, sans-serif";
 		width: 100vw;
-		height: 100vh;
 		display: flex;
 		justify-content: center;
 		align-items: center;

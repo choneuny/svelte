@@ -1,16 +1,19 @@
 <footer id="footer" class="footer">
 	<ul class="navbar-list">
 		<li>
-			<h1>ONELINE TECH.</h1>
+			<div class="navbar-item">
+				<h1 class="larger">ONELINE AI</h1>
+				<p class="larger"><a href="." target="_blank">Contact Us</a></p>
+			</div>
 		</li>
 	</ul>
 </footer>
 
 <style>
 	.footer {
-		width: calc(var(--size) * 0.8px);
 		height: calc(var(--size) * 0.08px);
 		display: flex;
+		flex-direction: row;
 		justify-content: center;
 		align-items: center;
 		border: 2px solid transparent;
@@ -26,16 +29,19 @@
 		margin: 0;
 		padding: 0 40px;
 	}
-
-	.navbar-list h1 {
+	.navbar-item {
 		color: #fff;
 		text-decoration: none;
 		display: flex;
-		height: 45px;
+		flex-direction: row;
+		justify-content: space-between;
 		align-items: center;
-		padding: 0 10px;
-		font-size: 25px;
 		font-family: "roboto";
-		font-weight: 700;
+	}
+	.navbar-item p {
+		font-weight: 300;
+	}
+	.navbar-item h1 {
+		font-weight: 600;
 	}
 </style>

@@ -7,7 +7,7 @@
 <nav class="bg-black" style="position: Sticky; top:0px; z-index:999;">
 	{#if media == "small"}
 		<!-- NAV VAR-->
-		<div id="flex" class="relative flex items-center justify-center h-20">
+		<div id="flex" class="nav relative flex items-center justify-center h-24">
 			<!-- Mobile menu button-->
 			<div class="absolute inset-y-0 left-8 flex items-center">
 				<label
@@ -52,7 +52,7 @@
 		{/if}
 	{:else}
 		<!-- NAV VAR-->
-		<div id="navbar" class="mx-14 px-2">
+		<div id="navbar" class="nav mx-14 px-2">
 			<div id="flex" class="relative flex items-center justify-between h-20">
 				<!-- DESKTOP-->
 				<div class="flex-1 flex items-center justify-center">
@@ -83,7 +83,7 @@
 					</div>
 				</div>
 				<!-- Hero Icon-->
-				<div
+				<!-- <div
 					class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-2 sm:pr-0"
 				>
 					<button
@@ -91,7 +91,6 @@
 						class="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
 					>
 						<span class="sr-only">View notifications</span>
-						<!-- Heroicon name: outline/bell -->
 						<svg
 							class="h-6 w-6"
 							xmlns="http://www.w3.org/2000/svg"
@@ -108,9 +107,22 @@
 							/>
 						</svg>
 					</button>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	{/if}
 	<!-- NAV VAR ENDS-->
 </nav>
+
+<style>
+	.nav {
+		height: calc(var(--size) * 0.08px);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border: 2px solid transparent;
+		box-sizing: border-box;
+		background-color: black;
+		/* box-shadow: 0px -2px 10px -1px #444; */
+	}
+</style>

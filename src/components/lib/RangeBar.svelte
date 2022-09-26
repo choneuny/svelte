@@ -149,7 +149,7 @@
 		--fill-color: linear-gradient(to right, TOMATO 50%, MEDIUMSEAGREEN 50%);
 		--value-background: unset;
 		--value-active-color: unset;
-		--thumb-size: 24px;
+		--thumb-size: calc(var(--size) * 0.05);
 	}
 
 	div.check {

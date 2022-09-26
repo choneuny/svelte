@@ -88,6 +88,11 @@
 		overflow: hidden;
 	}
 
+	.window:focus {
+		z-index: 10;
+		outline: none;
+	}
+
 	.titlebar {
 		cursor: move;
 		position: relative;

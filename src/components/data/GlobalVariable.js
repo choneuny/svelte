@@ -1,4 +1,5 @@
-const bg_cover = (x) => "background:url(img/background/" + x + ") no-repeat; background-size:cover;";
+const bg_cover = (x) =>
+	"background:url(img/background/" + x + ") no-repeat; background-size:cover;";
 
 const gloval_variable = {
 	image: {
@@ -6,7 +7,7 @@ const gloval_variable = {
 		brickwall: "img/background/brickwall.webp",
 		fairy: "img/icon/StockVity.svg",
 		webtoon: "img/icon/webtoon.svg",
-		adtech: "img/icon/adtech.svg",
+		adtech: "img/icon/ddtech.svg",
 		robot: "img/icon/robot.svg",
 		sensor: "img/icon/sensor.svg",
 		internet: "img/icon/internet.svg",

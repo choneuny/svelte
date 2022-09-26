@@ -41,17 +41,30 @@
 	<Window {styles}>
 		<div class="dart bg-white flex flex-col items-center">
 			<!--HEADER-->
-			<div class="relative w-full h-1/8 bg-black flex flex-row items-center p-4 px-6 gap-4">
-				<div class="aspect-square border border-white flex flex-col justify-center">
+			<div
+				class="relative w-full h-1/8 bg-black flex flex-row items-center p-4 px-6 gap-4"
+			>
+				<div
+					class="aspect-square border border-white flex flex-col justify-center"
+				>
 					<p class="text-white text-4xl">{"\u00a0"}N{"\u00a0"}</p>
 				</div>
 				<p class="text-white text-5xl">NEWS</p>
 			</div>
 			<!--CONTENTS-->
 			<!--CAROUSEL FRAME-->
-			<div class="w-full content h-full" on:load={(e) => console.log(e.target.offsetWidth)}>
+			<div
+				class="w-full content h-full"
+				on:load={(e) => console.log(e.target.offsetWidth)}
+			>
 				<!--CAROUSEL CONTAINER-->
-				<Carousel {before} bind:count={news_list.length} width={$wd * 0.5} bind:moveSlide show_control={false}>
+				<Carousel
+					{before}
+					bind:count={news_list.length}
+					width={$wd * 0.5}
+					bind:moveSlide
+					show_control={false}
+				>
 					{#each news_list as news, i}
 						<!--CAROUSEL ITEM-->
 						<div
@@ -75,7 +88,9 @@
 							<!--ADDITIONAL FRAME-->
 							<div class="w-3/4 h-full flex flex-col overflow-auto gap-[1rem]">
 								<!--NEWS IMAGE-->
-								<div class="w-full h-1/4 bg-[#bcbcbc] flex flex-row items-center justify-center gap-[3rem]">
+								<div
+									class="w-full h-1/4 bg-[#bcbcbc] flex flex-row items-center justify-center gap-[3rem]"
+								>
 									<img class="h-full" src={image[news.theme]} alt="err" />
 									<p class="large">{news.theme}</p>
 								</div>
@@ -84,20 +99,28 @@
 									{news[news_key.title]}
 								</p>
 								<p class="text-[#999999] small" style="font-family:roboto;">
-									입력 2022.{random(1, 12)}.{random(1, 30)}. 오후 {random(0, 24)}:{random(0, 59)}
+									입력 2022.{random(1, 12)}.{random(1, 30)}. 오후 {random(
+										0,
+										24
+									)}:{random(0, 59)}
 								</p>
-								<p style="font-size:{20}px; font-weight:500">
-									{@html news[news_key.content].replace(/-/g, "<br />&nbsp;&nbsp;-")}
+								<p class="small" style="font-weight:500">
+									{@html news[news_key.content].replace(
+										/-/g,
+										"<br />&nbsp;&nbsp;-"
+									)}
 								</p>
 							</div>
 							<!--CONTROLER-->
 							<div
-								class="w-[80px] h-full relative
+								class="w-[6rem] h-full relative
 									"
 							>
 								<img
 									class="absolute bottom-[2rem] -rotate-90
-										{i == news.length - 1 ? 'opacity-50' : 'transition duration-300 hover:opacity-50 '}"
+										{i == news.length - 1
+										? 'opacity-50'
+										: 'transition duration-300 hover:opacity-50 '}"
 									src={image.down_arrow}
 									alt={image.alt}
 									on:click={i === news.length - 1 ? null : () => moveSlide(-1)}

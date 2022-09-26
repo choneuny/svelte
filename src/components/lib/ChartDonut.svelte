@@ -58,7 +58,7 @@
 				},
 				font: {
 					family: "Galmuri11",
-					size: rem,
+					size: rem * 1.5,
 					weight: 600,
 				},
 			},
